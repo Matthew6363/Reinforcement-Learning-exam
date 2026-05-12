@@ -4,7 +4,7 @@ import nashpy as nash
 class PacmanGridWorld:
     def __init__(self):
         self.grid_size = (6,6)
-        self.slip_rate = 0.05
+        self.slip_rate = 0.005
         #self.actions = ['up', 'down', 'left', 'right']
         self.actions = [0,1,2,3]
         
