@@ -9,7 +9,7 @@ CELL_SIZE = 100
 GRID_SIZE = 6
 WIDTH = CELL_SIZE * GRID_SIZE
 HEIGHT = CELL_SIZE * GRID_SIZE
-FPS = 1 # Slowed down slightly so you can watch them clearly
+FPS = 10 # Slowed down slightly so you can watch them clearly
 
 BG_COLOR = (30, 30, 30)
 GRID_COLOR = (60, 60, 60)

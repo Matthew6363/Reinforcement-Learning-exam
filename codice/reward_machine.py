@@ -39,7 +39,7 @@ class Reward_Machine():
                 #if self.agent_type == 'ego': reward = 1 # Breadcrumb for Ego
             elif 'power_a' in labels and 'power_e' not in labels:
                 self.state = 'v_2'
-                #if self.agent_type == 'adv': reward = 0.1 # Breadcrumb for Adv
+                if self.agent_type == 'adv': reward = 0.1 # Breadcrumb for Adv
                 
         # State: Ego is Powerful
         elif self.state == 'v_1':
@@ -47,7 +47,7 @@ class Reward_Machine():
                 self.state = 'v_2' # Adv steals power
             elif 'ego_at_base_a' in labels and 'power_a' not in labels:
                 self.state = 'v_3' # Ego destroys Adv base
-                #if self.agent_type == 'ego': reward = 0.5 # Big breadcrumb!
+                if self.agent_type == 'ego': reward = 0.5 # Big breadcrumb!
             elif 'power_a' in labels and 'power_e' in labels:
                 self.state = 'start'
                 

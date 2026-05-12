@@ -1,6 +1,8 @@
 from environment import PacmanGridWorld
 from reward_machine import *
 import numpy as np
+import matplotlib.pyplot as plt        # ADD 1/4
+import matplotlib.ticker as ticker     # ADD 1/4
 
 def initialize_q_function(shape, strategy="zeros"):
     if strategy == "zeros":
@@ -33,10 +35,14 @@ def train_qrm_sg(total_episodes=7500):
     rm_map = {'start': 0, 'v_1': 1, 'v_2': 2, 'v_3': 3, 'v_end': 4}
     
     gamma = 0.9 
-    epsilon = 0.25 
+ 
     alpha = 0.1 
     successes = 0
-    
+    # before the episode loop
+    start_epsilon = 0.25
+    end_epsilon   = 0.05
+    decay_episodes = int(total_episodes * 0.8)
+        
     # Initialize evaluation variables
     eval_episodes = 10  # Number of evaluation episodes (adjust as needed)
     cumulative_reward_e = 0.0
@@ -47,10 +53,17 @@ def train_qrm_sg(total_episodes=7500):
     
     print(f"Starting Decentralized QRM-SG Training for {total_episodes} episodes...")
     
+    all_ego_rewards = []   # ADD 2/4 — one entry per episode (0.0 or 1.0)
+    all_adv_rewards = []   # ADD 2/4
+    
     for episode in range(1, total_episodes + 1):
         pos_e, pos_a = env.reset()
         state_e = rm_ego.reset()  # String state
         state_a = rm_adv.reset()  # String state
+        ep_reward_e = 0.0          # ADD 3/4
+        ep_reward_a = 0.0          # ADD 3/4
+        epsilon = max(end_epsilon,
+              start_epsilon - (start_epsilon - end_epsilon) * episode / decay_episodes)
         
         # Increased steps to 500 to allow for complex Case Study I pathing
         for step in range(500):
@@ -66,11 +79,13 @@ def train_qrm_sg(total_episodes=7500):
             else:
                 # Ego agent decides action based on its own Q-estimates
                 pi_e_ego, pi_a_ego = solve_stage_game(q_ee[s_e, s_a, v_e, v_a], q_ae[s_e, s_a, v_e, v_a])
-                action_e = np.argmax(pi_e_ego)
+                #action_e = np.argmax(pi_e_ego)
+                action_e = np.random.choice(4, p=pi_e_ego)
                 
                 # Adv agent decides action based on its own separate Q-estimates
                 pi_e_adv, pi_a_adv = solve_stage_game(q_ea[s_e, s_a, v_e, v_a], q_aa[s_e, s_a, v_e, v_a])
-                action_a = np.argmax(pi_a_adv)
+                #action_a = np.argmax(pi_a_adv)
+                action_a = np.random.choice(4, p=pi_a_adv)
                 
             # --- 2. ENVIRONMENT STEP ---
             next_pos_e, next_pos_a = env.step(action_e, action_a)
@@ -79,6 +94,8 @@ def train_qrm_sg(total_episodes=7500):
             # Step Reward Machines
             next_state_e, r_e = rm_ego.step(labels)  # String state
             next_state_a, r_a = rm_adv.step(labels)  # String state
+            ep_reward_e += r_e                         # ADD 3/4
+            ep_reward_a += r_a                         # ADD 3/4
             #print(next_state_e, '3')
             
             ns_e, ns_a = pos_to_idx(next_pos_e), pos_to_idx(next_pos_a)
@@ -110,16 +127,21 @@ def train_qrm_sg(total_episodes=7500):
             
             
             # --- 4. TERMINATION CHECK ---
-            if rm_ego.state == 'v_end':
-                successes += 1
+            if rm_ego.state == 'v_end' or rm_adv.state == 'v_end':
+                # Only count a success if the Ego agent actually got the point!
+                if r_e > 0:
+                    successes += 1
                 break
-            elif rm_adv.state == 'v_end':
+            # Catch premature physical collisions before power bases are touched
+            elif 'collision' in labels:
                 break
             
         if episode % 100 == 0:
-            win_rate = (successes / 500) * 100
+            win_rate = (successes / 100) * 100
             print(f"Episodes {episode-99:04d} to {episode:04d} | Ego Agent Win Rate: {win_rate:.1f}%")
             successes = 0
+        all_ego_rewards.append(min(ep_reward_e, 1.0))   # ADD 3/4
+        all_adv_rewards.append(min(ep_reward_a, 1.0))   # ADD 3/4
     
     # --- EVALUATION PHASE (moved outside training loop) ---
     # Reset cumulative rewards for evaluation
@@ -154,7 +176,35 @@ def train_qrm_sg(total_episodes=7500):
     
     print("Files saved: 'q_models.npz' and 'eval_results.npz'.")
     
+    # ADD 4/4 — non-overlapping 80-episode window plot (matches paper style)
+    window = 80
+    n_windows = len(all_ego_rewards) // window
+    ego_arr = np.array(all_ego_rewards[:n_windows * window]).reshape(n_windows, window)
+    adv_arr = np.array(all_adv_rewards[:n_windows * window]).reshape(n_windows, window)
+    x_plot       = np.arange(1, n_windows + 1) * window - window // 2
+    ego_windowed = ego_arr.mean(axis=1)
+    adv_windowed = adv_arr.mean(axis=1)
+
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(9, 6), sharex=True)
+    fig.suptitle("Task I", fontsize=13)
+    ax1.plot(x_plot, ego_windowed, color='black', linestyle='--', linewidth=1.5, label='QRM-SG')
+    ax1.set_ylabel("Reward of Ego Agent")
+    ax1.set_ylim(-0.05, 1.1)
+    ax1.yaxis.set_major_locator(ticker.MultipleLocator(0.2))
+    ax1.legend(loc='lower right', fontsize=9)
+    ax2.plot(x_plot, adv_windowed, color='black', linestyle='--', linewidth=1.5, label='QRM-SG')
+    ax2.set_ylabel("Reward of Adversarial Agent")
+    ax2.set_xlabel("Episode")
+    ax2.set_ylim(-0.05, 1.1)
+    ax2.yaxis.set_major_locator(ticker.MultipleLocator(0.2))
+    ax2.legend(loc='upper right', fontsize=9)
+    ax2.set_xlim(0, total_episodes)
+    plt.tight_layout()
+    plt.savefig("task_I_windowed.png", dpi=150, bbox_inches='tight')
+    print("Plot saved to 'task_I_windowed.png'.")
+    plt.show()
+    
     return q_ee, q_ae, q_ea, q_aa
 
 if __name__ == "__main__":
-    train_qrm_sg(total_episodes=10000)
+    train_qrm_sg(total_episodes=4500)
