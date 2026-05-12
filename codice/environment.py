@@ -39,7 +39,6 @@ class PacmanGridWorld:
         r, c = pos
 
         if action not in self.actions:
-            print(action, 'hi')
             raise ValueError("invalid actions")
             
         if action == 0: #up
@@ -78,45 +77,46 @@ class PacmanGridWorld:
             
             
 if __name__ == "__main__":
-    # 1. Initialize the environment
     env = PacmanGridWorld()
     pos_a, pos_e = env.reset()
     
     print(f"Initial State -> A: {pos_a}, E: {pos_e}")
     print(f"Initial Labels -> {env.get_labels()}\n")
     
-    # 2. Test Movement and Wall Boundaries
     print("--- Testing Movement (A moves Left, E moves Right) ---")
     pos_a, pos_e = env.step(['left'], ['right'])
     print(f"State -> A: {pos_a}, E: {pos_e}")
     print(f"Labels -> {env.get_labels()}\n")
     
-    # 3. Test Power Base Detection
     print("--- Testing Power Base Detection ---")
-    # Forcing positions artificially for the sake of the test
     env.pos_a = env.base_a 
     env.pos_e = env.base_e
     print(f"State -> A: {env.pos_a}, E: {env.pos_e}")
     print(f"Labels -> {env.get_labels()}\n")
     
-    # 4. Test Collision Detection
     print("--- Testing Collision Detection ---")
-    # Placing agents adjacent to each other
     env.pos_a = (2, 2)
     env.pos_e = (2, 3)
     print(f"State -> A: {env.pos_a}, E: {env.pos_e}")
     print(f"Labels -> {env.get_labels()}\n")
+
+    # --- NEW TEST HERE ---
+    print("--- Testing Multiple Labels Simultaneously ---")
+    # We place both Ego and Adv directly on top of the Adv's base
+    env.pos_a = env.base_a  # (0,5)
+    env.pos_e = env.base_a  # (0,5)
+    print(f"State -> A: {env.pos_a}, E: {env.pos_e}")
+    # This will trigger 'power_a' (Adv at base), 'ego_at_base_a' (Ego at Adv base), AND 'collision' (distance < 2)
+    print(f"Labels -> {env.get_labels()}\n")
     
     print("--- Testing Random Walk for 5 Steps ---")
     env.reset()
-    action_strings = list(env.str_to_idx.keys()) # ['up', 'down', 'left', 'right']
+    action_strings = list(env.str_to_idx.keys())
     
     for i in range(5):
         act_a_str = np.random.choice(action_strings)
         act_e_str = np.random.choice(action_strings)
         
-        # Your step function will automatically convert these strings back to 0,1,2,3
         pos_a, pos_e = env.step(act_a_str, act_e_str) 
-        
         
         print(f"Step {i+1} | Actions: A='{act_a_str}', E='{act_e_str}' | State: A={pos_a}, E={pos_e}")
