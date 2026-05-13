@@ -36,10 +36,10 @@ class Reward_Machine():
         if self.state == 'start':
             if 'power_e' in labels and 'power_a' not in labels:
                 self.state = 'v_1'
-                #if self.agent_type == 'ego': reward = 1 # Breadcrumb for Ego
+                #if self.agent_type == 'ego': reward = 0.1 # Breadcrumb for Ego
             elif 'power_a' in labels and 'power_e' not in labels:
                 self.state = 'v_2'
-                if self.agent_type == 'adv': reward = 0.1 # Breadcrumb for Adv
+                #if self.agent_type == 'adv': reward = 0.1 # Breadcrumb for Adv
                 
         # State: Ego is Powerful
         elif self.state == 'v_1':
@@ -47,7 +47,7 @@ class Reward_Machine():
                 self.state = 'v_2' # Adv steals power
             elif 'ego_at_base_a' in labels and 'power_a' not in labels:
                 self.state = 'v_3' # Ego destroys Adv base
-                if self.agent_type == 'ego': reward = 0.5 # Big breadcrumb!
+                #if self.agent_type == 'ego': reward = 0.5 # Big breadcrumb!
             elif 'power_a' in labels and 'power_e' in labels:
                 self.state = 'start'
                 
@@ -82,6 +82,7 @@ def solve_stage_game(q_matrix_ego, q_matrix_adv):
         # 2. Use support_enumeration (more mathematically stable for grid worlds)
         equilibria = game.support_enumeration()
         pi_e, pi_a = next(equilibria)
+        #print(pi_e, pi_a, 'policies')
         
         # 3. Clean and normalize the probabilities
         pi_e = np.clip(pi_e, 0, 1)

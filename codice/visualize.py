@@ -42,15 +42,17 @@ def draw_ghost(screen, pos, color):
 def pos_to_idx(pos): 
     return pos[0]*6 + pos[1]
 
-def visualize_trained_agents(num_episodes=20):
+def visualize_trained_agents(model_path='q_models.npz', num_episodes=1):
     try:
-        models = np.load('q_models.npz')
+        # --- MODIFIED: Load the specific checkpoint ---
+        print(f"Loading weights from {model_path}...")
+        models = np.load(model_path)
         q_ee = models['q_ee']
         q_ae = models['q_ae']
         q_ea = models['q_ea']
         q_aa = models['q_aa']
     except FileNotFoundError:
-        print("Error: 'q_models.npz' not found. Please run train.py first.")
+        print(f"Error: '{model_path}' not found.")
         return
 
     pygame.init()
@@ -139,4 +141,15 @@ def visualize_trained_agents(num_episodes=20):
     pygame.quit()
 
 if __name__ == "__main__":
-    visualize_trained_agents()
+    # Change the filename here to watch different stages of learning
+    
+    # 1. Watch the early naive strategy (Before the pitfall)
+    visualize_trained_agents('q_models_ep1000.npz')
+    
+    # 2. Watch the Adversary dominate (During the pitfall)
+    visualize_trained_agents('q_models_ep2000.npz')
+    
+    # 3. Watch the final stabilized equilibrium (Flatline at 1.0)
+    visualize_trained_agents('q_models_ep3000.npz')
+    
+    visualize_trained_agents('q_models_ep4000.npz')

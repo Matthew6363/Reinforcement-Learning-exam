@@ -39,8 +39,8 @@ def train_qrm_sg(total_episodes=7500):
     alpha = 0.1 
     successes = 0
     # before the episode loop
-    start_epsilon = 0.25
-    end_epsilon   = 0.05
+    start_epsilon = 0.10
+    end_epsilon   = 0.005
     decay_episodes = int(total_episodes * 0.8)
         
     # Initialize evaluation variables
@@ -53,20 +53,20 @@ def train_qrm_sg(total_episodes=7500):
     
     print(f"Starting Decentralized QRM-SG Training for {total_episodes} episodes...")
     
-    all_ego_rewards = []   # ADD 2/4 — one entry per episode (0.0 or 1.0)
-    all_adv_rewards = []   # ADD 2/4
+    all_ego_rewards = []   
+    all_adv_rewards = []   
     
     for episode in range(1, total_episodes + 1):
         pos_e, pos_a = env.reset()
-        state_e = rm_ego.reset()  # String state
-        state_a = rm_adv.reset()  # String state
-        ep_reward_e = 0.0          # ADD 3/4
-        ep_reward_a = 0.0          # ADD 3/4
+        state_e = rm_ego.reset()  
+        state_a = rm_adv.reset()  
+        ep_reward_e = 0.0          
+        ep_reward_a = 0.0          
         epsilon = max(end_epsilon,
               start_epsilon - (start_epsilon - end_epsilon) * episode / decay_episodes)
         
         # Increased steps to 500 to allow for complex Case Study I pathing
-        for step in range(500):
+        for step in range(1000):
             s_e, s_a = pos_to_idx(pos_e), pos_to_idx(pos_a)
             #print(state_e, '1')  # Use string state for printing
             v_e = rm_map[state_e]  # Integer index
@@ -77,47 +77,46 @@ def train_qrm_sg(total_episodes=7500):
                 action_e = int(np.random.choice(4))
                 action_a = int(np.random.choice(4))
             else:
-                # Ego agent decides action based on its own Q-estimates
-                pi_e_ego, pi_a_ego = solve_stage_game(q_ee[s_e, s_a, v_e, v_a], q_ae[s_e, s_a, v_e, v_a])
-                #action_e = np.argmax(pi_e_ego)
-                action_e = np.random.choice(4, p=pi_e_ego)
                 
-                # Adv agent decides action based on its own separate Q-estimates
+                pi_e_ego, pi_a_ego = solve_stage_game(q_ee[s_e, s_a, v_e, v_a], q_ae[s_e, s_a, v_e, v_a])
+                action_e = np.argmax(pi_e_ego)
+                #action_e = np.random.choice(4, p=pi_e_ego)
+                
                 pi_e_adv, pi_a_adv = solve_stage_game(q_ea[s_e, s_a, v_e, v_a], q_aa[s_e, s_a, v_e, v_a])
-                #action_a = np.argmax(pi_a_adv)
-                action_a = np.random.choice(4, p=pi_a_adv)
+                action_a = np.argmax(pi_a_adv)
+                #action_a = np.random.choice(4, p=pi_a_adv)
                 
             # --- 2. ENVIRONMENT STEP ---
             next_pos_e, next_pos_a = env.step(action_e, action_a)
             labels = env.get_labels()
             
             # Step Reward Machines
-            next_state_e, r_e = rm_ego.step(labels)  # String state
-            next_state_a, r_a = rm_adv.step(labels)  # String state
-            ep_reward_e += r_e                         # ADD 3/4
-            ep_reward_a += r_a                         # ADD 3/4
+            next_state_e, r_e = rm_ego.step(labels) 
+            next_state_a, r_a = rm_adv.step(labels)  
+            ep_reward_e += r_e                         
+            ep_reward_a += r_a                         
             #print(next_state_e, '3')
             
             ns_e, ns_a = pos_to_idx(next_pos_e), pos_to_idx(next_pos_a)
             nv_e = rm_map[next_state_e]  # Integer index
             nv_a = rm_map[next_state_a]  # Integer index
             
-            # Ego updates expectations based on Ego's brain
+
             pi_next_e_ego, pi_next_a_ego = solve_stage_game(q_ee[ns_e, ns_a, nv_e, nv_a], q_ae[ns_e, ns_a, nv_e, nv_a])
             v_boot_ee = pi_next_e_ego @ q_ee[ns_e, ns_a, nv_e, nv_a] @ pi_next_a_ego
             v_boot_ae = pi_next_e_ego @ q_ae[ns_e, ns_a, nv_e, nv_a] @ pi_next_a_ego
                 
-            # Adv updates expectations based on Adv's brain
+
             pi_next_e_adv, pi_next_a_adv = solve_stage_game(q_ea[ns_e, ns_a, nv_e, nv_a], q_aa[ns_e, ns_a, nv_e, nv_a])
             v_boot_ea = pi_next_e_adv @ q_ea[ns_e, ns_a, nv_e, nv_a] @ pi_next_a_adv
             v_boot_aa = pi_next_e_adv @ q_aa[ns_e, ns_a, nv_e, nv_a] @ pi_next_a_adv  
             
-            # Bellman Updates for Ego's Brain
+
             q_ee[s_e, s_a, v_e, v_a, action_e, action_a] = (1 - alpha) * q_ee[s_e, s_a, v_e, v_a, action_e, action_a] + alpha * (r_e + gamma * v_boot_ee)
             q_ae[s_e, s_a, v_e, v_a, action_e, action_a] = (1 - alpha) * q_ae[s_e, s_a, v_e, v_a, action_e, action_a] + alpha * (r_a + gamma * v_boot_ae)
             
                                         
-            # Bellman Updates for Adv's Brain
+
             q_ea[s_e, s_a, v_e, v_a, action_e, action_a] = (1 - alpha) * q_ea[s_e, s_a, v_e, v_a, action_e, action_a] + alpha * (r_e + gamma * v_boot_ea)
             q_aa[s_e, s_a, v_e, v_a, action_e, action_a] = (1 - alpha) * q_aa[s_e, s_a, v_e, v_a, action_e, action_a] + alpha * (r_a + gamma * v_boot_aa)
             # Update physical state
@@ -136,6 +135,11 @@ def train_qrm_sg(total_episodes=7500):
             elif 'collision' in labels:
                 break
             
+        if episode % 1000 == 0:
+            filename = f'q_models_ep{episode}.npz'
+            np.savez(filename, q_ee=q_ee, q_ae=q_ae, q_ea=q_ea, q_aa=q_aa)
+            print(f"Checkpoint saved: {filename}")
+            
         if episode % 100 == 0:
             win_rate = (successes / 100) * 100
             print(f"Episodes {episode-99:04d} to {episode:04d} | Ego Agent Win Rate: {win_rate:.1f}%")
@@ -143,26 +147,64 @@ def train_qrm_sg(total_episodes=7500):
         all_ego_rewards.append(min(ep_reward_e, 1.0))   # ADD 3/4
         all_adv_rewards.append(min(ep_reward_a, 1.0))   # ADD 3/4
     
-    # --- EVALUATION PHASE (moved outside training loop) ---
-    # Reset cumulative rewards for evaluation
+    # --- EVALUATION PHASE ---
+    print("\nRunning Final Evaluation...")
     cumulative_reward_e = 0.0
     cumulative_reward_a = 0.0
     
     for eval_ep in range(eval_episodes):
-        # Placeholder: Run an evaluation episode (replace with your actual eval logic)
-        # Example: Simulate or run env.step with greedy actions, accumulate r_e and r_a
-        # For now, assume some dummy rewards; integrate your evaluation code here
-        dummy_r_e = 1.0  # Replace with actual reward from eval episode
-        dummy_r_a = 0.5  # Replace with actual reward from eval episode
-        cumulative_reward_e += dummy_r_e
-        cumulative_reward_a += dummy_r_a
+        # 1. Reset everything for the new episode
+        pos_e, pos_a = env.reset()
+        state_e = rm_ego.reset()
+        state_a = rm_adv.reset()
+        
+        ep_reward_e = 0.0
+        ep_reward_a = 0.0
+        
+        # 2. Run the episode (max 500 steps to match training)
+        for step in range(500):
+            s_e, s_a = pos_to_idx(pos_e), pos_to_idx(pos_a)
+            v_e = rm_map[state_e]
+            v_a = rm_map[state_a]
+            
+            # 3. Calculate the Nash Equilibrium for the current state
+            pi_e_ego, _ = solve_stage_game(q_ee[s_e, s_a, v_e, v_a], q_ae[s_e, s_a, v_e, v_a])
+            _, pi_a_adv = solve_stage_game(q_ea[s_e, s_a, v_e, v_a], q_aa[s_e, s_a, v_e, v_a])
+            
+            # 4. Action Selection (Sample from the Nash distribution)
+            action_e = int(np.random.choice(4, p=pi_e_ego))
+            action_a = int(np.random.choice(4, p=pi_a_adv))
+            
+            # 5. Step the environment and reward machines
+            next_pos_e, next_pos_a = env.step(action_e, action_a)
+            labels = env.get_labels()
+            
+            next_state_e, r_e = rm_ego.step(labels)
+            next_state_a, r_a = rm_adv.step(labels)
+            
+            ep_reward_e += r_e
+            ep_reward_a += r_a
+            
+            pos_e, pos_a = next_pos_e, next_pos_a
+            state_e, state_a = next_state_e, next_state_a
+            
+            # 6. Termination Check
+            if rm_ego.state == 'v_end' or rm_adv.state == 'v_end':
+                break
+            elif 'collision' in labels:
+                break
+                
+        # Add episode rewards to the total
+        cumulative_reward_e += ep_reward_e
+        cumulative_reward_a += ep_reward_a
     
+    # Calculate averages
     avg_eval_reward_e = cumulative_reward_e / eval_episodes
     avg_eval_reward_a = cumulative_reward_a / eval_episodes
     
-    print(f"Evaluation | Avg Reward -> Ego: {avg_eval_reward_e:.2f} | Adv: {avg_eval_reward_a:.2f}")
+    print(f"Final Evaluation | Avg Reward -> Ego: {avg_eval_reward_e:.2f} | Adv: {avg_eval_reward_a:.2f}")
     
-    eval_episodes_xaxis.append(total_episodes)  # Or append episode numbers as needed
+    eval_episodes_xaxis.append(total_episodes)
     eval_ego_rewards.append(avg_eval_reward_e)
     eval_adv_rewards.append(avg_eval_reward_a)
     
@@ -207,4 +249,4 @@ def train_qrm_sg(total_episodes=7500):
     return q_ee, q_ae, q_ea, q_aa
 
 if __name__ == "__main__":
-    train_qrm_sg(total_episodes=4500)
+    train_qrm_sg(total_episodes=7500)
