@@ -135,7 +135,7 @@ def train_qrm_sg(total_episodes=7500):
             elif 'collision' in labels:
                 break
             
-        if episode % 1000 == 0:
+        if episode % 100 == 0:
             filename = f'q_models_ep{episode}.npz'
             np.savez(filename, q_ee=q_ee, q_ae=q_ae, q_ea=q_ea, q_aa=q_aa)
             print(f"Checkpoint saved: {filename}")

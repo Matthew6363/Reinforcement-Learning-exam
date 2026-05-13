@@ -9,7 +9,7 @@ CELL_SIZE = 100
 GRID_SIZE = 6
 WIDTH = CELL_SIZE * GRID_SIZE
 HEIGHT = CELL_SIZE * GRID_SIZE
-FPS = 10 # Slowed down slightly so you can watch them clearly
+FPS = 20 # Slowed down slightly so you can watch them clearly
 
 BG_COLOR = (30, 30, 30)
 GRID_COLOR = (60, 60, 60)
@@ -82,7 +82,7 @@ def visualize_trained_agents(model_path='q_models.npz', num_episodes=1):
         pygame.display.flip()
         
         # Freeze the frame for 1.5 seconds before starting
-        pygame.time.wait(1500)
+        pygame.time.wait(500)
         # ---------------------------------------------------------
         
         for step in range(100):
@@ -129,27 +129,22 @@ def visualize_trained_agents(model_path='q_models.npz', num_episodes=1):
                 else:
                     print("Game Over (Draw)")
                     
-                pygame.time.wait(1500)
+                pygame.time.wait(500)
                 break
                 
             # Check if they just physically crashed into each other early
-            elif 'collision' in labels:
-                print("Premature Collision (Draw).")
-                pygame.time.wait(1000)
-                break
+            # elif 'collision' in labels:
+            #     print("Premature Collision (Draw).")
+            #     pygame.time.wait(1000)
+            #     break
 
     pygame.quit()
 
 if __name__ == "__main__":
     # Change the filename here to watch different stages of learning
     
+    
     # 1. Watch the early naive strategy (Before the pitfall)
-    visualize_trained_agents('q_models_ep1000.npz')
+    for i in range(1,76): 
+        visualize_trained_agents(f'q_models_ep{i*100}.npz')
     
-    # 2. Watch the Adversary dominate (During the pitfall)
-    visualize_trained_agents('q_models_ep2000.npz')
-    
-    # 3. Watch the final stabilized equilibrium (Flatline at 1.0)
-    visualize_trained_agents('q_models_ep3000.npz')
-    
-    visualize_trained_agents('q_models_ep4000.npz')
