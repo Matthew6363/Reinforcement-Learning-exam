@@ -65,7 +65,7 @@ from environment_task_I import *
 
 <br/>
 
-## References 
+## References 
 
 * [1] [Reinforcement Learning With Reward Machines in Stochastic Games](https://arxiv.org/pdf/2305.17372)
 
