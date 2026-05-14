@@ -60,7 +60,8 @@ def visualize_grid():
     print("Legend:")
     print(f" E: Start Ego {START_ego} | e: Base Ego {BASE_ego_coord}")
     print(f" A: Start Adv {START_adv} | a: Base Adv {BASE_adv_coord}")
+    print()
 
 if __name__ == "__main__":
-    pass
-    # visualize_grid()
+    
+    visualize_grid()
