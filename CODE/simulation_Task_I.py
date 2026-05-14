@@ -10,12 +10,12 @@ import matplotlib.ticker as ticker
 from game_parameters import * # get all env parameters
 
 DEBUG = True
-INIT_STRATEGIES = ["zeros", "optimistic", "random"]
+INIT_STRATEGIES = ["zeros", "optimistic", "random"] 
 
 # ---------------------------------------- #
 # Initialization of the Q-function (table) #
 # ---------------------------------------- #
-def initialize_q_function(shape, strategy=INIT_STRATEGIES[0]):
+def initialize_q_function(shape, strategy=INIT_STRATEGIES[2]):
     '''
     This function initializes the Q-table, given its shape. It can be initialized
     with all zero (being all zero filled), optimistic (all ones) or randomly.
@@ -27,6 +27,7 @@ def initialize_q_function(shape, strategy=INIT_STRATEGIES[0]):
         return np.ones(shape) * 1.0
     elif strategy == "random":
         return np.random.uniform(low=0.0001, high=0.001, size=shape)
+        # return np.random.uniform(low=0.01, high=0.2, size=shape)
     else:
         raise ValueError("Unknown initialization strategy")
 
@@ -40,7 +41,7 @@ def pos_to_idx(pos):
 # ------------------------------------ #
 # QSG-RM solver with training episodes #
 # ------------------------------------ #
-def train_qrm_sg(total_episodes=10000,
+def train_qrm_sg(total_episodes=1000,
                  gamma = GAMMA,
                  alpha = ALPHA,
                  start_epsilon = START_EPSILON,
@@ -275,7 +276,10 @@ def train_qrm_sg(total_episodes=10000,
             ## Case: there's a collision, the episode end without winners
             elif 'collision' in labels:
                 collisions_cnt += 1
-                break
+                if ALLOW_COLLISION_EARLY_BREAK:
+                    break
+                else:
+                    pass
 
 
         ## Back to the episode,having done all steps, we update the rewards

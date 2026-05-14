@@ -15,24 +15,20 @@ STR_ACTIONS = ['up', 'down', 'left', 'right']
 ACTIONS = [0,1,2,3]
 # ACTIONS_to_ids = {'up': 0, 'down': 1, 'left': 2, 'right': 3}
 
-### ACTIONS
-STR_ACTIONS = ['up', 'down', 'left', 'right']
-ACTIONS = [0,1,2,3]
-# ACTIONS_to_ids = {'up': 0, 'down': 1, 'left': 2, 'right': 3}
-
 ### QSG-RM
+LEMKE_HOWSON = False
 GAMMA = 0.9
 ALPHA = 0.1
 FAIL_RATE = 0.005
-EPISODES = 12000
+EPISODES = 9000
 STEP_NUM = 9999 # the max time allowed. Has to be high, since by paper we have to end on v_end only
-
 # Epsilon decays from 0.25 → 0.05 over the first 80% of training,
 # then stays fixed. This lets exploitation gradually take over.
 START_EPSILON = 0.3
 END_EPSILON =   0.05
 DECAY_RATE = 0.8
-ADD_NOISE = 1e-9
+ADD_NOISE = True # in reward machine, 0 if not wanted
+ALLOW_COLLISION_EARLY_BREAK = False
 
 ### Q-TABLE
 Q_SHAPE = (36, 36, 5, 5, 4, 4)

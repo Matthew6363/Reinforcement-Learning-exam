@@ -6,6 +6,7 @@
 import nashpy as nash
 import numpy as np
 import datetime
+from game_parameters import *
 
 DEBUG = False
 
@@ -186,7 +187,6 @@ class Reward_Machine():
   
 def solve_stage_game(q_matrix_ego, q_matrix_adv, 
                      agent_actions = ['up', 'down', 'left', 'right'],
-                     noise = ADD_NOISE, # to avoid degenerate cases
                      debug = DEBUG
                      ):
     '''
@@ -204,12 +204,33 @@ def solve_stage_game(q_matrix_ego, q_matrix_adv,
         return np.ones(NUM_ACTIONS)/NUM_ACTIONS, np.ones(NUM_ACTIONS)/NUM_ACTIONS
     
     ## INIT a Nash Game with the 2 q-tables
-    game = nash.Game(q_matrix_ego+noise, q_matrix_adv+noise)
+    
+    if ADD_NOISE:
+        noise_e = 1e-9 # np.random.uniform(1e-6, 1e-5, size=q_matrix_ego.shape)
+        noise_a = 1e-9 # np.random.uniform(1e-6, 1e-5, size=q_matrix_adv.shape)
+        
+    game = nash.Game(q_matrix_ego + noise_e, q_matrix_adv + noise_a)
     
     try:
         # Use support_enumeration (more mathematically stable for grid worlds)
-        equilibria = game.support_enumeration() 
-        pi_e, pi_a = next(equilibria) # find and take the next one (first found) and assing it to the strategies
+        if LEMKE_HOWSON:
+            warnings.filterwarnings("ignore", category=RuntimeWarning)
+            random_label = np.random.randint(0, NUM_ACTIONS-1)
+            pi_e, pi_a = game.lemke_howson(initial_dropped_label=random_label)
+
+            if len(pi_e) < NUM_ACTIONS:
+                new_pi_e = np.zeros(NUM_ACTIONS)
+                new_pi_e[:len(pi_e)] = pi_e
+                pi_e = new_pi_e
+                
+            if len(pi_a) < NUM_ACTIONS:
+                new_pi_a = np.zeros(NUM_ACTIONS)
+                new_pi_a[:len(pi_a)] = pi_a
+                pi_a = new_pi_a
+
+        else:
+            equilibria = game.support_enumeration() 
+            pi_e, pi_a = next(equilibria) # find and take the next one (first found) and assing it to the strategies
         
         # Note: pi_e, pi_a are two STRATEGIES, as vectors containing the probabilities 
         # of doing the actions! Notice that actions are ordered wrt to the Q-table passed to this 
@@ -228,7 +249,7 @@ def solve_stage_game(q_matrix_ego, q_matrix_adv,
 
     except Exception as e:
         # 4. Guaranteed fallback size 4
-        print("Exception occurred, saved in log.")
+        print("Exception occurred, saved in log.", e)
         log_error_to_file(str(e), q_matrix_ego, q_matrix_adv)
 
         # and return the random one.
