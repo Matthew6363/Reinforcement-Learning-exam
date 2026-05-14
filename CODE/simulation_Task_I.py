@@ -15,7 +15,7 @@ INIT_STRATEGIES = ["zeros", "optimistic", "random"]
 # ---------------------------------------- #
 # Initialization of the Q-function (table) #
 # ---------------------------------------- #
-def initialize_q_function(shape, strategy=INIT_STRATEGIES[2]):
+def initialize_q_function(shape, strategy=INIT_STRATEGIES[0]):
     '''
     This function initializes the Q-table, given its shape. It can be initialized
     with all zero (being all zero filled), optimistic (all ones) or randomly.

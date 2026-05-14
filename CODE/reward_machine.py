@@ -186,6 +186,7 @@ class Reward_Machine():
   
 def solve_stage_game(q_matrix_ego, q_matrix_adv, 
                      agent_actions = ['up', 'down', 'left', 'right'],
+                     noise = ADD_NOISE, # to avoid degenerate cases
                      debug = DEBUG
                      ):
     '''
@@ -203,7 +204,7 @@ def solve_stage_game(q_matrix_ego, q_matrix_adv,
         return np.ones(NUM_ACTIONS)/NUM_ACTIONS, np.ones(NUM_ACTIONS)/NUM_ACTIONS
     
     ## INIT a Nash Game with the 2 q-tables
-    game = nash.Game(q_matrix_ego, q_matrix_adv)
+    game = nash.Game(q_matrix_ego+noise, q_matrix_adv+noise)
     
     try:
         # Use support_enumeration (more mathematically stable for grid worlds)

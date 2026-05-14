@@ -32,6 +32,7 @@ STEP_NUM = 9999 # the max time allowed. Has to be high, since by paper we have t
 START_EPSILON = 0.3
 END_EPSILON =   0.05
 DECAY_RATE = 0.8
+ADD_NOISE = 1e-9
 
 ### Q-TABLE
 Q_SHAPE = (36, 36, 5, 5, 4, 4)
