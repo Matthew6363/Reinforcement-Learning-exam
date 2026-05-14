@@ -22,6 +22,28 @@ Having provided the full reconstruction of task I, II, we try to propose a new t
 
 ## Code Structure and Problem Formulation
 
+The repository relative code is entirely contained into the `CODE` folder, which is structured by including:
+* `simulation_code.py`: _the main file, where the task is executed_
+And three files which are (explicilty or implicitly) task specific:
+* `environment_task_*.py`: _the environment class of the problem (PAC-gridworld), which includes the $L$ function for labelling._
+* `reward_machine_task_*.py`: _the RM class, so to get the RMs instances in the simulation file. Here the automata are translated into Python code.
+* `game_parameters`: _this file includes global parameters definition for both **problem agnostic** (for the solver) and **problem specific** (agent coordinates etc.) cases._ 
+
+### Getting ready 
+The repository code execution relies on the python environment available in `setup.sh` file. Please execute:
+
+```bash
+$: ./setup.sh
+```
+
+To get the `requirements.txt` satisfied, then activate the environment and use it to the code execution as shown below.
+```
+$: source QSGRM_env/bin/activate
+$: python CODE/simulation_code.py
+```
+
+### Generalize to task and user defined problems 
+
 <br/>
 
 ## Conclusions
