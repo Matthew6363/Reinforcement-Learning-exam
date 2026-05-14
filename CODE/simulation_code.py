@@ -3,18 +3,31 @@
 
 # == MAIN PARAMETERS and libs == #
 from environment import *
-from reward_machine import *
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 from game_parameters import * # get all env parameters
 
-DEBUG = True
-INIT_STRATEGIES = ["zeros", "optimistic", "random"] 
+
+######### PROBLEM-SPECIFIC REWARD MACHINE #######################
+# We need to generalize the structure for any reward machine. 
+# Having defined the current one of interest, please import it.
+
+from reward_machine_TaskI import *
+task_name_string = "TaskI" # tag which is used in exported files
+
+# Some requirements must be fulfilled: 
+# * Reward_Machine [class]
+# * solve_stage_game [function]
+# View reward_machine_TaskI.py for reference
+#################################################################
+
 
 # ---------------------------------------- #
 # Initialization of the Q-function (table) #
 # ---------------------------------------- #
+INIT_STRATEGIES = ["zeros", "optimistic", "random"] 
+
 def initialize_q_function(shape, strategy=INIT_STRATEGIES[2]):
     '''
     This function initializes the Q-table, given its shape. It can be initialized
@@ -312,8 +325,8 @@ def train_qrm_sg(total_episodes=1000,
 
 
     print("\nTraining complete. Saving...")
-    np.savez('../EXPORT/q_models.npz', q_ee=q_ee, q_ae=q_ae, q_ea=q_ea, q_aa=q_aa)
-    np.savez('../EXPORT/eval_results.npz',
+    np.savez(f'../EXPORT/q_models_{task_name_string}.npz', q_ee=q_ee, q_ae=q_ae, q_ea=q_ea, q_aa=q_aa)
+    np.savez(f'../EXPORT/eval_results_{task_name_string}.npz',
              ego_rewards=all_ego_rewards,
              adv_rewards=all_adv_rewards)
 
@@ -344,8 +357,8 @@ def train_qrm_sg(total_episodes=1000,
     ax2.set_xlim(0, total_episodes)
 
     plt.tight_layout()
-    plt.savefig("../EXPORT/task_I_windowed.png", dpi=150, bbox_inches='tight')
-    print("Plot saved to 'task_I_windowed.png'.")
+    plt.savefig(f"../EXPORT/{task_name_string}_windowed.png", dpi=150, bbox_inches='tight')
+    print(f"Plot saved to '../EXPORT/{task_name_string}_windowed.png'.")
     plt.show()
 
     return q_ee, q_ae, q_ea, q_aa
