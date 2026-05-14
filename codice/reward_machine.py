@@ -284,9 +284,6 @@ def testing_ego_RM():
 
 
 
-
-
-
 if __name__ == "__main__":
     
     if DEBUG == True:
