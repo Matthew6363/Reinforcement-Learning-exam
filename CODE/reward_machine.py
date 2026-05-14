@@ -214,7 +214,6 @@ def solve_stage_game(q_matrix_ego, q_matrix_adv,
     try:
         # Use support_enumeration (more mathematically stable for grid worlds)
         if LEMKE_HOWSON:
-            warnings.filterwarnings("ignore", category=RuntimeWarning)
             random_label = np.random.randint(0, NUM_ACTIONS-1)
             pi_e, pi_a = game.lemke_howson(initial_dropped_label=random_label)
 
