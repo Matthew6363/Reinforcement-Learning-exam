@@ -7,7 +7,8 @@ import nashpy as nash
 import numpy as np
 import datetime
 
-DEBUG = True
+DEBUG = False
+
 
 def log_error_to_file(error_msg, q_e=None, q_a=None):
     with open("log_error.txt", "a") as f:

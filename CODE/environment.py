@@ -4,22 +4,8 @@
 
 # == MAIN PARAMETERS and libs == #
 import numpy as np
-
-DEBUG = True
-GRID_W = 6
-GRID_H = 6
-FAIL_RATE = 0.005
-
-STR_ACTIONS = ['up', 'down', 'left', 'right']
-ACTIONS = [0,1,2,3]
-# ACTIONS_to_ids = {'up': 0, 'down': 1, 'left': 2, 'right': 3}
-
-BASE_ego_coord = (0,5)
-BASE_adv_coord = (1,4)
-START_ego = (5,0)
-START_adv = (0,3)
-
-
+from game_parameters import *
+DEBUG = False
 
 # =================== #
 # Environment (Class) #
@@ -177,6 +163,7 @@ class PacmanGridWorld:
         # Case: Adv CURRENTLY IN Ego position (symmetric), i.e. at less than two in distance
         if (abs(self.pos_a[0] - self.pos_e[0]) + abs(self.pos_a[1] - self.pos_e[1])) < 2:
             labels.add('collision')
+        
         return labels
 
 
