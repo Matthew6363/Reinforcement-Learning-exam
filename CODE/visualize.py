@@ -3,7 +3,7 @@ import sys
 import numpy as np
 from environment import PacmanGridWorld
 from reward_machine import *
-
+from game_parameters import *
 # --- PYGAME CONFIG ---
 CELL_SIZE = 100
 GRID_SIZE = 6
@@ -42,7 +42,7 @@ def draw_ghost(screen, pos, color):
 def pos_to_idx(pos): 
     return pos[0]*6 + pos[1]
 
-def visualize_trained_agents(model_path='q_models.npz', num_episodes=1):
+def visualize_trained_agents(model_path='../EXPORT/q_models.npz', num_episodes=1):
     try:
         # --- MODIFIED: Load the specific checkpoint ---
         print(f"Loading weights from {model_path}...")
@@ -146,5 +146,5 @@ if __name__ == "__main__":
     
     # 1. Watch the early naive strategy (Before the pitfall)
     for i in range(1,76): 
-        visualize_trained_agents(f'q_models_ep{i*100}.npz')
+        visualize_trained_agents(f'../EXPORT/q_models_ep{i*100}.npz')
     

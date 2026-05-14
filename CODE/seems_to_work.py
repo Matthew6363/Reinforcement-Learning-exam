@@ -76,6 +76,8 @@ def train_qrm_sg(total_episodes=10000,
 
     ## CHECK Parameters and HYSTORY
     successes       = 0
+    adv_wins        = 0
+    collisions_cnt  = 0
     all_ego_rewards = []
     all_adv_rewards = []
 
@@ -266,10 +268,13 @@ def train_qrm_sg(total_episodes=10000,
             if rm_ego.state == 'v_end' or rm_adv.state == 'v_end':
                 if r_e > 0: # if the reward is positive for the ego, it means it was the one winning
                     successes += 1
+                elif r_a > 0:
+                    adv_wins +=1 
                 break
             
             ## Case: there's a collision, the episode end without winners
             elif 'collision' in labels:
+                collisions_cnt += 1
                 break
 
 
@@ -279,22 +284,36 @@ def train_qrm_sg(total_episodes=10000,
 
         ## Print the situation every 100 episodes.
         if episode % 100 == 0:
-            win_rate = (successes / 100) * 100
-            print(f"Episodes {episode-99:05d} to {episode:05d} | "
-                  f"Ego Win Rate: {win_rate:.1f}%  (ε={epsilon:.3f})")
+            ego_wr = (successes / 100) * 100
+            adv_wr = (adv_wins / 100) * 100
+            coll_r = (collisions_cnt / 100) * 100
+            
+            # Calculate mean reward for the last 100 episodes
+            avg_rew_e = np.mean(all_ego_rewards[-100:])
+            avg_rew_a = np.mean(all_adv_rewards[-100:])
+
+            print(f"Episodes {episode-99:05d}-{episode:05d} | ε: {epsilon:.3f}")
+            print(f"  > Win Rate  | Ego: {ego_wr:4.1f}%  Adv: {adv_wr:4.1f}%  Coll: {coll_r:4.1f}%")
+            print(f"  > Avg Rew   | Ego: {avg_rew_e:4.2f}   Adv: {avg_rew_a:4.2f}")
+            print("-" * 50)
+            
+            # Reset window counters
             successes = 0
+            adv_wins = 0
+            collisions_cnt = 0
 
 
 
 
-    # ── Save ────────────────────────────────────────────────────────────────
-    print("Training complete. Saving...")
-    np.savez('q_models.npz', q_ee=q_ee, q_ae=q_ae, q_ea=q_ea, q_aa=q_aa)
-    np.savez('eval_results.npz',
+
+
+    print("\nTraining complete. Saving...")
+    np.savez('../EXPORT/q_models.npz', q_ee=q_ee, q_ae=q_ae, q_ea=q_ea, q_aa=q_aa)
+    np.savez('../EXPORT/eval_results.npz',
              ego_rewards=all_ego_rewards,
              adv_rewards=all_adv_rewards)
 
-    # ── Plot (non-overlapping 80-episode windows, paper style) ───────────────
+    ## Plot evolution
     window    = 80
     n_windows = len(all_ego_rewards) // window
     ego_arr   = np.array(all_ego_rewards[:n_windows*window]).reshape(n_windows, window)
@@ -321,7 +340,7 @@ def train_qrm_sg(total_episodes=10000,
     ax2.set_xlim(0, total_episodes)
 
     plt.tight_layout()
-    plt.savefig("task_I_windowed.png", dpi=150, bbox_inches='tight')
+    plt.savefig("../EXPORT/task_I_windowed.png", dpi=150, bbox_inches='tight')
     print("Plot saved to 'task_I_windowed.png'.")
     plt.show()
 
