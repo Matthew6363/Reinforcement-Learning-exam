@@ -8,7 +8,7 @@
   <tr>
   <td bgcolor="#f6f8fa">
     <h3>Project Abstract</h3>
-Following the Reinforcement Learning With Reward Machines in Stochastic Games paper [1], we propose an overview of the <i>Q-learning with reward machines for stochastic games</i> (QSG-RM), on the 3 project task. The code, to us originally unavailable, has been reconstructed following the proposed algorithm and full parametrization. 
+Following the Reinforcement Learning With Reward Machines in Stochastic Games paper [1](https://arxiv.org/pdf/2305.17372), we propose an overview of the <i>Q-learning with reward machines for stochastic games</i> (QSG-RM), on the 3 project task. The code, to us originally unavailable, has been reconstructed following the proposed algorithm and full parametrization. 
 </br></br>
 Each task follows the 2-agents Pac-Man game problem structure, where reward functions are assumed to be <b>non-markovian</b> and additional constraints are fixed: fixed cordinates power bases, gridword actions and collisions. The goal of each agent is approximated to the reach its own power base and the consequently capture the other agent. By producing the code structure, we enabled for the generalization to 2-agent  reward-machine dependent problem and game.
 
@@ -44,9 +44,24 @@ $: python CODE/simulation_code.py
 
 ### Generalize to task and user defined problems 
 
+The environment and RM python files are task/problem specific. If you need the simulation to operate on a different task, please change the marked line in the `simulation_code.py` file. 
+
+```
+from reward_machine_task_I import *
+from environment_task_I import *
+```
+
+> Please, be also sure that the functional definition and required functions are present in your modified version.
+
 <br/>
 
-## Conclusions
+## Observed results and Conclusions
+
+### Task I
+
+<img src="https://github.com/Matthew6363/Reinforcement-Learning-exam/blob/main/EXPORT/task_I_windowed%202%20(random%20init).png" width="45%" />
+
+> **Task I.** Execution on $6x6$ grid, ['up', 'down', 'left', 'right'] actions, uniform(low=0.0001, high=0.001) Q initialization, game.support_enumeration() nash solver and epsilon decay from 0.3 to 0.05.
 
 <br/>
 
