@@ -2,25 +2,27 @@
 ## File dedicated to the QRM-SG probem execution and solving
 
 # == MAIN PARAMETERS and libs == #
-from environment import *
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 from game_parameters import * # get all env parameters
 
 
-######### PROBLEM-SPECIFIC REWARD MACHINE #######################
+######### PROBLEM-SPECIFIC REWARD MACHINE and ENV #######################
+#########################################################################
 # We need to generalize the structure for any reward machine. 
 # Having defined the current one of interest, please import it.
 
-from reward_machine_TaskI import *
-task_name_string = "TaskI" # tag which is used in exported files
+from reward_machine_task_I import *
+from environment_task_I import *
+task_name_string = TASK # tag which is used in exported files
 
 # Some requirements must be fulfilled: 
 # * Reward_Machine [class]
 # * solve_stage_game [function]
-# View reward_machine_TaskI.py for reference
-#################################################################
+# View reward_machine_TaskI.py for reference.
+# The environment too has to be tuned in the get_labels function.
+#########################################################################
 
 
 # ---------------------------------------- #
