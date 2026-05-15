@@ -59,9 +59,25 @@ from reward_machine_task_I import *
 
 ### Task I
 
-<img src="https://github.com/Matthew6363/Reinforcement-Learning-exam/blob/main/EXPORT/task_I_windowed%202%20(random%20init).png" width="45%" />
+As stated in the original paper in Case Study I, the ego agent is required to first reach its own power base, then destroy/reach the adversarial agent’s power base to be the more powerful, and capture
+the adversarial agent afterward. [1]
 
-> **Task I.** Execution on $6x6$ grid, ['up', 'down', 'left', 'right'] actions, uniform(low=0.0001, high=0.001) Q initialization, game.support_enumeration() nash solver and epsilon decay from 0.3 to 0.05.
+> **Task I.** Execution on $6x6$ grid, ['up', 'down', 'left', 'right'] actions, uniform(low=0.0001, high=0.001) Q initialization, game.support_enumeration() nash solver and epsilon decay from 0.3 to 0.05. episode [?] visualization
+
+### Task II
+
+In Case Study II, the required sequential events for the ego agent to be powerful are: reaching its power base, reaching the adversarial agent’s power base, reaching its power base. These events demonstrate the scenario in that the ego agent first gets energy at its power base, destroys the adversarial agent’s power base using most of its energy, and then gets recharged to capture the adversarial agent.
+
+<p align="center">
+  <img src="https://github.com/Matthew6363/Reinforcement-Learning-exam/blob/main/GAME_VISUALIZATION/Exported_gifs/q_models_task_II_ep6500_simulation.gif" width="300" alt="Descrizione GIF">
+</p>
+
+> **Task II.** Execution on $6x6$ grid, ['up', 'down', 'left', 'right'] actions, uniform(low=0.0001, high=0.001) Q initialization, game.support_enumeration() nash solver and epsilon decay from 0.3 to 0.05. episode 6500 visualization 
+
+### Task III
+Case Study III is different from Case Study II in that the adversarial agent randomly samples the starting location from 2 possible locations. [1]
+
+> **Task III.** Execution on $6x6$ grid, ['up', 'down', 'left', 'right'] actions, uniform(low=0.0001, high=0.001) Q initialization, game.support_enumeration() nash solver and epsilon decay from 0.3 to 0.05. episode [?] visualization 
 
 <br/>
 
