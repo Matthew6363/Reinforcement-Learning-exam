@@ -129,6 +129,7 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
     # Freeze the frame for 1.5 seconds before starting
     pygame.time.wait(500)
     
+
     
     for step in range(STEP_NUM):
         for event in pygame.event.get():
@@ -136,8 +137,19 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
                 pygame.quit()
                 sys.exit()
 
+        ## States
         s_e, s_a = pos_to_idx(pos_e), pos_to_idx(pos_a)
         v_e, v_a = rm_map[rm_ego.state], rm_map[rm_adv.state]
+
+        ## Rendering (include first case)
+        screen.fill(BG_COLOR)
+        draw_grid(screen)
+        draw_base(screen, env.base_a, ADV_COLOR, "A")
+        draw_base(screen, env.base_e, EGO_COLOR, "E")
+        draw_agent(screen, pos_e, EGO_COLOR)
+        draw_agent(screen, pos_a, ADV_COLOR)
+        pygame.display.flip()
+        clock.tick(FPS)
 
         ## Get the action (thanks to off-policy, we can avoid epsilon randomness)
         pi_e_ego, pi_a_ego = solve_stage_game(q_ee[s_e, s_a, v_e, v_a], q_ae[s_e, s_a, v_e, v_a])
@@ -152,6 +164,7 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
         ## Get RM reward thanks to d(current RM state, current label)
         _, r_e = rm_ego.step(labels)
         _, r_a = rm_adv.step(labels)
+        
 
         ## Render this
         screen.fill(BG_COLOR)
@@ -185,7 +198,7 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
              print("Premature Collision (Draw).")
              pygame.time.wait(1000)
              break
-        
+
     if SAVE_GIF:
         frame_duration = int(1000 / FPS)     
         frames[0].save(f'./Exported_gifs/{FILE_NAME}_simulation.gif', 
