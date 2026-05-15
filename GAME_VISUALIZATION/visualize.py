@@ -30,24 +30,28 @@ task_name_string = TASK # tag which is used in exported files
          
 
 def draw_grid(screen):
-    for x in range(0, WIDTH, CELL_SIZE):
-        pygame.draw.line(screen, GRID_COLOR, (x, 0), (x, HEIGHT))
-    for y in range(0, HEIGHT, CELL_SIZE):
-        pygame.draw.line(screen, GRID_COLOR, (0, y), (WIDTH, y))
+    for x in range(0, WIDTH + 1, CELL_SIZE):
+        pygame.draw.line(screen, GRID_COLOR, (x + MARGIN, MARGIN), (x + MARGIN, HEIGHT + MARGIN), 2)
+    for y in range(0, HEIGHT + 1, CELL_SIZE):
+        pygame.draw.line(screen, GRID_COLOR, (MARGIN, y + MARGIN), (WIDTH + MARGIN, y + MARGIN), 2)
 
 def draw_base(screen, pos, color, name):
     r, c = pos
     surface = pygame.Surface((CELL_SIZE, CELL_SIZE), pygame.SRCALPHA)
     pygame.draw.rect(surface, (*color, BASE_ALPHA), (0, 0, CELL_SIZE, CELL_SIZE))
-    screen.blit(surface, (c * CELL_SIZE, r * CELL_SIZE))
+    screen.blit(surface, (c * CELL_SIZE + MARGIN, r * CELL_SIZE + MARGIN))
+    
     font = pygame.font.SysFont(None, 48)
     img = font.render(name, True, color)
-    screen.blit(img, (c * CELL_SIZE + 35, r * CELL_SIZE + 35))
+    text_rect = img.get_rect(center=(c * CELL_SIZE + CELL_SIZE // 2 + MARGIN, 
+                                     r * CELL_SIZE + CELL_SIZE // 2 + MARGIN))
+    screen.blit(img, text_rect)
+
 
 def draw_agent(screen, pos, color):
     r, c = pos
-    cx = c * CELL_SIZE + CELL_SIZE // 2
-    cy = r * CELL_SIZE + CELL_SIZE // 2
+    cx = c * CELL_SIZE + CELL_SIZE // 2 + MARGIN
+    cy = r * CELL_SIZE + CELL_SIZE // 2 + MARGIN
     
     size = CELL_SIZE * AGENT_RATIO
     half_size = size / 2
@@ -58,8 +62,7 @@ def draw_agent(screen, pos, color):
     
     points = [point1, point2, point3]
     pygame.draw.polygon(screen, color, points)
-  
-    
+
 
 def pos_to_idx(pos): 
     return pos[0]*6 + pos[1]
@@ -87,7 +90,7 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
 
     ## START the game
     pygame.init()
-    screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    screen = pygame.display.set_mode((WINDOW_W, WINDOW_H))
     pygame.display.set_caption("Visualizing Fully Trained QRM-SG Agents")
     clock = pygame.time.Clock()
 
@@ -103,8 +106,8 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
     ## Initial Screen Game Render
     screen.fill(BG_COLOR)
     draw_grid(screen)
-    draw_base(screen, env.base_a, ADV_COLOR, "a")
-    draw_base(screen, env.base_e, EGO_COLOR, "e")
+    draw_base(screen, env.base_a, ADV_COLOR, "A")
+    draw_base(screen, env.base_e, EGO_COLOR, "E")
     draw_agent(screen, pos_e, EGO_COLOR) # blue
     draw_agent(screen, pos_a, ADV_COLOR) # red
     pygame.display.flip()
@@ -139,8 +142,8 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
         ## Render this
         screen.fill(BG_COLOR)
         draw_grid(screen)
-        draw_base(screen, env.base_a, ADV_COLOR, "a")
-        draw_base(screen, env.base_e, EGO_COLOR, "e")
+        draw_base(screen, env.base_a, ADV_COLOR, "A")
+        draw_base(screen, env.base_e, EGO_COLOR, "E")
         draw_agent(screen, pos_e, EGO_COLOR)
         draw_agent(screen, pos_a, ADV_COLOR)
         pygame.display.flip()

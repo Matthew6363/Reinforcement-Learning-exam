@@ -56,6 +56,9 @@ ALLOW_COLLISION_EARLY_BREAK = False
 CELL_SIZE = 100
 WIDTH = CELL_SIZE * GRID_W
 HEIGHT = CELL_SIZE * GRID_H
+MARGIN = 40
+WINDOW_W = WIDTH + MARGIN * 2
+WINDOW_H = HEIGHT + MARGIN * 2
 FPS = 1 # Slowed down slightly so you can watch them clearly
 
 BG_COLOR = (250, 250, 250)
