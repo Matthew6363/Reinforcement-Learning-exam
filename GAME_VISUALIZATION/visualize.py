@@ -98,7 +98,12 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
     env = PacmanGridWorld()
     rm_ego = Reward_Machine('ego')
     rm_adv = Reward_Machine('adv')
-    rm_map = {'start': 0, 'v_1': 1, 'v_2': 2, 'v_3': 3, 'v_end': 4}
+    
+    if TASK == "task_I":
+        rm_map = {'start': 0, 'v_1': 1, 'v_2': 2, 'v_3': 3, 'v_end': 4}
+    elif TASK in ["task_II", "task_III"]:
+        rm_map = {'start': 0, 'v_1': 1, 'v_2': 2, 'v_3': 3, 'v_4': 4, 'v_end': 5} 
+    
     pos_e, pos_a = env.reset()
     rm_ego.reset()
     rm_adv.reset()
@@ -171,6 +176,9 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
 
 
 if __name__ == "__main__":
-    visualize_trained_agents('../EXPORT/q_models.npz', 
+
+    FILE_NAME = 'q_models_task_II_ep6500'
+    
+    visualize_trained_agents(f"../EXPORT/{FILE_NAME}.npz", 
                              checkpoint=0,
                              time_waiting=3000)
