@@ -35,6 +35,7 @@ if TASK == "task_III":
     else: 
         START_adv = (5,1)
 
+
 ### [[ Solver Specific parameters QSG-RM ]]
 LEMKE_HOWSON = False
 GAMMA = 0.9
@@ -50,6 +51,19 @@ DECAY_RATE = 0.8
 ADD_NOISE = True # in reward machine, 0 if not wanted
 ALLOW_COLLISION_EARLY_BREAK = False
 
+
+# [[ PYGAME CONFIG ]]
+CELL_SIZE = 100
+WIDTH = CELL_SIZE * GRID_W
+HEIGHT = CELL_SIZE * GRID_H
+FPS = 1 # Slowed down slightly so you can watch them clearly
+
+BG_COLOR = (250, 250, 250)
+GRID_COLOR = (60, 60, 60)
+EGO_COLOR = (50, 150, 255)   
+ADV_COLOR = (255, 50, 50)    
+AGENT_RATIO = 0.4
+BASE_ALPHA = 100    
 
 
 
