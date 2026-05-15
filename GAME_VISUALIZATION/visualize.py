@@ -185,7 +185,7 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
              print("Premature Collision (Draw).")
              pygame.time.wait(1000)
              break
-
+        
     if SAVE_GIF:
         frame_duration = int(1000 / FPS)     
         frames[0].save(f'./Exported_gifs/{FILE_NAME}_simulation.gif', 
@@ -200,7 +200,7 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
 
 if __name__ == "__main__":
 
-    FILE_NAME = 'q_models_task_I_ep16000'
+    FILE_NAME = 'q_models_task_III_ep500'
     
     visualize_trained_agents(f"../EXPORT/{FILE_NAME}.npz", 
                              checkpoint=0,
