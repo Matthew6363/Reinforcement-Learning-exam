@@ -2,7 +2,7 @@ import pygame
 import sys
 import numpy as np
 from environment import PacmanGridWorld
-from reward_machine import *
+from reward_machine_task_I import *
 from game_parameters import *
 # --- PYGAME CONFIG ---
 CELL_SIZE = 100

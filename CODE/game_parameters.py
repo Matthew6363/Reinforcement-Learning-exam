@@ -1,11 +1,12 @@
+import numpy as np
 ### [[ GLOBAL PARAMS ]]
 DEBUG = False
 TASK = "task_I"
-
+TASK_III_EPSILON = 0.5
 
 ### [[ GRID and game WORD PARAMS ]]
 ## Task I
-if TASK == "task_I":
+if TASK == "task_I" or TASK == 'task_II':
     GRID_W = 6
     GRID_H = 6
     STR_ACTIONS = ['up', 'down', 'left', 'right']
@@ -18,7 +19,21 @@ if TASK == "task_I":
     START_ego = (0,3) # (5,0)
     START_adv = (5,0) # (0,3)
 ## Add other cases for additional tasks or user defined problems
+if TASK == "task_III":
+    GRID_W = 6
+    GRID_H = 6
+    STR_ACTIONS = ['up', 'down', 'left', 'right']
+    ACTIONS = [0,1,2,3]
 
+    Q_SHAPE = (36, 36, 5, 5, 4, 4) # Q-table shape
+
+    BASE_ego_coord = (1,4) # (0,5)
+    BASE_adv_coord = (0,5) # (1,4) 
+    START_ego = (0,3) # (5,0)
+    if np.random.rand() > TASK_III_EPSILON : 
+        START_adv =(5,0)
+    else: 
+        START_adv = (5,1)
 
 ### [[ Solver Specific parameters QSG-RM ]]
 LEMKE_HOWSON = False

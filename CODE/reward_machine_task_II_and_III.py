@@ -169,8 +169,12 @@ class Reward_Machine():
                 if self.agent_type == 'adv': reward = 1.0 # Adv wins
                 # else, still zero
                 
-        # State: Adv base destroyed, Ego ready to capture
         elif self.state == 'v_3':
+            if 'power_e' in labels and 'power_a' not in labels:
+                self.state = 'v_4'
+                
+        # State: Adv base destroyed, Ego ready to capture
+        elif self.state == 'v_4':
             if 'collision' in labels:
                 self.state = 'v_end'
                 if self.agent_type == 'ego': reward = 1.0 # Ego wins
