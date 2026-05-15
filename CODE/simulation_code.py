@@ -14,7 +14,7 @@ from game_parameters import * # get all env parameters
 # Having defined the current one of interest, please import it.
 
 from reward_machine_task_I import *
-from environment_task_I import *
+from environment import *
 task_name_string = TASK # tag which is used in exported files
 
 # Some requirements must be fulfilled: 
