@@ -2,6 +2,9 @@ import pygame
 import sys
 import numpy as np
 import os
+from PIL import Image
+
+SAVE_GIF = True
 
 code_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'CODE'))
 sys.path.append(code_dir)
@@ -101,6 +104,9 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
     env = PacmanGridWorld()
     rm_ego = Reward_Machine('ego')
     rm_adv = Reward_Machine('adv')
+
+    if SAVE_GIF:
+        frames = []
     
     if TASK == "task_I":
         rm_map = {'start': 0, 'v_1': 1, 'v_2': 2, 'v_3': 3, 'v_end': 4}
@@ -157,6 +163,11 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
         pygame.display.flip()
         clock.tick(FPS)
 
+        if SAVE_GIF:
+            frame_str = pygame.image.tostring(screen, 'RGB')
+            frame_img = Image.frombytes('RGB', screen.get_size(), frame_str)
+            frames.append(frame_img)
+
         ## Is this the last step? (i.e. Has someone won?)
         if rm_ego.state == 'v_end' or rm_adv.state == 'v_end':
             if r_e > 0:
@@ -175,6 +186,15 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
              pygame.time.wait(1000)
              break
 
+    if SAVE_GIF:
+        frame_duration = int(1000 / FPS)     
+        frames[0].save(f'./Exported_gifs/{FILE_NAME}_simulation.gif', 
+                    format='GIF',
+                    append_images=frames[1:],
+                    save_all=True,
+                    duration=frame_duration,
+                    loop=0) # inf loop
+
     pygame.quit()
 
 
@@ -185,3 +205,4 @@ if __name__ == "__main__":
     visualize_trained_agents(f"../EXPORT/{FILE_NAME}.npz", 
                              checkpoint=0,
                              time_waiting=3000)
+                             
