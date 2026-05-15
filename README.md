@@ -62,7 +62,11 @@ from reward_machine_task_I import *
 As stated in the original paper in Case Study I, the ego agent is required to first reach its own power base, then destroy/reach the adversarial agent’s power base to be the more powerful, and capture
 the adversarial agent afterward. [1]
 
-> **Task I.** Execution on $6x6$ grid, ['up', 'down', 'left', 'right'] actions, uniform(low=0.0001, high=0.001) Q initialization, game.support_enumeration() nash solver and epsilon decay from 0.3 to 0.05. episode [?] visualization
+<p align="center">
+  <img src="https://github.com/Matthew6363/Reinforcement-Learning-exam/blob/main/GAME_VISUALIZATION/Exported_gifs/q_models_task_I_ep16000_simulation.gif" width="300" alt="Descrizione GIF">
+</p>
+
+> **Task I.** Execution on $6x6$ grid, ['up', 'down', 'left', 'right'] actions, uniform(low=0.0001, high=0.001) Q initialization, game.support_enumeration() nash solver and epsilon decay from 0.3 to 0.05. After 16000 episodes learning visualization.
 
 ### Task II
 
@@ -72,12 +76,12 @@ In Case Study II, the required sequential events for the ego agent to be powerfu
   <img src="https://github.com/Matthew6363/Reinforcement-Learning-exam/blob/main/GAME_VISUALIZATION/Exported_gifs/q_models_task_II_ep6500_simulation.gif" width="300" alt="Descrizione GIF">
 </p>
 
-> **Task II.** Execution on $6x6$ grid, ['up', 'down', 'left', 'right'] actions, uniform(low=0.0001, high=0.001) Q initialization, game.support_enumeration() nash solver and epsilon decay from 0.3 to 0.05. episode 6500 visualization 
+> **Task II.** Execution on $6x6$ grid, ['up', 'down', 'left', 'right'] actions, uniform(low=0.0001, high=0.001) Q initialization, game.support_enumeration() nash solver and epsilon decay from 0.3 to 0.05. After 6500 episodes learning visualization.
 
 ### Task III
 Case Study III is different from Case Study II in that the adversarial agent randomly samples the starting location from 2 possible locations. [1]
 
-> **Task III.** Execution on $6x6$ grid, ['up', 'down', 'left', 'right'] actions, uniform(low=0.0001, high=0.001) Q initialization, game.support_enumeration() nash solver and epsilon decay from 0.3 to 0.05. episode [?] visualization 
+> **Task III.** Execution on $6x6$ grid, ['up', 'down', 'left', 'right'] actions, uniform(low=0.0001, high=0.001) Q initialization, game.support_enumeration() nash solver and epsilon decay from 0.3 to 0.05. After [?] episodes learning visualization.
 
 <br/>
 
