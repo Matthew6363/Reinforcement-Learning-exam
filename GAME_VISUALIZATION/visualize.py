@@ -164,7 +164,7 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
         clock.tick(FPS)
 
         if SAVE_GIF:
-            frame_str = pygame.image.tostring(screen, 'RGB')
+            frame_str = pygame.image.tobytes(screen, 'RGB')
             frame_img = Image.frombytes('RGB', screen.get_size(), frame_str)
             frames.append(frame_img)
 
@@ -200,7 +200,7 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
 
 if __name__ == "__main__":
 
-    FILE_NAME = 'q_models_task_II_ep6500'
+    FILE_NAME = 'q_models_task_II_ep1000'
     
     visualize_trained_agents(f"../EXPORT/{FILE_NAME}.npz", 
                              checkpoint=0,
