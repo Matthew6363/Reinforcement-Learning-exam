@@ -1,0 +1,173 @@
+import pygame
+import sys
+import numpy as np
+import os
+
+code_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'CODE'))
+sys.path.append(code_dir)
+
+######### PROBLEM-SPECIFIC REWARD MACHINE and ENV #######################
+#########################################################################
+# We need to generalize the structure for any reward machine. 
+# Having defined the current one of interest, please import it.
+
+from game_parameters import *
+from environment import *
+if   TASK == "task_I":
+    from reward_machine_task_I import *
+elif TASK in ["task_II", "task_III"]:
+    from reward_machine_task_II_and_III import *
+
+task_name_string = TASK # tag which is used in exported files
+
+# Some requirements must be fulfilled: 
+# * Reward_Machine [class]
+# * solve_stage_game [function]
+# View reward_machine_TaskI.py for reference.
+# The environment too has to be tuned in the get_labels function.
+#########################################################################
+
+         
+
+def draw_grid(screen):
+    for x in range(0, WIDTH, CELL_SIZE):
+        pygame.draw.line(screen, GRID_COLOR, (x, 0), (x, HEIGHT))
+    for y in range(0, HEIGHT, CELL_SIZE):
+        pygame.draw.line(screen, GRID_COLOR, (0, y), (WIDTH, y))
+
+def draw_base(screen, pos, color, name):
+    r, c = pos
+    surface = pygame.Surface((CELL_SIZE, CELL_SIZE), pygame.SRCALPHA)
+    pygame.draw.rect(surface, (*color, BASE_ALPHA), (0, 0, CELL_SIZE, CELL_SIZE))
+    screen.blit(surface, (c * CELL_SIZE, r * CELL_SIZE))
+    font = pygame.font.SysFont(None, 48)
+    img = font.render(name, True, color)
+    screen.blit(img, (c * CELL_SIZE + 35, r * CELL_SIZE + 35))
+
+def draw_agent(screen, pos, color):
+    r, c = pos
+    cx = c * CELL_SIZE + CELL_SIZE // 2
+    cy = r * CELL_SIZE + CELL_SIZE // 2
+    
+    size = CELL_SIZE * AGENT_RATIO
+    half_size = size / 2
+    
+    point1 = (cx, cy - half_size)
+    point2 = (cx - half_size, cy + half_size)
+    point3 = (cx + half_size, cy + half_size)
+    
+    points = [point1, point2, point3]
+    pygame.draw.polygon(screen, color, points)
+  
+    
+
+def pos_to_idx(pos): 
+    return pos[0]*6 + pos[1]
+
+
+
+def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz', 
+                             checkpoint=0,
+                             time_waiting=20):
+    
+    ## LOADING Q-tables
+    try:
+        # Load the checkpoint
+        print(f"Loading weights from {model_path}...")
+        
+        models = np.load(model_path)
+        q_ee = models['q_ee']
+        q_ae = models['q_ae']
+        q_ea = models['q_ea']
+        q_aa = models['q_aa']
+
+    except FileNotFoundError:
+        print(f"Error: '{model_path}' not found.")
+        return
+
+    ## START the game
+    pygame.init()
+    screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    pygame.display.set_caption("Visualizing Fully Trained QRM-SG Agents")
+    clock = pygame.time.Clock()
+
+    ## Initialize grid env and RMs + states for game and RM
+    env = PacmanGridWorld()
+    rm_ego = Reward_Machine('ego')
+    rm_adv = Reward_Machine('adv')
+    rm_map = {'start': 0, 'v_1': 1, 'v_2': 2, 'v_3': 3, 'v_end': 4}
+    pos_e, pos_a = env.reset()
+    rm_ego.reset()
+    rm_adv.reset()
+    
+    ## Initial Screen Game Render
+    screen.fill(BG_COLOR)
+    draw_grid(screen)
+    draw_base(screen, env.base_a, ADV_COLOR, "a")
+    draw_base(screen, env.base_e, EGO_COLOR, "e")
+    draw_agent(screen, pos_e, EGO_COLOR) # blue
+    draw_agent(screen, pos_a, ADV_COLOR) # red
+    pygame.display.flip()
+    
+    # Freeze the frame for 1.5 seconds before starting
+    pygame.time.wait(500)
+    
+    
+    for step in range(STEP_NUM):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+        s_e, s_a = pos_to_idx(pos_e), pos_to_idx(pos_a)
+        v_e, v_a = rm_map[rm_ego.state], rm_map[rm_adv.state]
+
+        ## Get the action (thanks to off-policy, we can avoid epsilon randomness)
+        pi_e_ego, pi_a_ego = solve_stage_game(q_ee[s_e, s_a, v_e, v_a], q_ae[s_e, s_a, v_e, v_a])
+        pi_e_adv, pi_a_adv = solve_stage_game(q_ea[s_e, s_a, v_e, v_a], q_aa[s_e, s_a, v_e, v_a])
+        action_a = np.argmax(pi_a_adv)
+        action_e = np.argmax(pi_e_ego)
+
+        ## Get new states and RM current label
+        pos_e, pos_a = env.step(action_e, action_a)
+        labels = env.get_labels()
+        
+        ## Get RM reward thanks to d(current RM state, current label)
+        _, r_e = rm_ego.step(labels)
+        _, r_a = rm_adv.step(labels)
+
+        ## Render this
+        screen.fill(BG_COLOR)
+        draw_grid(screen)
+        draw_base(screen, env.base_a, ADV_COLOR, "a")
+        draw_base(screen, env.base_e, EGO_COLOR, "e")
+        draw_agent(screen, pos_e, EGO_COLOR)
+        draw_agent(screen, pos_a, ADV_COLOR)
+        pygame.display.flip()
+        clock.tick(FPS)
+
+        ## Is this the last step? (i.e. Has someone won?)
+        if rm_ego.state == 'v_end' or rm_adv.state == 'v_end':
+            if r_e > 0:
+                print("Ego Agent Won!")
+            elif r_a > 0:
+                print("Adv Agent Won!")
+            else:
+                print("Game Over (Draw)")
+                
+            pygame.time.wait(time_waiting)
+            break
+            
+        # Check if they just physically crashed into each other early
+        # elif 'collision' in labels:
+        #     print("Premature Collision (Draw).")
+        #     pygame.time.wait(1000)
+        #     break
+    pygame.quit()
+
+
+
+if __name__ == "__main__":
+    visualize_trained_agents('../EXPORT/q_models.npz', 
+                             checkpoint=0,
+                             time_waiting=20)

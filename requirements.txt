@@ -5,3 +5,5 @@ nashpy
 scikit-learn 
 matplotlib 
 plotly
+pygame
+pygame-ce
