@@ -356,7 +356,7 @@ def train_qrm_sg(total_episodes=1000,
     adv_w     = adv_arr.mean(axis=1)
 
     fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(9, 6), sharex=True)
-    fig.suptitle("Task II", fontsize=13)
+    fig.suptitle("Task III", fontsize=13)
 
     ax1.plot(x_plot, ego_w, color='black', linestyle='--', linewidth=1.5, label='QRM-SG')
     ax1.set_ylabel("Reward of Ego Agent")

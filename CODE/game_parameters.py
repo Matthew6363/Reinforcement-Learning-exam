@@ -1,7 +1,7 @@
 import numpy as np
 ### [[ GLOBAL PARAMS ]]
 DEBUG = False
-TASK = "task_II"
+TASK = "task_III"
 TASK_III_EPSILON = 0.5
 
 ### [[ GRID and game WORD PARAMS ]]
@@ -60,7 +60,7 @@ HEIGHT = CELL_SIZE * GRID_H
 MARGIN = 40
 WINDOW_W = WIDTH + MARGIN * 2
 WINDOW_H = HEIGHT + MARGIN * 2
-FPS = 1 # Slowed down slightly so you can watch them clearly
+FPS = 30 # Slowed down slightly so you can watch them clearly
 
 BG_COLOR = (250, 250, 250)
 GRID_COLOR = (60, 60, 60)
