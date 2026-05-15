@@ -41,7 +41,7 @@ def draw_base(screen, pos, color, name):
     pygame.draw.rect(surface, (*color, BASE_ALPHA), (0, 0, CELL_SIZE, CELL_SIZE))
     screen.blit(surface, (c * CELL_SIZE + MARGIN, r * CELL_SIZE + MARGIN))
     
-    font = pygame.font.SysFont(None, 48)
+    font = pygame.font.Font(None, 48)
     img = font.render(name, True, color)
     text_rect = img.get_rect(center=(c * CELL_SIZE + CELL_SIZE // 2 + MARGIN, 
                                      r * CELL_SIZE + CELL_SIZE // 2 + MARGIN))
@@ -162,15 +162,15 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
             break
             
         # Check if they just physically crashed into each other early
-        # elif 'collision' in labels:
-        #     print("Premature Collision (Draw).")
-        #     pygame.time.wait(1000)
-        #     break
-    pygame.quit()
+        elif 'collision' in labels:
+             print("Premature Collision (Draw).")
+             pygame.time.wait(1000)
+             break
 
+    pygame.quit()
 
 
 if __name__ == "__main__":
     visualize_trained_agents('../EXPORT/q_models.npz', 
                              checkpoint=0,
-                             time_waiting=20)
+                             time_waiting=3000)
