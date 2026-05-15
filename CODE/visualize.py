@@ -146,5 +146,5 @@ if __name__ == "__main__":
     
     # 1. Watch the early naive strategy (Before the pitfall)
     for i in range(1,76): 
-        visualize_trained_agents(f'../EXPORT/q_models_ep{i*100}.npz')
+        visualize_trained_agents('../EXPORT/q_models.npz', num_episodes=5)
     

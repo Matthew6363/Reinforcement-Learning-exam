@@ -13,8 +13,12 @@ from game_parameters import * # get all env parameters
 # We need to generalize the structure for any reward machine. 
 # Having defined the current one of interest, please import it.
 
-from reward_machine_task_I import *
 from environment import *
+if   TASK == "task_I":
+    from reward_machine_task_I import *
+elif TASK in ["task_II", "task_III"]:
+    from reward_machine_task_II_and_III import *
+
 task_name_string = TASK # tag which is used in exported files
 
 # Some requirements must be fulfilled: 
