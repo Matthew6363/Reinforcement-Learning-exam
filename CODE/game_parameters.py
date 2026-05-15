@@ -1,7 +1,7 @@
 import numpy as np
 ### [[ GLOBAL PARAMS ]]
 DEBUG = False
-TASK = "task_II"
+TASK = "task_I"
 TASK_III_EPSILON = 0.5
 
 ### [[ GRID and game WORD PARAMS ]]
