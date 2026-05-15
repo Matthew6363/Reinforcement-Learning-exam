@@ -12,7 +12,7 @@ DEBUG = False
 
 
 def log_error_to_file(error_msg, q_e=None, q_a=None):
-    with open("../LOGs/log_error.txt", "a") as f:
+    with open("../LOGs/log_error_II.txt", "a") as f:
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         f.write(f"[{timestamp}] ERROR: {error_msg}\n")
         if q_e is not None:

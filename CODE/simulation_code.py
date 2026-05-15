@@ -13,7 +13,8 @@ from game_parameters import * # get all env parameters
 # We need to generalize the structure for any reward machine. 
 # Having defined the current one of interest, please import it.
 
-from reward_machine_task_I import *
+#from reward_machine_task_I import *
+from reward_machine_task_II_and_III import *
 from environment import *
 task_name_string = TASK # tag which is used in exported files
 
@@ -82,7 +83,8 @@ def train_qrm_sg(total_episodes=1000,
 
 
     ## Define the map between RM states and its indexes.
-    rm_states_map    = {'start': 0, 'v_1': 1, 'v_2': 2, 'v_3': 3, 'v_end': 4}
+    #rm_states_map    = {'start': 0, 'v_1': 1, 'v_2': 2, 'v_3': 3, 'v_end': 4}
+    rm_states_map    = {'start': 0, 'v_1': 1, 'v_2': 2, 'v_3': 3, 'v_4': 4, 'v_end': 5}
     rm_states = list(rm_states_map.keys())   # used for counterfactual loop
 
 
@@ -199,8 +201,7 @@ def train_qrm_sg(total_episodes=1000,
                     nu_a = rm_states_map[next_u_a_str]
                     
                     is_terminal = (next_u_e_str == 'v_end' or
-                                   next_u_a_str == 'v_end' or
-                                   'collision' in labels)
+                                   next_u_a_str == 'v_end') # removed prematue collisio terminal state
 
                     ## .................................................... ##
                     ## Define the discontued cumulative reward of this case ##
@@ -320,6 +321,11 @@ def train_qrm_sg(total_episodes=1000,
             successes = 0
             adv_wins = 0
             collisions_cnt = 0
+        
+        # Save every 500 episodes (change to 100 if you want every single step)
+        if episode % 500 == 0:
+            ckpt_path = f'../EXPORT/q_models_{task_name_string}_ep{episode}.npz'
+            np.savez(ckpt_path, q_ee=q_ee, q_ae=q_ae, q_ea=q_ea, q_aa=q_aa)
 
 
 
@@ -342,7 +348,7 @@ def train_qrm_sg(total_episodes=1000,
     adv_w     = adv_arr.mean(axis=1)
 
     fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(9, 6), sharex=True)
-    fig.suptitle("Task I", fontsize=13)
+    fig.suptitle("Task II", fontsize=13)
 
     ax1.plot(x_plot, ego_w, color='black', linestyle='--', linewidth=1.5, label='QRM-SG')
     ax1.set_ylabel("Reward of Ego Agent")

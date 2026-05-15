@@ -2,7 +2,7 @@ import pygame
 import sys
 import numpy as np
 from environment import PacmanGridWorld
-from reward_machine_task_I import *
+from reward_machine_task_II_and_III import *
 from game_parameters import *
 # --- PYGAME CONFIG ---
 CELL_SIZE = 100
@@ -63,7 +63,8 @@ def visualize_trained_agents(model_path='../EXPORT/q_models.npz', num_episodes=1
     env = PacmanGridWorld()
     rm_ego = Reward_Machine('ego')
     rm_adv = Reward_Machine('adv')
-    rm_map = {'start': 0, 'v_1': 1, 'v_2': 2, 'v_3': 3, 'v_end': 4}
+    #rm_map = {'start': 0, 'v_1': 1, 'v_2': 2, 'v_3': 3, 'v_end': 4}
+    rm_map = {'start': 0, 'v_1': 1, 'v_2': 2, 'v_3': 3, 'v_4': 4, 'v_end':5}
 
     for episode in range(1, num_episodes + 1):
         pos_e, pos_a = env.reset()
@@ -144,7 +145,15 @@ if __name__ == "__main__":
     # Change the filename here to watch different stages of learning
     
     
-    # 1. Watch the early naive strategy (Before the pitfall)
-    for i in range(1,76): 
-        visualize_trained_agents(f'../EXPORT/q_models_ep{i*100}.npz')
+    task_name = "task_II" 
+    
+    # Loop from episode 500 to 16000, stepping by 500
+    for ep in range(500, 16001, 500): 
+        file_path = f'../EXPORT/q_models_{task_name}_ep{ep}.npz'
+        
+        print(f"\n====================================")
+        print(f" WATCHING TRAINING EPISODE: {ep}")
+        print(f"====================================")
+        
+        visualize_trained_agents(file_path, num_episodes=1)
     

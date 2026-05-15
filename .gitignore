@@ -5,3 +5,8 @@ codice_bello_claude.py
 #*.png
 QSGRM_env
 CODE/__pycache__
+EXPORT/q_models_*
+eval_results_task_II.npz
+
+LOGs/log_error_II.txt
+CODE/__pycache__/environment.cpython-313.pyc
