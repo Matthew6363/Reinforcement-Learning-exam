@@ -37,11 +37,12 @@ def draw_grid(screen):
 
 def draw_base(screen, pos, color, name):
     r, c = pos
-    surface = pygame.Surface((CELL_SIZE, CELL_SIZE), pygame.SRCALPHA)
-    pygame.draw.rect(surface, (*color, BASE_ALPHA), (0, 0, CELL_SIZE, CELL_SIZE))
+    surface = pygame.Surface((CELL_SIZE, CELL_SIZE), pygame.SRCALPHA)    
+    center_on_surface = (CELL_SIZE // 2, CELL_SIZE // 2)
+    radius = CELL_SIZE // 4
+    pygame.draw.circle(surface, (*color, BASE_ALPHA), center_on_surface, radius)
     screen.blit(surface, (c * CELL_SIZE + MARGIN, r * CELL_SIZE + MARGIN))
-    
-    font = pygame.font.Font(None, 48)
+    font = pygame.font.Font(None, 30)
     img = font.render(name, True, color)
     text_rect = img.get_rect(center=(c * CELL_SIZE + CELL_SIZE // 2 + MARGIN, 
                                      r * CELL_SIZE + CELL_SIZE // 2 + MARGIN))
@@ -62,6 +63,8 @@ def draw_agent(screen, pos, color):
     
     points = [point1, point2, point3]
     pygame.draw.polygon(screen, color, points)
+    black_color = (0, 0, 0)
+    pygame.draw.polygon(screen, black_color, points, 3)
 
 
 def pos_to_idx(pos): 
