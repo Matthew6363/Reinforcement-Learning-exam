@@ -88,8 +88,11 @@ def train_qrm_sg(total_episodes=1000,
 
 
     ## Define the map between RM states and its indexes.
-    #rm_states_map    = {'start': 0, 'v_1': 1, 'v_2': 2, 'v_3': 3, 'v_end': 4}
-    rm_states_map    = {'start': 0, 'v_1': 1, 'v_2': 2, 'v_3': 3, 'v_4': 4, 'v_end': 5}
+    if TASK == "task_I":
+        rm_map = {'start': 0, 'v_1': 1, 'v_2': 2, 'v_3': 3, 'v_end': 4}
+    elif TASK in ["task_II", "task_III"]:
+        rm_map = {'start': 0, 'v_1': 1, 'v_2': 2, 'v_3': 3, 'v_4': 4, 'v_end': 5} 
+        
     rm_states = list(rm_states_map.keys())   # used for counterfactual loop
 
 
