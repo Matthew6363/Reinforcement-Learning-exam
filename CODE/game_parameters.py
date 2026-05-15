@@ -21,6 +21,7 @@ if TASK == "task_I" or TASK == 'task_II':
     BASE_adv_coord = (0,5) # (1,4) 
     START_ego = (0,3) # (5,0)
     START_adv = (5,0) # (0,3)
+
 ## Add other cases for additional tasks or user defined problems
 if TASK == "task_III":
     GRID_W = 6
@@ -44,6 +45,7 @@ GAMMA = 0.9
 ALPHA = 0.1
 FAIL_RATE = 0.005
 EPISODES = 9000
+TASK_III_EPSILON = 0.5
 STEP_NUM = 9999 # the max time allowed. Has to be high, since by paper we have to end on v_end only
 START_EPSILON = 0.25 # Epsilon decays from 0.25 → 0.05 over the first 80% of training,
                     # then stays fixed. This lets exploitation gradually take over.

@@ -16,6 +16,11 @@ from game_parameters import * # get all env parameters
 #from reward_machine_task_I import *
 from reward_machine_task_II_and_III import *
 from environment import *
+if   TASK == "task_I":
+    from reward_machine_task_I import *
+elif TASK in ["task_II", "task_III"]:
+    from reward_machine_task_II_and_III import *
+
 task_name_string = TASK # tag which is used in exported files
 
 # Some requirements must be fulfilled: 
