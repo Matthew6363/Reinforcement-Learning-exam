@@ -86,7 +86,7 @@ def train_qrm_sg(total_episodes=1000,
     q_aa = initialize_q_function(q_shape, strategy=q_init_strategy)
     q_ea = initialize_q_function(q_shape, strategy=q_init_strategy)
 
-
+    rm_states_map = {} 
     ## Define the map between RM states and its indexes.
     if TASK == "task_I":
         rm_map = {'start': 0, 'v_1': 1, 'v_2': 2, 'v_3': 3, 'v_end': 4}
