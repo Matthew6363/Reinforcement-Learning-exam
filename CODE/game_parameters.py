@@ -1,7 +1,7 @@
 import numpy as np
 ### [[ GLOBAL PARAMS ]]
 DEBUG = False
-TASK = "task_I"
+TASK = "task_II"
 TASK_III_EPSILON = 0.5
 
 ### [[ GRID and game WORD PARAMS ]]
@@ -12,7 +12,7 @@ if TASK == "task_I" or TASK == 'task_II':
     STR_ACTIONS = ['up', 'down', 'left', 'right']
     ACTIONS = [0,1,2,3]
 
-    if TASK == "task_I":
+    if TASK == "task_III":
         Q_SHAPE = (36, 36, 5, 5, 4, 4) # Q-table shape
     
     else: Q_SHAPE = (36, 36, 6, 6, 4, 4) # Q_table shape for task II and III
@@ -34,10 +34,7 @@ if TASK == "task_III":
     BASE_ego_coord = (1,4) # (0,5)
     BASE_adv_coord = (0,5) # (1,4) 
     START_ego = (0,3) # (5,0)
-    if np.random.rand() > TASK_III_EPSILON : 
-        START_adv =(5,0)
-    else: 
-        START_adv = (5,1)
+    START_adv =(5,0)
 
 
 ### [[ Solver Specific parameters QSG-RM ]]
