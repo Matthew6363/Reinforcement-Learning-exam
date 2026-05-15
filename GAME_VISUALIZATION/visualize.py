@@ -151,6 +151,11 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
         pygame.display.flip()
         clock.tick(FPS)
 
+        if SAVE_GIF:
+            frame_str = pygame.image.tobytes(screen, 'RGB')
+            frame_img = Image.frombytes('RGB', screen.get_size(), frame_str)
+            frames.append(frame_img)
+
         ## Get the action (thanks to off-policy, we can avoid epsilon randomness)
         pi_e_ego, pi_a_ego = solve_stage_game(q_ee[s_e, s_a, v_e, v_a], q_ae[s_e, s_a, v_e, v_a])
         pi_e_adv, pi_a_adv = solve_stage_game(q_ea[s_e, s_a, v_e, v_a], q_aa[s_e, s_a, v_e, v_a])
@@ -166,30 +171,31 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
         _, r_a = rm_adv.step(labels)
         
 
-        ## Render this
-        screen.fill(BG_COLOR)
-        draw_grid(screen)
-        draw_base(screen, env.base_a, ADV_COLOR, "A")
-        draw_base(screen, env.base_e, EGO_COLOR, "E")
-        draw_agent(screen, pos_e, EGO_COLOR)
-        draw_agent(screen, pos_a, ADV_COLOR)
-        pygame.display.flip()
-        clock.tick(FPS)
-
-        if SAVE_GIF:
-            frame_str = pygame.image.tobytes(screen, 'RGB')
-            frame_img = Image.frombytes('RGB', screen.get_size(), frame_str)
-            frames.append(frame_img)
-
         ## Is this the last step? (i.e. Has someone won?)
         if rm_ego.state == 'v_end' or rm_adv.state == 'v_end':
+
+            ## Rendering (include first case)
+            screen.fill(BG_COLOR)
+            draw_grid(screen)
+            draw_base(screen, env.base_a, ADV_COLOR, "A")
+            draw_base(screen, env.base_e, EGO_COLOR, "E")
+            draw_agent(screen, pos_e, EGO_COLOR)
+            draw_agent(screen, pos_a, ADV_COLOR)
+            pygame.display.flip()
+            clock.tick(FPS)
+            
             if r_e > 0:
                 print("Ego Agent Won!")
             elif r_a > 0:
                 print("Adv Agent Won!")
             else:
                 print("Game Over (Draw)")
-                
+
+            if SAVE_GIF:
+                frame_str = pygame.image.tobytes(screen, 'RGB')
+                frame_img = Image.frombytes('RGB', screen.get_size(), frame_str)
+                frames.append(frame_img)
+            
             pygame.time.wait(time_waiting)
             break
             
@@ -198,12 +204,12 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
              print("Premature Collision (Draw).")
              pygame.time.wait(1000)
              break
-
+    
     if SAVE_GIF:
         frame_duration = int(1000 / FPS)     
         frames[0].save(f'./Exported_gifs/{FILE_NAME}_simulation.gif', 
                     format='GIF',
-                    append_images=frames[1:],
+                    append_images=frames[0:],
                     save_all=True,
                     duration=frame_duration,
                     loop=0) # inf loop
@@ -214,6 +220,7 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
 if __name__ == "__main__":
 
     FILE_NAME = 'q_models_task_II_ep6500'
+    #FILE_NAME = 'q_models_task_I_ep16000'
     
     visualize_trained_agents(f"../EXPORT/{FILE_NAME}.npz", 
                              checkpoint=0,
