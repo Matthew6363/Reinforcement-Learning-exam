@@ -42,7 +42,7 @@ if TASK == "pacman":
     STR_ACTIONS = ['up', 'down', 'left', 'right']
     ACTIONS = [0,1,2,3]
 
-    Q_SHAPE = (36, 36, 6, 6, 4, 4) # Q-table shape
+    Q_SHAPE = (36, 36, 4, 4, 4, 4) # Q-table shape
 
     BASE_ego_coord = (0,5)
     BASE_adv_coord = None

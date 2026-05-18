@@ -87,7 +87,7 @@ class Reward_Machine():
         return next_state, reward
         
     
-    def step(self, labels):
+    def step(self, labels, use_mini_rewards = False):
         '''
         Function to perform a movement in the RM. We do initialize the reward at zero (it's the baseline
         for any non-relevant game steps) and we do define the RM as game requires. 
@@ -108,76 +108,33 @@ class Reward_Machine():
 
         if self.state == 'start': # If the agent is in the RM starting state...
 
-            # If the agent is in power_e and not in power_a, then we're in the state v1
-            if 'power_e' in labels and 'power_a' not in labels:
+            # If the agent is in power_e, then we're in the state v1 
+            if 'power_e' in labels:
                 self.state = 'v_1'
-                #if self.agent_type == 'ego': reward = 0.1 # Breadcrumb for Ego
             
             # otherwise, if in power_a and not in power_e, we're in v2
-            elif 'power_a' in labels and 'power_e' not in labels:
-                self.state = 'v_2'
-                #if self.agent_type == 'adv': reward = 0.1 # Breadcrumb for Adv
+            elif "collision" in labels:
+                self.state = 'v_end'
+                if self.agent_type == 'adv': reward = 1.0
+
+            ## Case: all dots collected
+            elif 'all_visited' in labels:
+                self.state = 'v_win'
+                if self.agent_type == 'ego': reward = 1.0 # Breadcrumb for Ego
                 
         ## State: v_1 (currently, Ego > Adv)
-        #  We enter here if we were not in the (RM) starting state with our agent;
-        #  we might get different outcomes based on the followed edge (based on "l" again)
-        # 
-        #  Remember that if we're here, this means that for now Ego > Adv since it's gone to 
-        #  its base and it was currently on it. However, this is not immutable, and some cases 
-        #  might occur afterwards:
-        #  -> the ego doesn't leave its powerbase, but the Adv too reaches its one => it's the start
-        #  -> the ego leaves and the Adv goes to its own: it's now the most powerful => v2
-        #     (remember that the most powerful is the one going later to its powerbase)
-        #  And the most important one:
-        #  -> the ego in v1 is the most powerful until something as above appens. If the Adv 
-        #     doesn't ever go in its power base, then the ego is still the most powerful
-        #     and has the possibility to destroy the Adv power base too => v3
         elif self.state == 'v_1':
             
             ## Case: Both to the relative power base...  both powerful, i.e back to start
-            if 'power_a' in labels and 'power_e' in labels:
-                self.state = 'start'
-            
-            ## Case: Becoming Adv > Ego 
-            elif 'power_a' in labels and 'power_e' not in labels:
-                self.state = 'v_2' 
-                # i.e Adv steals power to Ego, 
-                # because it has gone most recently to its power base
-
-            ## Case: Ego breaks Adv powerbase
-            elif 'ego_at_base_a' in labels and 'power_a' not in labels:
-                self.state = 'v_3' # Ego destroys Adv base (and there's no way back)
-                #if self.agent_type == 'ego': reward = 0.5 # Big breadcrumb!
-    
-        ## State: v_2 (currently, Adv > Ego)
-        #  The same as above, but mirrored here. However, notice that the 
-        #  Adv agent DOESN'T have the power to destroy the Ego powerbase, so the case is not
-        #  present. It only can occur that the Adv (when more powerful) collides with the 
-        #  ego, making it lose.
-        elif self.state == 'v_2':
-            ## Case: Becoming Ego > Adv
-            if 'power_e' in labels and 'power_a' not in labels:
-                self.state = 'v_1' # Ego steals power
-
-            ## Case: Both on relative power base... back to start
-            elif 'power_a' in labels and 'power_e' in labels:
-                self.state = 'start'
-            
-            ## Case: Adv wins!
-            elif 'collision' in labels and 'power_e' not in labels:
-                self.state = 'v_end'
-                if self.agent_type == 'adv': reward = 1.0 # Adv wins
-                # else, still zero
-                
-        # State: Adv base destroyed, Ego ready to capture
-        elif self.state == 'v_3':
             if 'collision' in labels:
-                self.state = 'v_end'
-                if self.agent_type == 'ego': reward = 1.0 # Ego wins
-                # else, still zero
-
-        ### After any case, we end up here, with the correspondent inner state and reward
-        #   between 0 and +1, depending on the point of view.
+                self.state = 'start'
+                if use_mini_rewards:
+                    if self.agent_type == 'ego': reward = 0.1 # Breadcrumb for Ego
+            
+            if 'all_visited' in labels:
+                self.state = 'v_win'
+                if self.agent_type == 'ego': reward = 1.0 # Breadcrumb for Ego
+            
         return self.state, reward            
             
 

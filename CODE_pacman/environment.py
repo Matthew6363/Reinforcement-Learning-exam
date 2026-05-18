@@ -49,14 +49,13 @@ class PacmanGridWorld:
         self.pos_a = self.start_pos_a
         self.pos_e = starting_pos_ego
 
-        if TASK == "pacmac":
-            ## Create the dot list position to visit
-            self.exclude_states = {self.start_pos_a, self.start_pos_e, self.power_e}
-            self.to_visit = [
-                (i, j)
-                for i in range(WINDOW_W)
-                for j in range(WINDOW_H)
-                if (i, j) not in set(self.exclude_states)
+        ## Create the dot list position to visit
+        self.exclude_states = {self.start_pos_a, self.start_pos_e, self.base_e}
+        self.to_visit = [
+            (i, j)
+            for i in range(WINDOW_W)
+            for j in range(WINDOW_H)
+            if (i, j) not in set(self.exclude_states)
             ]
             
         
@@ -75,7 +74,6 @@ class PacmanGridWorld:
         Respawn the Adv at is base, but leave the Ego position unchanged
         '''
         self.pos_e = self.start_pos_e
-
         return self.pos_e, self.pos_a
 
     def move(self, pos, action, ego_pov = False):
@@ -117,7 +115,7 @@ class PacmanGridWorld:
 
         ## Case: we're the ego, we've moved and the reached position is the one
         ## of the Adv start. No movement allowed there
-        if (r, c) == self.start_pos_a and not is_ego:
+        if (r, c) == self.start_pos_a and not ego_pov:
             return pos
 
         # Now, return the position of the grid which is found        
@@ -161,7 +159,7 @@ class PacmanGridWorld:
         
         if ego_move_chance > self.fail_rate:
             # then action is executed, the agent moves
-            self.pos_e = self.move(self.pos_e, action_e)
+            self.pos_e = self.move(self.pos_e, action_e, ego_pov = True)
         
         # return the reached position.
         return self.pos_e, self.pos_a

@@ -14,7 +14,6 @@ from game_parameters import * # get all env parameters
 # Having defined the current one of interest, please import it.
 
 #from reward_machine_task_I import *
-from reward_machine_task_II_and_III import *
 from environment import *
 if   TASK == "task_I":
     from reward_machine_task_I import *
@@ -94,7 +93,8 @@ def train_qrm_sg(total_episodes=1000,
         rm_states_map = {'start': 0, 'v_1': 1, 'v_2': 2, 'v_3': 3, 'v_end': 4}
     elif TASK in ["task_II", "task_III"]:
         rm_states_map = {'start': 0, 'v_1': 1, 'v_2': 2, 'v_3': 3, 'v_4': 4, 'v_end': 5} 
-        
+    elif TASK in "pacman":
+        rm_states_map = {'start': 0, 'v_1': 1, 'v_win': 2, 'v_end': 3} 
     rm_states = list(rm_states_map.keys())   # used for counterfactual loop
 
 
@@ -170,6 +170,8 @@ def train_qrm_sg(total_episodes=1000,
             ## Get the translation of the step for the RM 
             labels = env.get_labels()
 
+
+
             ## Get the next reached state in the game by the two players
             next_state_e, next_state_a = pos_to_idx(next_pos_e), pos_to_idx(next_pos_a)
             # These are needed to get future knowledge
@@ -180,6 +182,7 @@ def train_qrm_sg(total_episodes=1000,
             #  update the core of QRM-SG: the table. To do this, we need to consider the RM.
             #  Notice we've still no performed the movement from the RM and retrieved the current
             #  reward.
+
 
             ## ......................... ##
             ## Counterfactual RM updates ##
@@ -286,7 +289,14 @@ def train_qrm_sg(total_episodes=1000,
             ## .......................................... ##
                  
             ## Set the current pos of the RM as the one reached
-            pos_e, pos_a = next_pos_e, next_pos_a
+            if next_state_a == "start":
+                ## If we are at the beginning of the game OR if there has been a 
+                # collision between the powered Ego and the Adv (i.e. we're in the
+                # reward machine state v1) then the Adv has to go back to its start 
+                # (game) state
+                pos_e, pos_a = env.respawn()
+            else:
+                pos_e, pos_a = next_pos_e, next_pos_a
             
             ## Set the current pos in the game as the one reached
             state_e, state_a = next_state_e, next_state_a
