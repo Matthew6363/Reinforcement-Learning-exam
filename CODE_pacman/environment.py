@@ -81,7 +81,7 @@ class PacmanGridWorld:
         '''
         Respawn the Adv at is base, but leave the Ego position unchanged
         '''
-        self.pos_e = self.start_pos_e
+        self.pos_a = self.start_pos_a
         return self.pos_e, self.pos_a
 
     def move(self, pos, action, ego_pov = False):
@@ -123,7 +123,7 @@ class PacmanGridWorld:
 
         ## Case: we're the ego, we've moved and the reached position is the one
         ## of the Adv start. No movement allowed there
-        if (r, c) == self.start_pos_a and not ego_pov:
+        if (r, c) == self.start_pos_a and ego_pov:
             return pos
 
         # Now, return the position of the grid which is found        

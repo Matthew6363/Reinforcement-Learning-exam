@@ -213,9 +213,9 @@ def train_qrm_sg(total_episodes=1000,
                     nu_e = rm_states_map[next_u_e_str]
                     nu_a = rm_states_map[next_u_a_str]
                     
-                    is_terminal = (next_u_e_str == 'v_end' or
-                                   next_u_a_str == 'v_end') # removed prematue collisio terminal state
-
+                    is_terminal = (next_u_e_str == 'v_end' or next_u_a_str == 'v_end' or 
+                           next_u_e_str == 'v_win' or next_u_a_str == 'v_win')
+                    
                     ## .................................................... ##
                     ## Define the discontued cumulative reward of this case ##
                     ## .................................................... ##
