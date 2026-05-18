@@ -49,7 +49,7 @@ if TASK == "pacman":
     START_ego = (4,4) # (5,0)
     START_adv =(5,0)
 
-    INTERM_REWARD = 0.1
+    INTERM_REWARD = 0.05
 
 ### [[ Solver Specific parameters QSG-RM ]]
 LEMKE_HOWSON = False

@@ -122,6 +122,10 @@ class Reward_Machine():
                 self.state = 'v_2'
                 if use_mini_rewards:
                     if self.agent_type == 'ego': reward = INTERM_REWARD # Breadcrumb for Ego
+            
+            elif 'all_visited' in labels:
+                self.state = 'v_win'
+                if self.agent_type == 'ego': reward = 1.0
                 
         ## State: v_2
         elif self.state == 'v_2':

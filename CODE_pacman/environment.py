@@ -195,7 +195,6 @@ class PacmanGridWorld:
         # Case: Ego has taken all dots
         if self.to_visit == []:
             labels.add('all_visited')
-            print("WIN!")
         
         # Case: Dot taken
         if self.last_number_dots_remaining > len(self.to_visit):

@@ -296,8 +296,10 @@ def train_qrm_sg(total_episodes=1000,
                     # reward machine state v1) then the Adv has to go back to its start 
                     # (game) state
                     pos_e, pos_a = env.respawn()
-            else:
-                pos_e, pos_a = next_pos_e, next_pos_a
+                else:
+                    adv_wins +=1 
+                    break
+                # pos_e, pos_a = next_pos_e, next_pos_a
             
             ## Set the current pos in the game as the one reached
             state_e, state_a = next_state_e, next_state_a
