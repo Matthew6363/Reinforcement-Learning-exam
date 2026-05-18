@@ -139,7 +139,7 @@ class Reward_Machine():
             
             if 'collision' in labels:
                 self.state = 'v_end'
-                if self.agent_type == 'adv': reward = 1 # Breadcrumb for Ego
+                if self.agent_type == 'adv': reward = 1.0 # Breadcrumb for Ego
 
         ## State: v_1 (currently, Ego > Adv)
         elif self.state == 'v_1':
@@ -154,6 +154,8 @@ class Reward_Machine():
             
             if 'collision' in labels:
                 self.state = 'v_2'
+                if use_mini_rewards:
+                    if self.agent_type == 'ego': reward = INTERM_REWARD
             
             
         return self.state, reward            

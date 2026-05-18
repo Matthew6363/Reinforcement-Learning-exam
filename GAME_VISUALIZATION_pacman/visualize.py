@@ -203,8 +203,10 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
         _, r_a = rm_adv.step(labels)
         
 
+        is_terminal = (rm_ego == 'v_win')
+
         ## Is this the last step? (i.e. Has someone won?)
-        if rm_ego.state == 'v_end' or rm_adv.state == 'v_end':
+        if is_terminal: #rm_ego.state == 'v_end' or rm_adv.state == 'v_end':
 
             ## Rendering (include first case)
             screen.fill(BG_COLOR)
@@ -233,10 +235,6 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
             break
             
         # Check if they just physically crashed into each other early
-        elif 'collision' in labels:
-             print("Premature Collision (Draw).")
-             pygame.time.wait(1000)
-             break
     
     if SAVE_GIF:
         frame_duration = int(1000 / FPS)     
@@ -255,7 +253,7 @@ if __name__ == "__main__":
 
     #FILE_NAME = 'q_models_task_II_ep6500'
     #FILE_NAME = 'q_models_task_I_ep16000'
-    FILE_NAME = 'q_models_pacman_ep2500'
+    FILE_NAME = 'q_models_pacman_ep16000'
     
     visualize_trained_agents(f"../EXPORT/{FILE_NAME}.npz", 
                              checkpoint=0,

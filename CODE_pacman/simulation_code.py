@@ -289,12 +289,13 @@ def train_qrm_sg(total_episodes=1000,
             ## .......................................... ##
                  
             ## Set the current pos of the RM as the one reached
-            if next_state_a == "start":
-                ## If we are at the beginning of the game OR if there has been a 
-                # collision between the powered Ego and the Adv (i.e. we're in the
-                # reward machine state v1) then the Adv has to go back to its start 
-                # (game) state
-                pos_e, pos_a = env.respawn()
+            if "collision" in labels:
+                if v_e == rm_states_map["v_1"]:
+                    ## If we are at the beginning of the game OR if there has been a 
+                    # collision between the powered Ego and the Adv (i.e. we're in the
+                    # reward machine state v1) then the Adv has to go back to its start 
+                    # (game) state
+                    pos_e, pos_a = env.respawn()
             else:
                 pos_e, pos_a = next_pos_e, next_pos_a
             
