@@ -87,7 +87,7 @@ class Reward_Machine():
         return next_state, reward
         
     
-    def step(self, labels, use_mini_rewards = False):
+    def step(self, labels, use_mini_rewards = True):
         '''
         Function to perform a movement in the RM. We do initialize the reward at zero (it's the baseline
         for any non-relevant game steps) and we do define the RM as game requires. 
@@ -153,7 +153,7 @@ class Reward_Machine():
                     if self.agent_type == 'ego': reward = INTERM_REWARD # Breadcrumb for Ego
             
             if 'collision' in labels:
-                self.state = 'start'
+                self.state = 'v_2'
             
             
         return self.state, reward            

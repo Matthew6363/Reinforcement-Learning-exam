@@ -53,8 +53,8 @@ class PacmanGridWorld:
         self.exclude_states = {self.start_pos_a, self.start_pos_e, self.base_e}
         self.to_visit = [
             (i, j)
-            for i in range(WINDOW_W)
-            for j in range(WINDOW_H)
+            for i in range(self.grid_size[0])
+            for j in range(self.grid_size[1])
             if (i, j) not in set(self.exclude_states)
             ]
         self.last_number_dots_remaining = len(self.to_visit)
@@ -66,6 +66,14 @@ class PacmanGridWorld:
         '''
         self.pos_a = self.start_pos_a
         self.pos_e = self.start_pos_e
+
+        self.to_visit = [
+            (i, j)
+            for i in range(self.grid_size[0])
+            for j in range(self.grid_size[1])
+            if (i, j) not in set(self.exclude_states)
+        ]
+        self.last_number_dots_remaining = len(self.to_visit)
 
         return self.pos_e, self.pos_a
 
@@ -115,8 +123,8 @@ class PacmanGridWorld:
 
         ## Case: we're the ego, we've moved and the reached position is the one
         ## of the Adv start. No movement allowed there
-        #if (r, c) == self.start_pos_a and not ego_pov:
-        #    return pos
+        if (r, c) == self.start_pos_a and not ego_pov:
+            return pos
 
         # Now, return the position of the grid which is found        
         return (r,c)
@@ -161,6 +169,10 @@ class PacmanGridWorld:
             # then action is executed, the agent moves
             self.pos_e = self.move(self.pos_e, action_e, ego_pov = True)
         
+        self.last_number_dots_remaining = len(self.to_visit)
+        if self.pos_e in self.to_visit:
+            self.to_visit.remove(self.pos_e)
+
         # return the reached position.
         return self.pos_e, self.pos_a
     
@@ -186,7 +198,7 @@ class PacmanGridWorld:
             print("WIN!")
         
         # Case: Dot taken
-        if self.last_number_dots_remaining < len(self.to_visit):
+        if self.last_number_dots_remaining > len(self.to_visit):
             labels.add('dot_taken')
 
         
