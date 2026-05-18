@@ -138,7 +138,8 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
             for j in range(WINDOW_H)
             if (i, j) not in set(env.exclude_states)
     ]
-    rm_map = {'start': 0, 'v_1': 1, 'v_win': 2, 'v_end': 3}
+    
+    rm_map = {'start': 0, 'v_1': 1, 'v_2': 2,'v_win': 3, 'v_end': 4} 
     
     pos_e, pos_a = env.reset()
     rm_ego.reset()

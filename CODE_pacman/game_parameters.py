@@ -42,22 +42,24 @@ if TASK == "pacman":
     STR_ACTIONS = ['up', 'down', 'left', 'right']
     ACTIONS = [0,1,2,3]
 
-    Q_SHAPE = (36, 36, 4, 4, 4, 4) # Q-table shape
+    Q_SHAPE = (36, 36, 5, 5, 4, 4) # Q-table shape
 
     BASE_ego_coord = (0,5)
     BASE_adv_coord = None
-    START_ego = (0,0) # (5,0)
-    START_adv =(5,5)
+    START_ego = (4,4) # (5,0)
+    START_adv =(5,0)
+
+    INTERM_REWARD = 0.1
 
 ### [[ Solver Specific parameters QSG-RM ]]
 LEMKE_HOWSON = False
 GAMMA = 0.9
 ALPHA = 0.1
 FAIL_RATE = 0.005
-EPISODES = 9000
+EPISODES = 7000
 TASK_III_EPSILON = 0.5
-STEP_NUM = 9999 # the max time allowed. Has to be high, since by paper we have to end on v_end only
-START_EPSILON = 0.25 # Epsilon decays from 0.25 → 0.05 over the first 80% of training,
+STEP_NUM = 1000 # the max time allowed. Has to be high, since by paper we have to end on v_end only
+START_EPSILON = 0.55 # Epsilon decays from 0.25 → 0.05 over the first 80% of training,
                     # then stays fixed. This lets exploitation gradually take over.
 END_EPSILON =   0.05
 DECAY_RATE = 0.8
@@ -72,7 +74,7 @@ HEIGHT = CELL_SIZE * GRID_H
 MARGIN = 40
 WINDOW_W = WIDTH + MARGIN * 2
 WINDOW_H = HEIGHT + MARGIN * 2
-FPS = 30 # Slowed down slightly so you can watch them clearly
+FPS = 1 # Slowed down slightly so you can watch them clearly
 
 BG_COLOR = (250, 250, 250)
 GRID_COLOR = (60, 60, 60)

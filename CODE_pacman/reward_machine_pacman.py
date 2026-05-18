@@ -118,22 +118,43 @@ class Reward_Machine():
                 if self.agent_type == 'adv': reward = 1.0
 
             ## Case: all dots collected
-            elif 'all_visited' in labels:
-                self.state = 'v_win'
-                if self.agent_type == 'ego': reward = 1.0 # Breadcrumb for Ego
-                
-        ## State: v_1 (currently, Ego > Adv)
-        elif self.state == 'v_1':
-            
-            ## Case: Both to the relative power base...  both powerful, i.e back to start
-            if 'collision' in labels:
-                self.state = 'start'
+            elif 'dot_taken' in labels:
+                self.state = 'v_2'
                 if use_mini_rewards:
-                    if self.agent_type == 'ego': reward = 0.1 # Breadcrumb for Ego
+                    if self.agent_type == 'ego': reward = INTERM_REWARD # Breadcrumb for Ego
+                
+        ## State: v_2
+        elif self.state == 'v_2':
+
+            if 'dot_taken' in labels:
+                if use_mini_rewards:
+                    if self.agent_type == 'ego': reward = INTERM_REWARD # Breadcrumb for Ego
+            
+            if 'power_e' in labels:
+                self.state = 'v_1'
             
             if 'all_visited' in labels:
                 self.state = 'v_win'
                 if self.agent_type == 'ego': reward = 1.0 # Breadcrumb for Ego
+            
+            if 'collision' in labels:
+                self.state = 'v_end'
+                if self.agent_type == 'adv': reward = 1 # Breadcrumb for Ego
+
+        ## State: v_1 (currently, Ego > Adv)
+        elif self.state == 'v_1':
+            
+            if 'all_visited' in labels:
+                self.state = 'v_win'
+                if self.agent_type == 'ego': reward = 1.0 # Breadcrumb for Ego
+
+            if 'dot_taken' in labels:
+                if use_mini_rewards:
+                    if self.agent_type == 'ego': reward = INTERM_REWARD # Breadcrumb for Ego
+            
+            if 'collision' in labels:
+                self.state = 'start'
+            
             
         return self.state, reward            
             

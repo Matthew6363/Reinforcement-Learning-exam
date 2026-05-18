@@ -94,7 +94,7 @@ def train_qrm_sg(total_episodes=1000,
     elif TASK in ["task_II", "task_III"]:
         rm_states_map = {'start': 0, 'v_1': 1, 'v_2': 2, 'v_3': 3, 'v_4': 4, 'v_end': 5} 
     elif TASK in "pacman":
-        rm_states_map = {'start': 0, 'v_1': 1, 'v_win': 2, 'v_end': 3} 
+        rm_states_map = {'start': 0, 'v_1': 1, 'v_2': 2,'v_win': 3, 'v_end': 4} 
     rm_states = list(rm_states_map.keys())   # used for counterfactual loop
 
 
@@ -166,7 +166,7 @@ def train_qrm_sg(total_episodes=1000,
 
             ## Update the environment based on the done action
             next_pos_e, next_pos_a = env.step(action_e, action_a) # recover where the agents are in the game
-            
+
             ## Get the translation of the step for the RM 
             labels = env.get_labels()
 
@@ -302,11 +302,12 @@ def train_qrm_sg(total_episodes=1000,
             state_e, state_a = next_state_e, next_state_a
 
             ## Case: one between ego and adv reached the end?
-            if rm_ego.state == 'v_end' or rm_adv.state == 'v_end':
-                if r_e > 0: # if the reward is positive for the ego, it means it was the one winning
-                    successes += 1
-                elif r_a > 0:
-                    adv_wins +=1 
+            if rm_ego.state == 'v_win':
+                successes += 1
+                break
+            
+            elif rm_adv.state == 'v_end':
+                adv_wins +=1 
                 break
             
             ## Case: there's a collision, the episode end without winners

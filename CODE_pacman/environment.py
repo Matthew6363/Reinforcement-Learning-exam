@@ -57,7 +57,7 @@ class PacmanGridWorld:
             for j in range(WINDOW_H)
             if (i, j) not in set(self.exclude_states)
             ]
-            
+        self.last_number_dots_remaining = len(self.to_visit)
         
 
     def reset(self):
@@ -115,8 +115,8 @@ class PacmanGridWorld:
 
         ## Case: we're the ego, we've moved and the reached position is the one
         ## of the Adv start. No movement allowed there
-        if (r, c) == self.start_pos_a and not ego_pov:
-            return pos
+        #if (r, c) == self.start_pos_a and not ego_pov:
+        #    return pos
 
         # Now, return the position of the grid which is found        
         return (r,c)
@@ -183,9 +183,15 @@ class PacmanGridWorld:
         # Case: Ego has taken all dots
         if self.to_visit == []:
             labels.add('all_visited')
+            print("WIN!")
+        
+        # Case: Dot taken
+        if self.last_number_dots_remaining < len(self.to_visit):
+            labels.add('dot_taken')
+
         
         # Case: Adv CURRENTLY IN Ego position (symmetric), i.e. at less than two in distance
-        if (abs(self.pos_a[0] - self.pos_e[0]) + abs(self.pos_a[1] - self.pos_e[1])) < 2:
+        if (abs(self.pos_a[0] - self.pos_e[0]) + abs(self.pos_a[1] - self.pos_e[1])) < 1:
             labels.add('collision')
         
         return labels
