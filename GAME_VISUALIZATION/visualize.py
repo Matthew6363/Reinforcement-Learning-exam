@@ -159,6 +159,10 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
         ## Get the action (thanks to off-policy, we can avoid epsilon randomness)
         pi_e_ego, pi_a_ego = solve_stage_game(q_ee[s_e, s_a, v_e, v_a], q_ae[s_e, s_a, v_e, v_a])
         pi_e_adv, pi_a_adv = solve_stage_game(q_ea[s_e, s_a, v_e, v_a], q_aa[s_e, s_a, v_e, v_a])
+        #pi_e_adv, pi_a_adv = solve_stage_game(q_ea[s_e, s_a], q_aa[s_e, s_a])
+        #pi_e_ego, pi_a_ego = solve_stage_game(q_ee[s_e, s_a], q_ae[s_e, s_a])
+        
+        
         action_a = np.argmax(pi_a_adv)
         action_e = np.argmax(pi_e_ego)
 
@@ -200,10 +204,10 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
             break
             
         # Check if they just physically crashed into each other early
-        elif 'collision' in labels:
-             print("Premature Collision (Draw).")
-             pygame.time.wait(1000)
-             break
+        # elif 'collision' in labels:
+        #      print("Premature Collision (Draw).")
+        #      pygame.time.wait(1000)
+        #      break
     
     if SAVE_GIF:
         frame_duration = int(1000 / FPS)     
@@ -221,9 +225,11 @@ if __name__ == "__main__":
 
     #FILE_NAME = 'q_models_task_II_ep6500'
     #FILE_NAME = 'q_models_task_I_ep16000'
-    FILE_NAME = 'q_models_task_III_ep8500'
+    #FILE_NAME = 'q_models_task_III_ep8500'
+    FILE_NAME = f'q_models_Nash_{task_name_string}_ep5000'
     
-    visualize_trained_agents(f"../EXPORT/{FILE_NAME}.npz", 
+    for i in range(1, 18):
+        visualize_trained_agents(f"../EXPORT/q_models_Nash_task_i_ep{i*500}.npz", 
                              checkpoint=0,
                              time_waiting=3000)
                              

@@ -37,3 +37,17 @@ CODE/__pycache__/environment.cpython-313.pyc
 EXPORT/eval_results_task_III.npz
 EXPORT/q_models_task_III_ep500.npz
 EXPORT/q_models_task_III.npz
+EXPORT/q_models_Nash_task_I_ep9500.npz
+EXPORT/q_models_Nash_task_I_ep10000.npz
+EXPORT/q_models_Nash_task_I_ep10500.npz
+EXPORT/q_models_Nash_task_I_ep11500.npz
+EXPORT/q_models_Nash_task_I_ep11000.npz
+EXPORT/q_models_Nash_task_I_ep12000.npz
+EXPORT/q_models_Nash_task_I_ep12500.npz
+EXPORT/q_models_Nash_task_I_ep13000.npz
+EXPORT/q_models_Nash_task_I_ep13500.npz
+EXPORT/q_models_Nash_task_I_ep14500.npz
+EXPORT/q_models_Nash_task_I_ep14000.npz
+EXPORT/q_models_Nash_task_I_ep15000.npz
+EXPORT/q_models_Nash_task_I_ep16000.npz
+EXPORT/q_models_Nash_task_I_ep15500.npz
