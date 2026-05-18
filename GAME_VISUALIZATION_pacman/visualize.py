@@ -63,6 +63,17 @@ def draw_adv_start(screen, pos, color, name):
                                      r * CELL_SIZE + CELL_SIZE // 2 + MARGIN))
     screen.blit(img, text_rect)
 
+def draw_dots(screen, to_visit):
+    yellow_color = (252, 186, 3) 
+    radius = CELL_SIZE // 8      
+    
+    for pos in to_visit:
+        r, c = pos
+        cx = c * CELL_SIZE + CELL_SIZE // 2 + MARGIN
+        cy = r * CELL_SIZE + CELL_SIZE // 2 + MARGIN
+    
+        pygame.draw.circle(screen, yellow_color, (cx, cy), radius)
+
 
 def draw_agent(screen, pos, color):
     r, c = pos
@@ -155,12 +166,15 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
 
         ## States
         s_e, s_a = pos_to_idx(pos_e), pos_to_idx(pos_a)
-        print(pos_e)
         v_e, v_a = rm_map[rm_ego.state], rm_map[rm_adv.state]
+        
+        ## update the dots list
+        if pos_e in to_visit: to_visit.remove(pos_e)
 
         ## Rendering (include first case)
         screen.fill(BG_COLOR)
         draw_grid(screen)
+        draw_dots(screen, to_visit)
         draw_adv_start(screen, env.start_pos_a, ADV_COLOR, "A")
         draw_base(screen, env.base_e, EGO_COLOR, "E")
         draw_agent(screen, pos_e, EGO_COLOR)
@@ -194,6 +208,7 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
             ## Rendering (include first case)
             screen.fill(BG_COLOR)
             draw_grid(screen)
+            draw_dots(screen, to_visit)
             draw_adv_start(screen, env.start_pos_a, ADV_COLOR, "A")
             draw_base(screen, env.base_e, EGO_COLOR, "E")
             draw_agent(screen, pos_e, EGO_COLOR)
@@ -234,11 +249,12 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
     pygame.quit()
 
 
+
 if __name__ == "__main__":
 
     #FILE_NAME = 'q_models_task_II_ep6500'
     #FILE_NAME = 'q_models_task_I_ep16000'
-    FILE_NAME = 'q_models_pacman_ep9000'
+    FILE_NAME = 'q_models_pacman_ep500'
     
     visualize_trained_agents(f"../EXPORT/{FILE_NAME}.npz", 
                              checkpoint=0,
