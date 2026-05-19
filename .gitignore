@@ -51,3 +51,16 @@ EXPORT/q_models_Nash_task_I_ep14000.npz
 EXPORT/q_models_Nash_task_I_ep15000.npz
 EXPORT/q_models_Nash_task_I_ep16000.npz
 EXPORT/q_models_Nash_task_I_ep15500.npz
+EXPORT/q_models_maze_ep500.npz
+EXPORT/q_models_maze_ep1000.npz
+EXPORT/q_models_maze_ep1500.npz
+EXPORT/q_models_maze_ep5000.npz
+EXPORT/q_models_maze_ep10000.npz
+EXPORT/q_models_maze_ep15000.npz
+EXPORT/q_models_maze_ep20000.npz
+EXPORT/q_models_maze.npz
+CODE_maze/__pycache__/environment.cpython-313.pyc
+CODE_maze/__pycache__/game_parameters.cpython-313.pyc
+CODE_maze/__pycache__/reward_machine_maze.cpython-313.pyc
+EXPORT/eval_results_maze.npz
+EXPORT/maze_windowed.png

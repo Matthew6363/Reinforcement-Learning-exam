@@ -302,10 +302,8 @@ def train_qrm_sg(total_episodes=1000,
             ## Case: there's a collision, the episode end without winners
             elif 'collision' in labels:
                 collisions_cnt += 1
-                if ALLOW_COLLISION_EARLY_BREAK:
-                    break
-                else:
-                    pass
+                #if ALLOW_COLLISION_EARLY_BREAK:
+                break
 
 
         ## Back to the episode,having done all steps, we update the rewards
@@ -333,7 +331,7 @@ def train_qrm_sg(total_episodes=1000,
             collisions_cnt = 0
         
         # Save every 500 episodes (change to 100 if you want every single step)
-        if episode % SAVE_EACH == 0:
+        if episode % 500 == 0:
             ckpt_path = f'../EXPORT/q_models_{task_name_string}_ep{episode}.npz'
             np.savez(ckpt_path, q_ee=q_ee, q_ae=q_ae, q_ea=q_ea, q_aa=q_aa)
 

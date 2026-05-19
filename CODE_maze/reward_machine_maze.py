@@ -87,50 +87,43 @@ class Reward_Machine():
         return next_state, reward
         
     
-    def step(self, labels, env_trapped = False):
-        '''
-        Function to perform a movement in the RM. We do initialize the reward at zero (it's the baseline
-        for any non-relevant game steps) and we do define the RM as game requires. 
-        Please refer to paper Figure 4. (a) to RM visualization.
+    def step(self, labels, env_trapped=False):
+        reward = 0.0 
 
-        Notice that it handles agent cases for rewards, so it's generic enough to handle 
-        both the "ego" or "adv" point of view. Notice that by paper design, no negative reward is given.
-        '''
-
-        ## If "trapped" in labels and env_trapped = True --> we just got in to the trap
-        ## If "trapped" in labels and env_trapped = False--> we have to leave
-        
-        reward = 0.0 # init the reward to its baseline 
-
-        if self.state == 'start': # If the agent is in the RM starting state...
-
-            if 'collision' in labels:
+        if self.state == 'start':
+            if 'escaped!' in labels:        
+                self.state = 'v_escaped'
+                if self.agent_type == 'ego': reward = WINNING_MEGA_REWARD
+                #print("WIN")
+                
+            elif 'collision' in labels:
                 self.state = 'v_lose'
-                if self.agent_type == 'adv': reward = 1 # Breadcrumb for Ego
-             
+                if self.agent_type == 'adv': reward = 1
+                if self.agent_type == 'ego': reward = -1 # Fear the adversary
+                
             elif 'trapped' in labels:
-                self.state == 'v_trap'
-                if self.agent_type == 'ego': reward = TRAP_NEGATIVE_REWARD # Breadcrumb for Ego
-            
-            elif 'escaped!' in labels:
-                self.state == 'v_escaped'
-                if self.agent_type == 'ego': reward = WINNING_MEGA_REWARD # Breadcrumb for Ego
-                print("WIN")
+                if TRAPS_DO_STOP_FOR_A_TURN:
+                    self.state = 'v_trap'
+                    if self.agent_type == 'ego': reward = TRAP_NEGATIVE_REWARD
+                else:
+                    self.state = 'v_lose' # Instant death
+                    if self.agent_type == 'adv': reward = 1
+                    if self.agent_type == 'ego': reward = TRAP_NEGATIVE_REWARD
         
         elif self.state == 'v_trap':
-            
-            if TRAPS_DO_STOP_FOR_A_TURN == True:
-                
+            if TRAPS_DO_STOP_FOR_A_TURN:
                 if 'collision' in labels:
                     self.state = 'v_lose'
-                    if self.agent_type == 'adv': reward = 1 # Breadcrumb for Ego
-            
-                elif env_trapped == False: # instead of 'trapped' in labels, since no label is gotten there
+                    if self.agent_type == 'adv': reward = 1 
+                    if self.agent_type == 'ego': reward = WINNING_MEGA_REWARD
+                elif env_trapped == False: 
                     self.state = 'start'
-
             else:
-                self.state == 'v_lose'
-                if self.agent_type == 'adv': reward = 1 # Breadcrumb for Ego
+                # This block is functionally dead code now (which is good), 
+                # but left in case of counterfactual simulation leaks.
+                self.state = 'v_lose'
+                if self.agent_type == 'adv': reward = 1 
+                if self.agent_type == 'ego': reward = TRAP_NEGATIVE_REWARD
 
         return self.state, reward            
             
@@ -157,12 +150,13 @@ def solve_stage_game(q_matrix_ego, q_matrix_adv,
         # return equi-distributed random policies. Any action has same probalility given a state.
         return np.ones(NUM_ACTIONS)/NUM_ACTIONS, np.ones(NUM_ACTIONS)/NUM_ACTIONS
     
-    ## INIT a Nash Game with the 2 q-tables
+    ## INIT a Nash Game with the 2 q-tables
     noise_e = 0.0
     noise_a = 0.0
     if ADD_NOISE:
-        noise_e = 1e-9 # np.random.uniform(1e-6, 1e-5, size=q_matrix_ego.shape)
-        noise_a = 1e-9 # np.random.uniform(1e-6, 1e-5, size=q_matrix_adv.shape)
+        # Must be an array of random noise, not a flat scalar
+        noise_e = np.random.uniform(1e-6, 1e-5, size=q_matrix_ego.shape)
+        noise_a = np.random.uniform(1e-6, 1e-5, size=q_matrix_adv.shape)
         
     game = nash.Game(q_matrix_ego + noise_e, q_matrix_adv + noise_a)
     
@@ -211,59 +205,5 @@ def solve_stage_game(q_matrix_ego, q_matrix_adv,
     
 
 
-
-def testing_ego_RM():
-    print("==============================================")
-    print(" TESTING EGO AGENT REWARD MACHINE")
-    print("==============================================")
-    
-    rm_ego = Reward_Machine('ego')
-    
-    print("\n--- Test 1: Successful Ego Task Sequence ---")
-    # Expected sequence: power_e -> power_a -> collision
-    sequence_1 = [{'power_e'}, {'ego_at_base_a'}, {'collision'}]
-    
-    for i, labels in enumerate(sequence_1):
-        state, reward = rm_ego.step(labels)
-        print(f"Step {i+1} | Input: {labels} | RM State: {state} | Reward: {reward}")
-        
-    print("\n--- Test 2: Out of Order Ego Task (Fails) ---")
-    rm_ego.reset()
-    # Sequence: collision -> power_a -> power_e (wrong order)
-    sequence_2 = [{'collision'}, {'power_a'}, {'power_e'}]
-    
-    for i, labels in enumerate(sequence_2):
-        state, reward = rm_ego.step(labels)
-        print(f"Step {i+1} | Input: {labels} | RM State: {state} | Reward: {reward}")
-
-    print("\n==============================================")
-    print(" TESTING ADVERSARIAL AGENT REWARD MACHINE")
-    print("==============================================")
-    
-    rm_adv = Reward_Machine('adv')
-    
-    print("\n--- Test 3: Successful Adv Task Sequence ---")
-    # Expected sequence: power_a -> collision
-    sequence_3 = [{'power_a'}, {'collision'}]
-    
-    for i, labels in enumerate(sequence_3):
-        state, reward = rm_adv.step(labels)
-        print(f"Step {i+1} | Input: {labels} | RM State: {state} | Reward: {reward}")
-        
-    print("\n--- Test 4: Premature Collision (Fails) ---")
-    rm_adv.reset()
-    # Adv tries to collide before getting power
-    sequence_4 = [{'collision'}, {'power_a'}]
-    
-    for i, labels in enumerate(sequence_4):
-        state, reward = rm_adv.step(labels)
-        print(f"Step {i+1} | Input: {labels} | RM State: {state} | Reward: {reward}")
-
-
-
-if __name__ == "__main__":
-    
-    if DEBUG == True:
-        testing_ego_RM()
     
         
