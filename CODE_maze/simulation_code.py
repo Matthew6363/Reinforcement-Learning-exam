@@ -164,7 +164,8 @@ def train_qrm_sg(total_episodes=1000,
             ## Get the translation of the step for the RM 
             labels = env.get_labels()
             env_trapped = env.trapped ## after the action is done, 
-
+            ego_on_wall = env.ego_on_wall
+            adv_on_wall = env.adv_on_wall
 
             ## Get the next reached state in the game by the two players
             next_state_e, next_state_a = pos_to_idx(next_pos_e), pos_to_idx(next_pos_a)
@@ -198,8 +199,8 @@ def train_qrm_sg(total_episodes=1000,
                     ## Simulate what reward/next-state WOULD have been.
                     #  We get both the state it would have been (each ego and adv) and
                     #  the reward it would have had in that case
-                    next_u_e_str, r_e_cf = rm_ego.simulate_step(u_e_str, labels, env_trapped)
-                    next_u_a_str, r_a_cf = rm_adv.simulate_step(u_a_str, labels, env_trapped)
+                    next_u_e_str, r_e_cf = rm_ego.simulate_step(u_e_str, labels, env_trapped, ego_on_wall, adv_on_wall)
+                    next_u_a_str, r_a_cf = rm_adv.simulate_step(u_a_str, labels, env_trapped, ego_on_wall, adv_on_wall)
 
                     ## Get the number version of these states
                     u_e  = rm_states_map[u_e_str]     
@@ -272,8 +273,8 @@ def train_qrm_sg(total_episodes=1000,
             ## ............................................... ##
 
             ## Get the real RM next state and current reward
-            next_state_e, r_e = rm_ego.step(labels, env_trapped) 
-            next_state_a, r_a = rm_adv.step(labels, env_trapped)
+            next_state_e, r_e = rm_ego.step(labels, env_trapped, ego_on_wall, adv_on_wall)
+            next_state_a, r_a = rm_adv.step(labels, env_trapped, ego_on_wall, adv_on_wall)
 
             ## Update the episode reward scalar
             ep_reward_e += r_e

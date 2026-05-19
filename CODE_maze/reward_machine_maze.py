@@ -54,7 +54,7 @@ class Reward_Machine():
         return self.state
 
     
-    def simulate_step(self, hypothetical_state, labels, env_trapped = False):
+    def simulate_step(self, hypothetical_state, labels, env_trapped = False, ego_on_wall = False, adv_on_wall = False):
         '''
         Function allowing the simulation of the RM rewards got if the game state 
         would have been the "hypothetical_state" one instead of the one internally saved.
@@ -90,7 +90,13 @@ class Reward_Machine():
     def step(self, labels, env_trapped=False, ego_on_wall = False, adv_on_wall = False):
         reward = 0.0 
 
-        if 
+        if ego_on_wall:
+            reward = WALL_HIT_PENALTY
+            
+        elif adv_on_wall:
+            reward = WALL_HIT_PENALTY
+
+        # and 
         if self.state == 'start':
             if 'escaped!' in labels:        
                 self.state = 'v_escaped'
