@@ -1,7 +1,7 @@
 import numpy as np
 ### [[ GLOBAL PARAMS ]]
 DEBUG = False
-TASK = "task_III"
+TASK = "maze"
 TASK_III_EPSILON = 0.5
 
 ### [[ GRID and game WORD PARAMS ]]
@@ -29,7 +29,7 @@ if TASK == "task_III":
     STR_ACTIONS = ['up', 'down', 'left', 'right']
     ACTIONS = [0,1,2,3]
 
-    Q_SHAPE = (36, 36, 6, 6, 4, 4) # Q-table shape
+    Q_SHAPE = (36, 36, 4, 4, 4, 4) # Q-table shape
 
     BASE_ego_coord = (1,4) # (0,5)
     BASE_adv_coord = (0,5) # (1,4) 
@@ -37,21 +37,18 @@ if TASK == "task_III":
     START_adv =(5,0)
 
 if TASK == "maze":
-    WALL_COORDS = []
-    TRAP_COORDS = []
-    EXIT_COORDS = []
 
     TRAPS_DO_STOP_FOR_A_TURN = False
     TRAP_NEGATIVE_REWARD = 0.1
-    WINNING_MEGA_REWARD = 2
+    WINNING_MEGA_REWARD = 10
     GRID_W = 20
     GRID_H = 15
     STR_ACTIONS = ['up', 'down', 'left', 'right']
     ACTIONS = [0,1,2,3]
 
-    Q_SHAPE = (36, 36, 6, 6, 4, 4) # Q-table shape
+    Q_SHAPE = (GRID_W*GRID_H, GRID_W*GRID_H, 4, 4, 4, 4) # Q-table shape
 
-    START_ego = (6,10) # (5,0)
+    START_ego = (6,11) # (5,0)
     START_adv =(4,10)
 
 
@@ -60,9 +57,10 @@ LEMKE_HOWSON = False
 GAMMA = 0.9
 ALPHA = 0.1
 FAIL_RATE = 0.005
-EPISODES = 9000
+EPISODES = 5100
+SAVE_EACH = 5000
 TASK_III_EPSILON = 0.5
-STEP_NUM = 9999 # the max time allowed. Has to be high, since by paper we have to end on v_end only
+STEP_NUM = 1000 # the max time allowed. Has to be high, since by paper we have to end on v_end only
 START_EPSILON = 0.25 # Epsilon decays from 0.25 → 0.05 over the first 80% of training,
                     # then stays fixed. This lets exploitation gradually take over.
 END_EPSILON =   0.05
@@ -72,18 +70,20 @@ ALLOW_COLLISION_EARLY_BREAK = False
 
 
 # [[ PYGAME CONFIG ]]
-CELL_SIZE = 100
+CELL_SIZE = 50
 WIDTH = CELL_SIZE * GRID_W
 HEIGHT = CELL_SIZE * GRID_H
 MARGIN = 40
 WINDOW_W = WIDTH + MARGIN * 2
 WINDOW_H = HEIGHT + MARGIN * 2
-FPS = 30 # Slowed down slightly so you can watch them clearly
+FPS = 2 # Slowed down slightly so you can watch them clearly
 
 BG_COLOR = (250, 250, 250)
 GRID_COLOR = (60, 60, 60)
 EGO_COLOR = (50, 150, 255)   
-ADV_COLOR = (255, 50, 50)    
+ADV_COLOR = (255, 50, 50)   
+TRAP_COLOR = (255, 100, 100)
+WALL_COLOR = (60, 60, 60)
 AGENT_RATIO = 0.4
 BASE_ALPHA = 100    
 
@@ -115,3 +115,27 @@ def visualize_grid():
 if __name__ == "__main__":
     
     visualize_grid()
+
+
+
+
+WALL_COORDS = [
+    (0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (0, 5), (0, 6), (0, 7), (0, 8), (0, 9), (0, 10), (0, 11), (0, 12), (0, 13), (0, 14), (0, 15), (0, 16), (0, 17), (0, 18), (0, 19),
+    (1, 0), (1, 3), (1, 8), (1, 14), (1, 17), (1, 19),
+    (2, 0), (2, 2), (2, 4), (2, 12), (2, 13), (2, 14), (2, 17), (2, 19),
+    (3, 0), (3, 2), (3, 3), (3, 4), (3, 8), (3, 12), (3, 14), (3, 17), (3, 19),
+    (4, 0), (4, 2), (4, 4), (4, 5), (4, 6), (4, 7), (4, 8), (4, 12), (4, 14), (4, 17), (4, 19),
+    (5, 0), (5, 2), (5, 4), (5, 8), (5, 12), (5, 17), (5, 19),
+    (6, 2), (6, 4), (6, 8), (6, 12),
+    (7, 4), (7, 8), (7, 12),
+    (8, 0), (8, 1), (8, 2), (8, 3), (8, 4), (8, 8), (8, 12), (8, 19),
+    (9, 0), (9, 1), (9, 4), (9, 8), (9, 15), (9, 19),
+    (10, 0), (10, 1), (10, 2), (10, 4), (10, 8), (10, 9), (10, 15), (10, 19),
+    (11, 0), (11, 14), (11, 15), (11, 16), (11, 17), (11, 19),
+    (12, 0), (12, 1), (12, 2), (12, 8), (12, 10), (12, 12), (12, 19),
+    (13, 0), (13, 10), (13, 12), (13, 15), (13, 19),
+    (14, 0), (14, 1), (14, 2), (14, 3), (14, 4), (14, 5), (14, 6), (14, 7), (14, 8), (14, 9), (14, 10), (14, 11), (14, 12), (14, 13), (14, 14), (14, 15), (14, 16), (14, 17), (14, 18), (14, 19)
+]
+
+TRAP_COORDS = [(4, 1), (4, 16), (12, 3), (12, 15)]
+EXIT_COORDS = [(6, 0), (7, 0), (6, 19), (7, 19)]

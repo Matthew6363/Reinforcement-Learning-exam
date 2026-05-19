@@ -108,14 +108,14 @@ class Reward_Machine():
                 self.state = 'v_lose'
                 if self.agent_type == 'adv': reward = 1 # Breadcrumb for Ego
              
-            if 'trapped' in labels:
+            elif 'trapped' in labels:
                 self.state == 'v_trap'
                 if self.agent_type == 'ego': reward = TRAP_NEGATIVE_REWARD # Breadcrumb for Ego
             
-            if 'escaped!' in labels:
-                self.state == 'v_escaped':
+            elif 'escaped!' in labels:
+                self.state == 'v_escaped'
                 if self.agent_type == 'ego': reward = WINNING_MEGA_REWARD # Breadcrumb for Ego
-
+                print("WIN")
         
         elif self.state == 'v_trap':
             
@@ -125,7 +125,7 @@ class Reward_Machine():
                     self.state = 'v_lose'
                     if self.agent_type == 'adv': reward = 1 # Breadcrumb for Ego
             
-                if env_trapped == False: # instead of 'trapped' in labels, since no label is gotten there
+                elif env_trapped == False: # instead of 'trapped' in labels, since no label is gotten there
                     self.state = 'start'
 
             else:

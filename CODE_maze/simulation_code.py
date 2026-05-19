@@ -14,12 +14,9 @@ from game_parameters import * # get all env parameters
 # Having defined the current one of interest, please import it.
 
 #from reward_machine_task_I import *
-from reward_machine_task_II_and_III import *
+
 from environment import *
-if   TASK == "task_I":
-    from reward_machine_task_I import *
-elif TASK in ["task_II", "task_III"]:
-    from reward_machine_task_II_and_III import *
+from reward_machine_maze import *
 
 task_name_string = TASK # tag which is used in exported files
 
@@ -47,7 +44,7 @@ def initialize_q_function(shape, strategy=INIT_STRATEGIES[2]):
     elif strategy == "optimistic":
         return np.ones(shape) * 1.0
     elif strategy == "random":
-        return np.random.uniform(low=0.0001, high=0.001, size=shape)
+        return np.random.uniform(low=0.001, high=0.01, size=shape)
         # return np.random.uniform(low=0.01, high=0.2, size=shape)
     else:
         raise ValueError("Unknown initialization strategy")
@@ -57,7 +54,7 @@ def pos_to_idx(pos):
     '''
     Project 2D coord into a 1D number
     '''
-    return pos[0] * 6 + pos[1]
+    return pos[0] * GRID_W + pos[1]
 
 # ------------------------------------ #
 # QSG-RM solver with training episodes #
@@ -88,10 +85,7 @@ def train_qrm_sg(total_episodes=1000,
 
     rm_states_map = {} 
     ## Define the map between RM states and its indexes.
-    if TASK == "task_I":
-        rm_states_map = {'start': 0, 'v_1': 1, 'v_2': 2, 'v_3': 3, 'v_end': 4}
-    elif TASK in ["task_II", "task_III"]:
-        rm_states_map = {'start': 0, 'v_1': 1, 'v_2': 2, 'v_3': 3, 'v_4': 4, 'v_end': 5} 
+    rm_states_map = {'start': 0, 'v_trap': 1, 'v_lose': 2, 'v_escaped': 3} 
         
     rm_states = list(rm_states_map.keys())   # used for counterfactual loop
 
@@ -162,9 +156,11 @@ def train_qrm_sg(total_episodes=1000,
                 action_e = np.argmax(pi_e_ego) # Ego picks the best response to Adv
                 action_a = np.argmax(pi_a_adv) # Adversary always picks the best response (no randomness)
 
+            #print(f"Ego: {action_e}, Adv {action_a}")
             ## Update the environment based on the done action
             next_pos_e, next_pos_a = env.step(action_e, action_a) # recover where the agents are in the game
-            
+                
+
             ## Get the translation of the step for the RM 
             labels = env.get_labels()
             env_trapped = env.trapped ## after the action is done, 
@@ -211,8 +207,10 @@ def train_qrm_sg(total_episodes=1000,
                     nu_e = rm_states_map[next_u_e_str]
                     nu_a = rm_states_map[next_u_a_str]
                     
-                    is_terminal = (next_u_e_str == 'v_end' or
-                                   next_u_a_str == 'v_end') # removed prematue collisio terminal state
+                    is_terminal = (next_u_e_str == 'v_escaped' or
+                                   next_u_e_str == 'v_lose' or 
+                                   next_u_a_str == 'v_escaped' or
+                                   next_u_a_str == 'v_lose') # removed prematue collisio terminal state
 
                     ## .................................................... ##
                     ## Define the discontued cumulative reward of this case ##
@@ -294,13 +292,13 @@ def train_qrm_sg(total_episodes=1000,
             state_e, state_a = next_state_e, next_state_a
 
             ## Case: one between ego and adv reached the end?
-            if rm_ego.state == 'v_end' or rm_adv.state == 'v_end':
-                if r_e > 0: # if the reward is positive for the ego, it means it was the one winning
-                    successes += 1
-                elif r_a > 0:
-                    adv_wins +=1 
+            if rm_ego.state == 'v_escaped':
+                successes += 1
                 break
-            
+            if rm_adv.state == 'v_lose':
+                adv_wins += 1
+                break
+
             ## Case: there's a collision, the episode end without winners
             elif 'collision' in labels:
                 collisions_cnt += 1
@@ -335,7 +333,7 @@ def train_qrm_sg(total_episodes=1000,
             collisions_cnt = 0
         
         # Save every 500 episodes (change to 100 if you want every single step)
-        if episode % 500 == 0:
+        if episode % SAVE_EACH == 0:
             ckpt_path = f'../EXPORT/q_models_{task_name_string}_ep{episode}.npz'
             np.savez(ckpt_path, q_ee=q_ee, q_ae=q_ae, q_ea=q_ea, q_aa=q_aa)
 

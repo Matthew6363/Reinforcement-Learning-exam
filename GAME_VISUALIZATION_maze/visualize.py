@@ -6,7 +6,7 @@ from PIL import Image
 
 SAVE_GIF = True
 
-code_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'CODE_pacman'))
+code_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'CODE_maze'))
 sys.path.append(code_dir)
 
 ######### PROBLEM-SPECIFIC REWARD MACHINE and ENV #######################
@@ -16,7 +16,7 @@ sys.path.append(code_dir)
 
 from game_parameters import *
 from environment import *
-from reward_machine_pacman import *
+from reward_machine_maze import *
     
 
 task_name_string = TASK # tag which is used in exported files
@@ -63,16 +63,20 @@ def draw_adv_start(screen, pos, color, name):
                                      r * CELL_SIZE + CELL_SIZE // 2 + MARGIN))
     screen.blit(img, text_rect)
 
-def draw_dots(screen, to_visit):
-    yellow_color = (252, 186, 3) 
-    radius = CELL_SIZE // 8      
+def draw_trap(screen, pos, color, name):
+    r, c = pos
+    surface = pygame.Surface((CELL_SIZE, CELL_SIZE), pygame.SRCALPHA)    
+    padding = CELL_SIZE // 8
+    rect_size = CELL_SIZE - (padding * 2)
+    trap_rect = pygame.Rect(padding, padding, rect_size, rect_size)
+    pygame.draw.rect(surface, (*color, BASE_ALPHA), trap_rect)
     
-    for pos in to_visit:
-        r, c = pos
-        cx = c * CELL_SIZE + CELL_SIZE // 2 + MARGIN
-        cy = r * CELL_SIZE + CELL_SIZE // 2 + MARGIN
-    
-        pygame.draw.circle(screen, yellow_color, (cx, cy), radius)
+    screen.blit(surface, (c * CELL_SIZE + MARGIN, r * CELL_SIZE + MARGIN))
+    font = pygame.font.Font(None, 30)
+    img = font.render(name, True, (0, 0, 0))
+    text_rect = img.get_rect(center=(c * CELL_SIZE + CELL_SIZE // 2 + MARGIN, 
+                                     r * CELL_SIZE + CELL_SIZE // 2 + MARGIN))
+    screen.blit(img, text_rect)
 
 
 def draw_agent(screen, pos, color):
@@ -95,7 +99,6 @@ def draw_agent(screen, pos, color):
 
 def pos_to_idx(pos): 
     return pos[0]*6 + pos[1]
-
 
 
 def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz', 
@@ -130,16 +133,8 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
 
     if SAVE_GIF:
         frames = []
-    
-    exclude_states = {env.start_pos_a, env.start_pos_e, env.base_e}
-    to_visit = [
-            (i, j)
-            for i in range(WINDOW_W)
-            for j in range(WINDOW_H)
-            if (i, j) not in set(env.exclude_states)
-    ]
-    
-    rm_map = {'start': 0, 'v_1': 1, 'v_2': 2,'v_win': 3, 'v_end': 4} 
+        
+    rm_map = {'start': 0, 'v_trap': 1, 'v_lose': 2, 'v_escaped': 3} 
     
     pos_e, pos_a = env.reset()
     rm_ego.reset()
@@ -148,8 +143,12 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
     ## Initial Screen Game Render
     screen.fill(BG_COLOR)
     draw_grid(screen)
-    draw_adv_start(screen, env.start_pos_a, ADV_COLOR, "A")
-    draw_base(screen, env.base_e, EGO_COLOR, "E")
+    #draw_adv_start(screen, env.start_pos_a, ADV_COLOR, "A")
+    for trap in TRAP_COORDS:
+        draw_trap(screen, trap, TRAP_COLOR, "Trap")
+    for wall in WALL_COORDS:
+        draw_trap(screen, wall, WALL_COLOR, "")
+
     draw_agent(screen, pos_e, EGO_COLOR) # blue
     draw_agent(screen, pos_a, ADV_COLOR) # red
     pygame.display.flip()
@@ -169,15 +168,19 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
         s_e, s_a = pos_to_idx(pos_e), pos_to_idx(pos_a)
         v_e, v_a = rm_map[rm_ego.state], rm_map[rm_adv.state]
         
-        ## update the dots list
-        if pos_e in to_visit: to_visit.remove(pos_e)
+
 
         ## Rendering (include first case)
         screen.fill(BG_COLOR)
         draw_grid(screen)
-        draw_dots(screen, to_visit)
-        draw_adv_start(screen, env.start_pos_a, ADV_COLOR, "A")
-        draw_base(screen, env.base_e, EGO_COLOR, "E")
+        #draw_dots(screen, to_visit)
+        #draw_adv_start(screen, env.start_pos_a, ADV_COLOR, "A")
+        #draw_base(screen, env.base_e, EGO_COLOR, "E")
+        for trap in TRAP_COORDS:
+            draw_trap(screen, trap, TRAP_COLOR, "Trap")
+        for wall in WALL_COORDS:
+            draw_trap(screen, wall, WALL_COLOR, "")
+
         draw_agent(screen, pos_e, EGO_COLOR)
         draw_agent(screen, pos_a, ADV_COLOR)
         pygame.display.flip()
@@ -211,9 +214,14 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
             ## Rendering (include first case)
             screen.fill(BG_COLOR)
             draw_grid(screen)
-            draw_dots(screen, to_visit)
-            draw_adv_start(screen, env.start_pos_a, ADV_COLOR, "A")
-            draw_base(screen, env.base_e, EGO_COLOR, "E")
+            #draw_dots(screen, to_visit)
+            #draw_adv_start(screen, env.start_pos_a, ADV_COLOR, "A")
+            #draw_base(screen, env.base_e, EGO_COLOR, "E")
+            for trap in TRAP_COORDS:
+                draw_trap(screen, trap, TRAP_COLOR, "Trap")
+            for wall in WALL_COORDS:
+                draw_trap(screen, wall, WALL_COLOR, "")
+
             draw_agent(screen, pos_e, EGO_COLOR)
             draw_agent(screen, pos_a, ADV_COLOR)
             pygame.display.flip()
@@ -251,9 +259,7 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
 
 if __name__ == "__main__":
 
-    #FILE_NAME = 'q_models_task_II_ep6500'
-    #FILE_NAME = 'q_models_task_I_ep16000'
-    FILE_NAME = 'q_models_pacman_ep1500'
+    FILE_NAME = 'q_models_maze_ep5000'
     
     visualize_trained_agents(f"../EXPORT/{FILE_NAME}.npz", 
                              checkpoint=0,

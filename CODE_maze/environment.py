@@ -75,6 +75,8 @@ class PacmanGridWorld:
 
         r, c = pos # the position is unfolded into rows and columns
 
+        hold_pos = pos
+
         if self.trapped == True:
             self.trapped = False
             return pos
@@ -110,7 +112,10 @@ class PacmanGridWorld:
                 c = c+1
                 # Go right if the row is not the last one (border)
 
-        # Then return the position of the grid which is found        
+        if (r,c) in self.walls:
+            return hold_pos
+
+        # Then return the position of the grid which is found    
         return (r,c)
 
 
@@ -173,8 +178,8 @@ class PacmanGridWorld:
             labels.add('trapped')
             if TRAPS_DO_STOP_FOR_A_TURN:
                 self.trapped = True
-        else:
-            labels.add('free')
+        #else:
+        #    labels.add('free')
         
         # Case: Ego CURRENTLY IN the power base
         if self.pos_e in self.exits:
