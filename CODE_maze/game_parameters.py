@@ -68,7 +68,7 @@ END_EPSILON =   0.05
 DECAY_RATE = 0.8
 ADD_NOISE = True # in reward machine, 0 if not wanted
 ALLOW_COLLISION_EARLY_BREAK = False
-
+WALL_HIT_PENALTY = -2
 
 # [[ PYGAME CONFIG ]]
 CELL_SIZE = 50
@@ -87,6 +87,8 @@ TRAP_COLOR = (255, 100, 100)
 WALL_COLOR = (60, 60, 60)
 AGENT_RATIO = 0.4
 BASE_ALPHA = 100    
+
+
 
 
 

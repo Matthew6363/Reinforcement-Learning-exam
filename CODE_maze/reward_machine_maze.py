@@ -87,9 +87,10 @@ class Reward_Machine():
         return next_state, reward
         
     
-    def step(self, labels, env_trapped=False):
+    def step(self, labels, env_trapped=False, ego_on_wall = False, adv_on_wall = False):
         reward = 0.0 
 
+        if 
         if self.state == 'start':
             if 'escaped!' in labels:        
                 self.state = 'v_escaped'

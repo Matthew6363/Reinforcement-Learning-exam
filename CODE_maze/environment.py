@@ -243,6 +243,8 @@ class PacmanGridWorld:
         
         # Fix: Clear the stun status on episode reset
         self.ego_trapped = False
+        self.ego_on_wall = False
+        self.adv_on_wall = False
 
         return self.pos_e, self.pos_a
         
@@ -268,6 +270,12 @@ class PacmanGridWorld:
         # Wall collision 
         if (r, c) in self.walls:
             return hold_pos
+
+            if is_ego:
+                self.adv_on_wall = True
+            else:
+                self.ego_on_wall = True
+
 
         # Trap handling: trigger the stun for NEXT turn
         if is_ego and (r, c) in self.traps:
@@ -313,6 +321,14 @@ class PacmanGridWorld:
 
         if self.pos_e in self.exits:
             labels.add('escaped!')
+        
+        if self.ego_on_wall:
+            self.ego_on_wall = False
+            labels.add('ego_on_wall')
+
+        if self.adv_on_wall:
+            self.adv_on_wall = False
+            labels.add('adv_on_wall')
 
         # Collision: Manhattan distance < 1 (i.e. same cell)
         if (abs(self.pos_a[0] - self.pos_e[0]) + 
