@@ -245,6 +245,7 @@ class PacmanGridWorld:
         self.ego_trapped = False
         self.ego_on_wall = False
         self.adv_on_wall = False
+        self.doors_opened = False
 
         return self.pos_e, self.pos_a
         
@@ -320,7 +321,8 @@ class PacmanGridWorld:
             labels.add('trapped')      # ego is currently on a trap cell
 
         if self.pos_e in self.exits:
-            labels.add('escaped!')
+            if self.doors_opened:
+                labels.add('escaped!')
         
         if self.ego_on_wall:
             self.ego_on_wall = False
@@ -334,6 +336,10 @@ class PacmanGridWorld:
         if (abs(self.pos_a[0] - self.pos_e[0]) + 
             abs(self.pos_a[1] - self.pos_e[1])) < 2:
             labels.add('collision')
+
+        if self.pos_e == KEY_COORD:
+            self.doors_opened = True
+            labels.add('key')
 
         return labels
 

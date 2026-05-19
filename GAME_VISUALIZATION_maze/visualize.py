@@ -134,7 +134,7 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
     if SAVE_GIF:
         frames = []
         
-    rm_map = {'start': 0, 'v_trap': 1, 'v_lose': 2, 'v_escaped': 3} 
+    rm_map = {'start': 0, 'v_trap': 1, 'v_lose': 2, 'v_escaped': 3, 'opened':4} 
     
     pos_e, pos_a = env.reset()
     rm_ego.reset()
@@ -150,6 +150,7 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
         draw_trap(screen, wall, WALL_COLOR, "")
     for exits in EXIT_COORDS:
         draw_trap(screen, exits, EXIT_COLOR, "" )
+    draw_trap(screen, KEY_COORD, KEY_COLOR, "Key" )
 
     draw_agent(screen, pos_e, EGO_COLOR) # blue
     draw_agent(screen, pos_a, ADV_COLOR) # red
@@ -183,7 +184,8 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
         for wall in WALL_COORDS:
             draw_trap(screen, wall, WALL_COLOR, "")
         for exits in EXIT_COORDS:
-                draw_trap(screen, exits, EXIT_COLOR, "" )
+            draw_trap(screen, exits, EXIT_COLOR, "" )
+        draw_trap(screen, KEY_COORD, KEY_COLOR, "Key" )
 
         draw_agent(screen, pos_e, EGO_COLOR)
         draw_agent(screen, pos_a, ADV_COLOR)
@@ -233,6 +235,7 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
                 draw_trap(screen, wall, WALL_COLOR, "" )
             for exits in EXIT_COORDS:
                 draw_trap(screen, exits, EXIT_COLOR, "" )
+            draw_trap(screen, KEY_COORD, KEY_COLOR, "Key" )
 
             draw_agent(screen, pos_e, EGO_COLOR)
             draw_agent(screen, pos_a, ADV_COLOR)
@@ -271,7 +274,7 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
 
 if __name__ == "__main__":
 
-    FILE_NAME = 'q_models_maze_ep15000'
+    FILE_NAME = 'q_models_maze_ep1000'
     
     visualize_trained_agents(f"../EXPORT/{FILE_NAME}.npz", 
                              checkpoint=0,

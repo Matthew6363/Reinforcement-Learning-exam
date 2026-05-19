@@ -98,6 +98,27 @@ class Reward_Machine():
 
         # and 
         if self.state == 'start':
+                
+            if 'collision' in labels:
+                self.state = 'v_lose'
+                if self.agent_type == 'adv': reward = 1
+                if self.agent_type == 'ego': reward = -1 # Fear the adversary
+                
+            elif 'trapped' in labels:
+                if TRAPS_DO_STOP_FOR_A_TURN:
+                    self.state = 'v_trap'
+                    if self.agent_type == 'ego': reward = TRAP_NEGATIVE_REWARD
+                else:
+                    self.state = 'v_lose' # Instant death
+                    if self.agent_type == 'adv': reward = 1
+                    if self.agent_type == 'ego': reward = TRAP_NEGATIVE_REWARD
+            
+            elif 'key' in labels:
+                self.state = "opened"
+                if self.agent_type == 'ego': reward = KEY_REWARD
+
+
+        if self.state == 'opened':
             if 'escaped!' in labels:        
                 self.state = 'v_escaped'
                 if self.agent_type == 'ego': reward = WINNING_MEGA_REWARD
@@ -116,6 +137,7 @@ class Reward_Machine():
                     self.state = 'v_lose' # Instant death
                     if self.agent_type == 'adv': reward = 1
                     if self.agent_type == 'ego': reward = TRAP_NEGATIVE_REWARD
+            
         
         elif self.state == 'v_trap':
             if TRAPS_DO_STOP_FOR_A_TURN:
