@@ -296,8 +296,11 @@ def train_qrm_sg(total_episodes=1000,
             if rm_ego.state == 'v_escaped':
                 successes += 1
                 break
+                
             if rm_adv.state == 'v_lose':
                 adv_wins += 1
+                if 'collision' in labels:
+                    collisions_cnt += 1
                 break
 
             ## Case: there's a collision, the episode end without winners
