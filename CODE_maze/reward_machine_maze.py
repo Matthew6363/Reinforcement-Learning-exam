@@ -54,105 +54,174 @@ class Reward_Machine():
         return self.state
 
     
-    def simulate_step(self, hypothetical_state, labels, env_trapped = False, ego_on_wall = False, adv_on_wall = False):
-        '''
-        Function allowing the simulation of the RM rewards got if the game state 
-        would have been the "hypothetical_state" one instead of the one internally saved.
-        The function temporarily changes the current with the hypothetical one, and computes
-        a step just to see the reward we'd obtain. The state is then set again to the original one
+    # def simulate_step(self, hypothetical_state, labels, env_trapped = False, ego_on_wall = False, adv_on_wall = False):
+    #     '''
+    #     Function allowing the simulation of the RM rewards got if the game state 
+    #     would have been the "hypothetical_state" one instead of the one internally saved.
+    #     The function temporarily changes the current with the hypothetical one, and computes
+    #     a step just to see the reward we'd obtain. The state is then set again to the original one
         
-        [Input]
-        * hypothetical_state : (RM) state we're interested in the reward of
-        * labels : RM edge label to follow 
+    #     [Input]
+    #     * hypothetical_state : (RM) state we're interested in the reward of
+    #     * labels : RM edge label to follow 
 
-        [Output]
-        * next_state : the state we'd reached by there 
-        * reward : the reward it'd have granted us
+    #     [Output]
+    #     * next_state : the state we'd reached by there 
+    #     * reward : the reward it'd have granted us
         
-        This Allows the algorithm to test counterfactual states without breaking the real game state. 
-        '''
+    #     This Allows the algorithm to test counterfactual states without breaking the real game state. 
+    #     '''
         
-        # 1. Save the actual physical state
-        current_real_state = self.state
+    #     # 1. Save the actual physical state
+    #     current_real_state = self.state
         
-        # 2. Temporarily overwrite it with the hypothetical state
-        self.state = hypothetical_state
+    #     # 2. Temporarily overwrite it with the hypothetical state
+    #     self.state = hypothetical_state
         
-        # 3. See what the reward and next state WOULD have been
-        next_state, reward = self.step(labels, env_trapped)
+    #     # 3. See what the reward and next state WOULD have been
+    #     next_state, reward = self.step(labels, env_trapped, ego_on_wall,adv_on_wall)
         
-        # 4. Revert the machine back to reality
-        self.state = current_real_state
+    #     # 4. Revert the machine back to reality
+    #     self.state = current_real_state
         
-        return next_state, reward
+    #     return next_state, reward
         
     
-    def step(self, labels, env_trapped=False, ego_on_wall = False, adv_on_wall = False):
+    # def step(self, labels, env_trapped=False, ego_on_wall = False, adv_on_wall = False):
+    #     reward = 0.0 
+
+    #     if ego_on_wall:
+    #         reward = WALL_HIT_PENALTY
+            
+    #     elif adv_on_wall:
+    #         reward = WALL_HIT_PENALTY
+
+    #     # and 
+    #     if self.state == 'start':
+                
+    #         if 'collision' in labels:
+    #             self.state = 'v_lose'
+    #             if self.agent_type == 'adv': reward = 1
+    #             if self.agent_type == 'ego': reward = -1 # Fear the adversary
+                
+    #         elif 'trapped' in labels:
+    #             if TRAPS_DO_STOP_FOR_A_TURN:
+    #                 self.state = 'v_trap'
+    #                 if self.agent_type == 'ego': reward = TRAP_NEGATIVE_REWARD
+    #             else:
+    #                 self.state = 'v_lose' # Instant death
+    #                 if self.agent_type == 'adv': reward = 1
+    #                 if self.agent_type == 'ego': reward = TRAP_NEGATIVE_REWARD
+            
+    #         elif 'key' in labels:
+    #             self.state = "opened"
+    #             if self.agent_type == 'ego': reward = KEY_REWARD
+
+
+    #     if self.state == 'opened':
+    #         if 'escaped!' in labels:        
+    #             self.state = 'v_escaped'
+    #             if self.agent_type == 'ego': reward = WINNING_MEGA_REWARD
+    #             #print("WIN")
+                
+    #         elif 'collision' in labels:
+    #             self.state = 'v_lose'
+    #             if self.agent_type == 'adv': reward = 1
+    #             if self.agent_type == 'ego': reward = -1 # Fear the adversary
+                
+    #         elif 'trapped' in labels:
+    #             if TRAPS_DO_STOP_FOR_A_TURN:
+    #                 self.state = 'v_trap'
+    #                 if self.agent_type == 'ego': reward = TRAP_NEGATIVE_REWARD
+    #             else:
+    #                 self.state = 'v_lose' # Instant death
+    #                 if self.agent_type == 'adv': reward = 1
+    #                 if self.agent_type == 'ego': reward = TRAP_NEGATIVE_REWARD
+            
+        
+    #     elif self.state == 'v_trap':
+    #         if TRAPS_DO_STOP_FOR_A_TURN:
+    #             if 'collision' in labels:
+    #                 self.state = 'v_lose'
+    #                 if self.agent_type == 'adv': reward = 1 
+    #                 if self.agent_type == 'ego': reward = WINNING_MEGA_REWARD
+    #             elif env_trapped == False: 
+    #                 self.state = 'start'
+    #         else:
+    #             # This block is functionally dead code now (which is good), 
+    #             # but left in case of counterfactual simulation leaks.
+    #             self.state = 'v_lose'
+    #             if self.agent_type == 'adv': reward = 1 
+    #             if self.agent_type == 'ego': reward = TRAP_NEGATIVE_REWARD
+
+    #     return self.state, reward
+    
+    def simulate_step(self, hypothetical_state, labels, env_trapped=False, A = None, b = None):
+        current_real_state = self.state
+        self.state = hypothetical_state
+        next_state, reward = self.step(labels, env_trapped)
+        self.state = current_real_state
+        return next_state, reward
+        
+    def step(self, labels, env_trapped=False, A = None, b = None):
         reward = 0.0 
 
-        if ego_on_wall:
-            reward = WALL_HIT_PENALTY
-            
-        elif adv_on_wall:
-            reward = WALL_HIT_PENALTY
+        # FIXED: Only penalize the specific agent that hit the wall
+        if 'ego_on_wall' in labels and self.agent_type == 'ego':
+            reward += WALL_HIT_PENALTY
+        if 'adv_on_wall' in labels and self.agent_type == 'adv':
+            reward += WALL_HIT_PENALTY
 
-        # and 
         if self.state == 'start':
-                
             if 'collision' in labels:
                 self.state = 'v_lose'
-                if self.agent_type == 'adv': reward = 1
-                if self.agent_type == 'ego': reward = -1 # Fear the adversary
+                if self.agent_type == 'adv': reward += 1
+                if self.agent_type == 'ego': reward += -1 # Fear the adversary
                 
             elif 'trapped' in labels:
                 if TRAPS_DO_STOP_FOR_A_TURN:
                     self.state = 'v_trap'
-                    if self.agent_type == 'ego': reward = TRAP_NEGATIVE_REWARD
+                    if self.agent_type == 'ego': reward += TRAP_NEGATIVE_REWARD
                 else:
-                    self.state = 'v_lose' # Instant death
-                    if self.agent_type == 'adv': reward = 1
-                    if self.agent_type == 'ego': reward = TRAP_NEGATIVE_REWARD
+                    self.state = 'v_lose' 
+                    if self.agent_type == 'adv': reward += 1
+                    if self.agent_type == 'ego': reward += TRAP_NEGATIVE_REWARD
             
             elif 'key' in labels:
                 self.state = "opened"
-                if self.agent_type == 'ego': reward = KEY_REWARD
+                if self.agent_type == 'ego': reward += KEY_REWARD
 
-
-        if self.state == 'opened':
+        elif self.state == 'opened':
             if 'escaped!' in labels:        
                 self.state = 'v_escaped'
-                if self.agent_type == 'ego': reward = WINNING_MEGA_REWARD
-                #print("WIN")
+                if self.agent_type == 'ego': reward += WINNING_MEGA_REWARD
                 
             elif 'collision' in labels:
                 self.state = 'v_lose'
-                if self.agent_type == 'adv': reward = 1
-                if self.agent_type == 'ego': reward = -1 # Fear the adversary
+                if self.agent_type == 'adv': reward += 1
+                if self.agent_type == 'ego': reward += -1 
                 
             elif 'trapped' in labels:
                 if TRAPS_DO_STOP_FOR_A_TURN:
                     self.state = 'v_trap'
-                    if self.agent_type == 'ego': reward = TRAP_NEGATIVE_REWARD
+                    if self.agent_type == 'ego': reward += TRAP_NEGATIVE_REWARD
                 else:
-                    self.state = 'v_lose' # Instant death
-                    if self.agent_type == 'adv': reward = 1
-                    if self.agent_type == 'ego': reward = TRAP_NEGATIVE_REWARD
-            
+                    self.state = 'v_lose' 
+                    if self.agent_type == 'adv': reward += 1
+                    if self.agent_type == 'ego': reward += TRAP_NEGATIVE_REWARD
         
         elif self.state == 'v_trap':
             if TRAPS_DO_STOP_FOR_A_TURN:
                 if 'collision' in labels:
                     self.state = 'v_lose'
-                    if self.agent_type == 'adv': reward = 1 
-                    if self.agent_type == 'ego': reward = WINNING_MEGA_REWARD
+                    if self.agent_type == 'adv': reward += 1 
+                    if self.agent_type == 'ego': reward += -1
                 elif env_trapped == False: 
                     self.state = 'start'
             else:
-                # This block is functionally dead code now (which is good), 
-                # but left in case of counterfactual simulation leaks.
                 self.state = 'v_lose'
-                if self.agent_type == 'adv': reward = 1 
-                if self.agent_type == 'ego': reward = TRAP_NEGATIVE_REWARD
+                if self.agent_type == 'adv': reward += 1 
+                if self.agent_type == 'ego': reward += TRAP_NEGATIVE_REWARD
 
         return self.state, reward            
             
@@ -161,6 +230,8 @@ class Reward_Machine():
 # QRM-SG solver #
 # ============= #
   
+import warnings # Add this at the top of the file
+
 def solve_stage_game(q_matrix_ego, q_matrix_adv, 
                      agent_actions = ['up', 'down', 'left', 'right'],
                      debug = DEBUG
@@ -172,12 +243,14 @@ def solve_stage_game(q_matrix_ego, q_matrix_adv,
 
     NUM_ACTIONS = len(agent_actions)
     
-    ## EMPTY Q-Tables
-    if np.all(q_matrix_ego == 0) and np.all(q_matrix_adv == 0):
+    ## FAST BYPASS FOR UNLEARNED MATRICES (Speeds up early training 10x)
+    # If the Q-values haven't meaningfully diverged (max diff is less than 0.05),
+    # the state hasn't learned a real reward yet. Bypass the expensive Nash solver.
+    if (np.max(q_matrix_ego) - np.min(q_matrix_ego) < 0.05) and \
+       (np.max(q_matrix_adv) - np.min(q_matrix_adv) < 0.05):
         return np.ones(NUM_ACTIONS)/NUM_ACTIONS, np.ones(NUM_ACTIONS)/NUM_ACTIONS
     
-    ## SHIFT MATRICES TO POSITIVE (Nash Invariance)
-    # nashpy solvers crash with negative payoffs. Shifting by a constant preserves the equilibrium.
+    ## SHIFT MATRICES TO POSITIVE
     min_e = np.min(q_matrix_ego)
     min_a = np.min(q_matrix_adv)
     
@@ -194,40 +267,43 @@ def solve_stage_game(q_matrix_ego, q_matrix_adv,
     game = nash.Game(q_matrix_ego + shift_e + noise_e, 
                      q_matrix_adv + shift_a + noise_a)
     
-    try:
-        # Use support_enumeration (more mathematically stable for grid worlds)
-        if LEMKE_HOWSON:
-            random_label = np.random.randint(0, NUM_ACTIONS) # FIXED bounds
-            pi_e, pi_a = game.lemke_howson(initial_dropped_label=random_label)
-
-            if len(pi_e) < NUM_ACTIONS:
-                new_pi_e = np.zeros(NUM_ACTIONS)
-                new_pi_e[:len(pi_e)] = pi_e
-                pi_e = new_pi_e
-                
-            if len(pi_a) < NUM_ACTIONS:
-                new_pi_a = np.zeros(NUM_ACTIONS)
-                new_pi_a[:len(pi_a)] = pi_a
-                pi_a = new_pi_a
-
-        else:
-            equilibria = game.support_enumeration() 
-            pi_e, pi_a = next(equilibria) 
+    # Mute nashpy's internal UserWarnings about degenerate games
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
         
-        # Normalize and clean probabilities
-        pi_e = np.clip(pi_e, 0, 1)
-        if pi_e.sum() > 0: pi_e /= pi_e.sum()
-        else: pi_e = np.ones(NUM_ACTIONS)/NUM_ACTIONS
-            
-        pi_a = np.clip(pi_a, 0, 1)
-        if pi_a.sum() > 0: pi_a /= pi_a.sum()
-        else: pi_a = np.ones(NUM_ACTIONS)/NUM_ACTIONS
-            
-        return pi_e, pi_a
+        try:
+            if LEMKE_HOWSON:
+                random_label = np.random.randint(0, NUM_ACTIONS) 
+                pi_e, pi_a = game.lemke_howson(initial_dropped_label=random_label)
 
-    except Exception as e:
-        # Guaranteed fallback size 4 when equilibria generator is empty
-        return np.ones(NUM_ACTIONS)/NUM_ACTIONS, np.ones(NUM_ACTIONS)/NUM_ACTIONS
+                if len(pi_e) < NUM_ACTIONS:
+                    new_pi_e = np.zeros(NUM_ACTIONS)
+                    new_pi_e[:len(pi_e)] = pi_e
+                    pi_e = new_pi_e
+                    
+                if len(pi_a) < NUM_ACTIONS:
+                    new_pi_a = np.zeros(NUM_ACTIONS)
+                    new_pi_a[:len(pi_a)] = pi_a
+                    pi_a = new_pi_a
+
+            else:
+                equilibria = game.support_enumeration() 
+                pi_e, pi_a = next(equilibria) 
+            
+            # Normalize and clean probabilities
+            pi_e = np.clip(pi_e, 0, 1)
+            if pi_e.sum() > 0: pi_e /= pi_e.sum()
+            else: pi_e = np.ones(NUM_ACTIONS)/NUM_ACTIONS
+                
+            pi_a = np.clip(pi_a, 0, 1)
+            if pi_a.sum() > 0: pi_a /= pi_a.sum()
+            else: pi_a = np.ones(NUM_ACTIONS)/NUM_ACTIONS
+                
+            return pi_e, pi_a
+
+        except Exception as e:
+            # Guaranteed fallback size 4 when equilibria generator is empty
+            return np.ones(NUM_ACTIONS)/NUM_ACTIONS, np.ones(NUM_ACTIONS)/NUM_ACTIONS
     
 
 

@@ -200,6 +200,7 @@ class PacmanGridWorld:
                  wall_coords = WALL_COORDS,
                  trap_coords = TRAP_COORDS,
                  exit_coords = EXIT_COORDS,
+                 key_coord = KEY_COORD,
                  starting_pos_ego = START_ego,
                  starting_pos_adv = START_adv,
                  ):
@@ -228,6 +229,7 @@ class PacmanGridWorld:
             self.traps = trap_coords
             self.walls = wall_coords
             self.exits = exit_coords
+            self.keys = key_coord
             self.trapped = False
 
         self.pos_a = self.start_pos_a
@@ -270,12 +272,11 @@ class PacmanGridWorld:
 
         # Wall collision 
         if (r, c) in self.walls:
-            return hold_pos
-
             if is_ego:
-                self.adv_on_wall = True
+                self.ego_on_wall = True 
             else:
-                self.ego_on_wall = True
+                self.adv_on_wall = True
+            return hold_pos
 
 
         # Trap handling: trigger the stun for NEXT turn
@@ -337,8 +338,9 @@ class PacmanGridWorld:
             abs(self.pos_a[1] - self.pos_e[1])) < 2:
             labels.add('collision')
 
-        if self.pos_e == KEY_COORD:
+        if self.pos_e == self.keys:
             self.doors_opened = True
+            self.keys = None
             labels.add('key')
 
         return labels

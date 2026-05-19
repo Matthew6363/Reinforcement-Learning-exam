@@ -93,6 +93,7 @@ def train_qrm_sg(total_episodes=1000,
     ## Define the number of episodes needed to tune the epsilon decay rate.
     #  In this way, we do allow epsilon to become lower the far we go with exploration
     decay_episodes = int(total_episodes * decay_rate)
+    
 
     ## CHECK Parameters and HYSTORY
     successes       = 0
@@ -125,6 +126,15 @@ def train_qrm_sg(total_episodes=1000,
         epsilon = max(end_epsilon,
                       start_epsilon - (start_epsilon - end_epsilon) * episode / decay_episodes)
 
+        # ## EPSILON PLATEAU STRATEGY
+        # plateau_episodes = int(total_episodes * 0.25) # Hold max exploration for the first 25% of training
+        # active_decay_episodes = decay_episodes - plateau_episodes
+
+        # if episode <= plateau_episodes:
+        #     epsilon = start_epsilon
+        # else:
+        #     decay_progress = (episode - plateau_episodes) / active_decay_episodes
+        #     epsilon = max(end_epsilon, start_epsilon - (start_epsilon - end_epsilon) * decay_progress)
 
         for step in range(step_num): # for each step of the game
             
@@ -163,7 +173,7 @@ def train_qrm_sg(total_episodes=1000,
 
             ## Get the translation of the step for the RM 
             labels = env.get_labels()
-            env_trapped = env.trapped ## after the action is done, 
+            env_trapped = env.ego_trapped ## after the action is done, 
             ego_on_wall = env.ego_on_wall
             adv_on_wall = env.adv_on_wall
 
@@ -311,8 +321,8 @@ def train_qrm_sg(total_episodes=1000,
 
 
         ## Back to the episode,having done all steps, we update the rewards
-        all_ego_rewards.append(min(ep_reward_e, 1.0))
-        all_adv_rewards.append(min(ep_reward_a, 1.0))
+        all_ego_rewards.append(ep_reward_e)
+        all_adv_rewards.append(ep_reward_a)
 
         ## Print the situation every 100 episodes.
         if episode % 100 == 0:
