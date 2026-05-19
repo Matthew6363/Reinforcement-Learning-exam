@@ -10,9 +10,9 @@ GRID_H = GRID_W = 0
 if TASK == "maze":
     TRAPS_DO_STOP_FOR_A_TURN = False
     TRAP_NEGATIVE_REWARD = -0.5
-    WINNING_MEGA_REWARD = 10
+    WINNING_MEGA_REWARD = 5
     WALL_HIT_PENALTY = -0.5
-    KEY_REWARD = 2
+    KEY_REWARD = 3
     
     # Reduced Grid Size
     GRID_W = 8
@@ -25,7 +25,7 @@ if TASK == "maze":
 
     # New Starting Positions
     START_ego = (1, 0) # (8,6) does work
-    START_adv = (1, 2)
+    START_adv = (3, 4)
     
 
 ### [[ Solver Specific parameters QSG-RM ]]
@@ -35,11 +35,10 @@ ALPHA = 0.1
 FAIL_RATE = 0.005
 
 # Adjusted for 10,000 states (much faster training)
-EPISODES = 10000 
-SAVE_EACH = 20000
+EPISODES = 7500 
+SAVE_EACH = 500
 TASK_III_EPSILON = 0.5
-STEP_NUM = 300 
-START_EPSILON = 0.3 
+STEP_NUM = 1000  
 START_EPSILON = 0.25 
 END_EPSILON = 0.05
 DECAY_RATE = 0.8
@@ -77,7 +76,7 @@ WALL_COORDS = [
     (3, 1), (3, 6),
     (4, 1), (4, 3), (4, 4), (4, 5), (4, 6), 
     (6, 1), (6, 2), (6, 4), (6, 5), (6, 6), 
-    (7, 1), (7, 4), 
+    (7, 4), 
     (8, 1), #(8, 3), (8, 4), (8, 5), (8, 6)
 ]
 

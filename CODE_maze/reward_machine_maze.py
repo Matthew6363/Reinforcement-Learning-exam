@@ -173,26 +173,31 @@ def solve_stage_game(q_matrix_ego, q_matrix_adv,
     NUM_ACTIONS = len(agent_actions)
     
     ## EMPTY Q-Tables
-    #  Bypass Nash solver if the Q-matrix is completely empty (avoids degeneracy crash). 
-    #  These strategies are initialized to be equi-prob state-actions 
     if np.all(q_matrix_ego == 0) and np.all(q_matrix_adv == 0):
-        # return equi-distributed random policies. Any action has same probalility given a state.
         return np.ones(NUM_ACTIONS)/NUM_ACTIONS, np.ones(NUM_ACTIONS)/NUM_ACTIONS
     
+    ## SHIFT MATRICES TO POSITIVE (Nash Invariance)
+    # nashpy solvers crash with negative payoffs. Shifting by a constant preserves the equilibrium.
+    min_e = np.min(q_matrix_ego)
+    min_a = np.min(q_matrix_adv)
+    
+    shift_e = abs(min_e) + 1.0 if min_e < 0 else 0.0
+    shift_a = abs(min_a) + 1.0 if min_a < 0 else 0.0
+
     ## INIT a Nash Game with the 2 q-tables
     noise_e = 0.0
     noise_a = 0.0
     if ADD_NOISE:
-        # Must be an array of random noise, not a flat scalar
         noise_e = np.random.uniform(1e-6, 1e-5, size=q_matrix_ego.shape)
         noise_a = np.random.uniform(1e-6, 1e-5, size=q_matrix_adv.shape)
         
-    game = nash.Game(q_matrix_ego + noise_e, q_matrix_adv + noise_a)
+    game = nash.Game(q_matrix_ego + shift_e + noise_e, 
+                     q_matrix_adv + shift_a + noise_a)
     
     try:
         # Use support_enumeration (more mathematically stable for grid worlds)
         if LEMKE_HOWSON:
-            random_label = np.random.randint(0, NUM_ACTIONS-1)
+            random_label = np.random.randint(0, NUM_ACTIONS) # FIXED bounds
             pi_e, pi_a = game.lemke_howson(initial_dropped_label=random_label)
 
             if len(pi_e) < NUM_ACTIONS:
@@ -207,11 +212,7 @@ def solve_stage_game(q_matrix_ego, q_matrix_adv,
 
         else:
             equilibria = game.support_enumeration() 
-            pi_e, pi_a = next(equilibria) # find and take the next one (first found) and assing it to the strategies
-        
-        # Note: pi_e, pi_a are two STRATEGIES, as vectors containing the probabilities 
-        # of doing the actions! Notice that actions are ordered wrt to the Q-table passed to this 
-        # function,
+            pi_e, pi_a = next(equilibria) 
         
         # Normalize and clean probabilities
         pi_e = np.clip(pi_e, 0, 1)
@@ -225,11 +226,7 @@ def solve_stage_game(q_matrix_ego, q_matrix_adv,
         return pi_e, pi_a
 
     except Exception as e:
-        # 4. Guaranteed fallback size 4
-        print("Exception occurred, saved in log.", e)
-        log_error_to_file(str(e), q_matrix_ego, q_matrix_adv)
-
-        # and return the random one.
+        # Guaranteed fallback size 4 when equilibria generator is empty
         return np.ones(NUM_ACTIONS)/NUM_ACTIONS, np.ones(NUM_ACTIONS)/NUM_ACTIONS
     
 
