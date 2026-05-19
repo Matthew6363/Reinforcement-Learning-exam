@@ -98,7 +98,7 @@ def draw_agent(screen, pos, color):
 
 
 def pos_to_idx(pos): 
-    return pos[0]*6 + pos[1]
+    return pos[0] * GRID_W + pos[1]
 
 
 def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz', 
@@ -148,6 +148,8 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
         draw_trap(screen, trap, TRAP_COLOR, "Trap")
     for wall in WALL_COORDS:
         draw_trap(screen, wall, WALL_COLOR, "")
+    for exits in EXIT_COORDS:
+        draw_trap(screen, exits, EXIT_COLOR, "" )
 
     draw_agent(screen, pos_e, EGO_COLOR) # blue
     draw_agent(screen, pos_a, ADV_COLOR) # red
@@ -180,6 +182,8 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
             draw_trap(screen, trap, TRAP_COLOR, "Trap")
         for wall in WALL_COORDS:
             draw_trap(screen, wall, WALL_COLOR, "")
+        for exits in EXIT_COORDS:
+                draw_trap(screen, exits, EXIT_COLOR, "" )
 
         draw_agent(screen, pos_e, EGO_COLOR)
         draw_agent(screen, pos_a, ADV_COLOR)
@@ -200,13 +204,19 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
         ## Get new states and RM current label
         pos_e, pos_a = env.step(action_e, action_a)
         labels = env.get_labels()
+
+        env_trapped = env.trapped ## after the action is done, 
+        ego_on_wall = env.ego_on_wall
+        adv_on_wall = env.adv_on_wall
+
+
         
         ## Get RM reward thanks to d(current RM state, current label)
-        _, r_e = rm_ego.step(labels)
-        _, r_a = rm_adv.step(labels)
+        _, r_e = rm_ego.step(labels, env_trapped, ego_on_wall, adv_on_wall)
+        _, r_a = rm_adv.step(labels, env_trapped, ego_on_wall, adv_on_wall)
         
 
-        is_terminal = (rm_ego == 'v_win')
+        is_terminal = (rm_ego.state == 'v_escaped' or rm_adv.state == 'v_lose')
 
         ## Is this the last step? (i.e. Has someone won?)
         if is_terminal: #rm_ego.state == 'v_end' or rm_adv.state == 'v_end':
@@ -220,7 +230,9 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
             for trap in TRAP_COORDS:
                 draw_trap(screen, trap, TRAP_COLOR, "Trap")
             for wall in WALL_COORDS:
-                draw_trap(screen, wall, WALL_COLOR, "")
+                draw_trap(screen, wall, WALL_COLOR, "" )
+            for exits in EXIT_COORDS:
+                draw_trap(screen, exits, EXIT_COLOR, "" )
 
             draw_agent(screen, pos_e, EGO_COLOR)
             draw_agent(screen, pos_a, ADV_COLOR)

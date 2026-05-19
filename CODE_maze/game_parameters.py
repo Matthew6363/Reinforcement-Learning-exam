@@ -40,6 +40,8 @@ if TASK == "task_III":
 if TASK == "maze":
     TRAPS_DO_STOP_FOR_A_TURN = False
     TRAP_NEGATIVE_REWARD = -0.5
+    WINNING_MEGA_REWARD = 10
+    WALL_HIT_PENALTY = -1
     WINNING_MEGA_REWARD = 5
     WALL_HIT_PENALTY = -0.5
     
@@ -64,10 +66,12 @@ ALPHA = 0.1
 FAIL_RATE = 0.005
 
 # Adjusted for 10,000 states (much faster training)
+EPISODES = 10000 
 EPISODES = 20000 
 SAVE_EACH = 20000
 TASK_III_EPSILON = 0.5
 STEP_NUM = 500 
+START_EPSILON = 0.3 
 START_EPSILON = 0.25 
 END_EPSILON = 0.05
 DECAY_RATE = 0.8
@@ -88,6 +92,7 @@ GRID_COLOR = (60, 60, 60)
 EGO_COLOR = (50, 150, 255)   
 ADV_COLOR = (255, 50, 50)   
 TRAP_COLOR = (255, 100, 100)
+EXIT_COLOR = (50, 255, 50)
 WALL_COLOR = (60, 60, 60)
 AGENT_RATIO = 0.4
 BASE_ALPHA = 100    
@@ -105,6 +110,7 @@ WALL_COORDS = [
     (5, 8),
     (6, 1), (6, 2), (6, 4), (6, 5), (6, 6), (6, 8),
     (7, 1), (7, 4), (7, 8),
+    (8, 1), #(8, 3), (8, 4), (8, 5), (8, 6)
     (8, 1),
 ]
 

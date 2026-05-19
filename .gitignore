@@ -5,6 +5,7 @@ codice_bello_claude.py
 #*.png
 QSGRM_env
 CODE/__pycache__
+*.npz
 # EXPORT/q_models_*
 eval_results_task_II.npz
 
