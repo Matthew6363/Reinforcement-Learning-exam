@@ -332,7 +332,7 @@ class PacmanGridWorld:
 
         # Collision: Manhattan distance < 1 (i.e. same cell)
         if (abs(self.pos_a[0] - self.pos_e[0]) + 
-            abs(self.pos_a[1] - self.pos_e[1])) < 1:
+            abs(self.pos_a[1] - self.pos_e[1])) < 2:
             labels.add('collision')
 
         return labels
