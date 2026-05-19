@@ -253,7 +253,7 @@ if __name__ == "__main__":
 
     #FILE_NAME = 'q_models_task_II_ep6500'
     #FILE_NAME = 'q_models_task_I_ep16000'
-    FILE_NAME = 'q_models_pacman_ep16000'
+    FILE_NAME = 'q_models_pacman_ep1500'
     
     visualize_trained_agents(f"../EXPORT/{FILE_NAME}.npz", 
                              checkpoint=0,

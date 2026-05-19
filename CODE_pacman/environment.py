@@ -57,8 +57,9 @@ class PacmanGridWorld:
             for j in range(self.grid_size[1])
             if (i, j) not in set(self.exclude_states)
             ]
+
         self.last_number_dots_remaining = len(self.to_visit)
-        
+    
 
     def reset(self):
         '''
@@ -195,15 +196,16 @@ class PacmanGridWorld:
         # Case: Ego has taken all dots
         if self.to_visit == []:
             labels.add('all_visited')
+            #print(f"Ego wins, since {self.to_visit} is empty.\n")
         
         # Case: Dot taken
         if self.last_number_dots_remaining > len(self.to_visit):
             labels.add('dot_taken')
-
         
         # Case: Adv CURRENTLY IN Ego position (symmetric), i.e. at less than two in distance
         if (abs(self.pos_a[0] - self.pos_e[0]) + abs(self.pos_a[1] - self.pos_e[1])) < 1:
             labels.add('collision')
+            #print("Ahh! Adv takes Ego\n")
         
         return labels
 

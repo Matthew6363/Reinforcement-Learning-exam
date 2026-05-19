@@ -48,7 +48,7 @@ def initialize_q_function(shape, strategy=INIT_STRATEGIES[2]):
     elif strategy == "optimistic":
         return np.ones(shape) * 1.0
     elif strategy == "random":
-        return np.random.uniform(low=0.0001, high=0.001, size=shape)
+        return np.random.uniform(low=0.001, high=0.01, size=shape)
         # return np.random.uniform(low=0.01, high=0.2, size=shape)
     else:
         raise ValueError("Unknown initialization strategy")
@@ -279,6 +279,8 @@ def train_qrm_sg(total_episodes=1000,
             next_state_e, r_e = rm_ego.step(labels) 
             next_state_a, r_a = rm_adv.step(labels)
 
+            r_e -= PENALTY
+
             ## Update the episode reward scalar
             ep_reward_e += r_e
             ep_reward_a += r_a
@@ -321,6 +323,8 @@ def train_qrm_sg(total_episodes=1000,
                 else:
                     pass
 
+            
+            #print("Time end reached")
 
         ## Back to the episode,having done all steps, we update the rewards
         all_ego_rewards.append(min(ep_reward_e, 1.0))
