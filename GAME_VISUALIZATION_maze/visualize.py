@@ -259,7 +259,7 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
 
 if __name__ == "__main__":
 
-    FILE_NAME = 'q_models_maze_ep1000'
+    FILE_NAME = 'q_models_maze_ep15000'
     
     visualize_trained_agents(f"../EXPORT/{FILE_NAME}.npz", 
                              checkpoint=0,
