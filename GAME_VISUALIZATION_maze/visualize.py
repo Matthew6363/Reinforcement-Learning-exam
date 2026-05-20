@@ -72,7 +72,9 @@ def draw_trap(screen, pos, color, name):
     pygame.draw.rect(surface, (*color, BASE_ALPHA), trap_rect)
     
     screen.blit(surface, (c * CELL_SIZE + MARGIN, r * CELL_SIZE + MARGIN))
-    font = pygame.font.Font(None, 30)
+    font = pygame.font.Font(None, 25)
+    if name == "Button":
+        font = pygame.font.Font(None, 20)
     img = font.render(name, True, (0, 0, 0))
     text_rect = img.get_rect(center=(c * CELL_SIZE + CELL_SIZE // 2 + MARGIN, 
                                      r * CELL_SIZE + CELL_SIZE // 2 + MARGIN))
@@ -150,9 +152,15 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
     for wall in WALL_COORDS:
         draw_trap(screen, wall, WALL_COLOR, "")
     for exits in EXIT_COORDS:
-        draw_trap(screen, exits, EXIT_COLOR, "" )
+        if env.doors_opened == True:
+            draw_trap(screen, exits, EXIT_COLOR, "Exit" )
+        else:
+            draw_trap(screen, exits, EXIT_COLOR_locked, "Exit" )
     if env.keys is not None:
-        draw_trap(screen, env.keys, KEY_COLOR, "Key" )
+                if env.doors_opened == False:
+                    draw_trap(screen, env.keys, KEY_COLOR, "Button" )
+                if env.doors_opened == True:
+                    draw_trap(screen, env.keys, BUTTON_PRESSED_COLOR, "Button" )
 
     draw_agent(screen, pos_e, EGO_COLOR) # blue
     draw_agent(screen, pos_a, ADV_COLOR) # red
@@ -186,9 +194,15 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
         for wall in WALL_COORDS:
             draw_trap(screen, wall, WALL_COLOR, "")
         for exits in EXIT_COORDS:
-            draw_trap(screen, exits, EXIT_COLOR, "" )
+            if env.doors_opened == True:
+                draw_trap(screen, exits, EXIT_COLOR, "Exit" )
+            else:
+                draw_trap(screen, exits, EXIT_COLOR_locked, "Exit" )
         if env.keys is not None:
-            draw_trap(screen, env.keys, KEY_COLOR, "Key")
+                if env.doors_opened == False:
+                    draw_trap(screen, env.keys, KEY_COLOR, "Button" )
+                if env.doors_opened == True:
+                    draw_trap(screen, env.keys, BUTTON_PRESSED_COLOR, "Button" )
 
         draw_agent(screen, pos_e, EGO_COLOR)
         draw_agent(screen, pos_a, ADV_COLOR)
@@ -246,9 +260,16 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
             for wall in WALL_COORDS:
                 draw_trap(screen, wall, WALL_COLOR, "" )
             for exits in EXIT_COORDS:
-                draw_trap(screen, exits, EXIT_COLOR, "" )
+                if env.doors_opened == True:
+                    draw_trap(screen, exits, EXIT_COLOR, "Exit" )
+                else:
+                    draw_trap(screen, exits, EXIT_COLOR_locked, "Exit" )
             if env.keys is not None:
-                draw_trap(screen, env.keys, KEY_COLOR, "Key" )
+                if env.doors_opened == False:
+                    draw_trap(screen, env.keys, KEY_COLOR, "Button" )
+                if env.doors_opened == True:
+                    draw_trap(screen, env.keys, BUTTON_PRESSED_COLOR, "Button" )
+
 
             draw_agent(screen, pos_e, EGO_COLOR)
             draw_agent(screen, pos_a, ADV_COLOR)
@@ -287,7 +308,7 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
 
 if __name__ == "__main__":
 
-    FILE_NAME = 'q_models_maze_ep10000'
+    FILE_NAME = 'q_models_maze_ep6000'
     
     visualize_trained_agents(f"../EXPORT/{FILE_NAME}.npz", 
                              checkpoint=0,

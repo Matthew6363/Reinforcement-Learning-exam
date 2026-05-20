@@ -365,9 +365,9 @@ class PacmanGridWorld:
             labels.add('collision')
 
         if self.pos_e == self.keys:
-            if self.doors_opened == False:
-                self.doors_opened = True
-                labels.add('key')
+            self.doors_opened = True
+            self.keys = None
+            labels.add('key')
 
         return labels
 
@@ -381,7 +381,7 @@ class PacmanGridWorld:
             self.adv_on_wall = False
         if self.pos_e == self.keys:
             self.doors_opened = True
-            #self.keys = None
+            self.keys = None
 
 def build_test_env():
     env = PacmanGridWorld()
