@@ -6,7 +6,7 @@ from PIL import Image
 
 SAVE_GIF = True
 
-code_dir = os.path.abspath(os.path.join(os.path.dirname(__file__),'..', 'CODE_maze'))
+code_dir = os.path.abspath(os.path.join(os.path.dirname(__file__),'..', 'CODE_maze_easy'))
 sys.path.append(code_dir)
 
 ######### PROBLEM-SPECIFIC REWARD MACHINE and ENV #######################
@@ -287,7 +287,7 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
 
 if __name__ == "__main__":
 
-    FILE_NAME = 'q_models_maze_ep500'    
+    FILE_NAME = 'q_models_maze_ep10000'    
     
     visualize_trained_agents(f"../EXPORT/{FILE_NAME}.npz", 
                              checkpoint=0,
