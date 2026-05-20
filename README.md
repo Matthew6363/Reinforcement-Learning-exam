@@ -96,7 +96,7 @@ Problem formulation
 ### Gameplay visualization
 
 <p align="center">
-  <img src="https://github.com/Matthew6363/Reinforcement-Learning-exam/blob/main/GAME_VISUALIZATION_maze/Exported_gifs/q_models_maze_ep9500_simulation.gif" width="300" alt="Descrizione GIF">
+  <img src="https://github.com/Matthew6363/Reinforcement-Learning-exam/blob/main/GAME_VISUALIZATION_maze/Exported_gifs/q_models_maze_ep10000_simulation.gif" width="300" alt="Descrizione GIF">
 </p>
 
 ## References
