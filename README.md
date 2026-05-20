@@ -89,9 +89,18 @@ Case Study III is different from Case Study II in that the adversarial agent ran
 
 ## Proposed maze-based game
 
-Problem formulation
+The underliying idea of this section was about testing the method capabilities if the game complexity is extended on environmental side. In fact, we do propose the same collision based task, but only for one of the agents: the ego agent is now immersed into a maze $8\times 10$ (instead of $6\times 6$, having same actions available. We can summarize the proposed game rule:
+
+* The ego agent has to **escape the maze** by getting to the only exit;
+* The doors do "unlock" only if a key was calleted by the agent on a fixed cell of the gridworld;
+* The adv agent behaves as a seeker, which has to *collide* with ego agent to win.
+
+The reward machine for this case can be visualized here:
+
 
 ### Considerations and observed results
+
+
 
 ### Gameplay visualization
 
