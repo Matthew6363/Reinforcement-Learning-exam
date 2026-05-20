@@ -103,6 +103,12 @@ def train_qrm_sg(total_episodes=1000,
     timeouts_cnt    = 0
     all_ego_rewards = []
     all_adv_rewards = []
+    history = {
+        "episodes": [], "epsilon": [], 
+        "ego_wr": [], "adv_wr": [], 
+        "coll_r": [], "trap_r": [], "time_r": [], 
+        "avg_rew_e": [], "avg_rew_a": []
+    }
 
 
     print(f"Starting QRM-SG Training for {total_episodes} episodes...")
@@ -357,19 +363,18 @@ def train_qrm_sg(total_episodes=1000,
 
 
             file_path = f"../EXPORT/{TASK}_saved_percentages.npz"
-            np.savez(
-                file_path,
-                episode=episode,
-                epsilon=epsilon,
-                ego_wr=ego_wr,
-                adv_wr=adv_wr,
-                coll_r=coll_r,
-                trap_r=trap_r,
-                time_r=time_r,
-                avg_rew_e=avg_rew_e,
-                avg_rew_a=avg_rew_a
-            )
+            
+            history["episodes"].append(episode)
+            history["epsilon"].append(epsilon)
+            history["ego_wr"].append(ego_wr)
+            history["adv_wr"].append(adv_wr)
+            history["coll_r"].append(coll_r)
+            history["trap_r"].append(trap_r)
+            history["time_r"].append(time_r)
+            history["avg_rew_e"].append(avg_rew_e)
+            history["avg_rew_a"].append(avg_rew_a)
 
+            np.savez(file_path, **history)
             
             # Reset window counters
             successes = 0
