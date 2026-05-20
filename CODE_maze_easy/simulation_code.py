@@ -362,7 +362,7 @@ def train_qrm_sg(total_episodes=1000,
             print("-" * 50)
 
 
-            file_path = f"../EXPORT/{TASK}_easy_saved_percentages.npz"
+            file_path = f"../EXPORT/{TASK}_saved_percentages.npz"
             
             history["episodes"].append(episode)
             history["epsilon"].append(epsilon)
