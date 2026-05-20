@@ -6,7 +6,7 @@ from PIL import Image
 
 SAVE_GIF = True
 
-code_dir = os.path.abspath(os.path.join(os.path.dirname(__file__),'..', 'CODE_maze'))
+code_dir = os.path.abspath(os.path.join(os.path.dirname(__file__),'..', 'CODE_maze_easy'))
 sys.path.append(code_dir)
 
 ######### PROBLEM-SPECIFIC REWARD MACHINE and ENV #######################
