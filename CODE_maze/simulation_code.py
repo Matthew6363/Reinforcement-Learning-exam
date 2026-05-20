@@ -331,7 +331,7 @@ def train_qrm_sg(total_episodes=1000,
             r_e += TIMEOUT_PENALTY  
             all_ego_rewards.append(ep_reward_e + TIMEOUT_PENALTY)
             all_adv_rewards.append(ep_reward_a)
-            continue
+            #continue
 
 
         ## Back to the episode,having done all steps, we update the rewards
@@ -354,6 +354,22 @@ def train_qrm_sg(total_episodes=1000,
             print(f"  > Win Rate  | Ego: {ego_wr:4.1f}%  Adv: {adv_wr:4.1f}%  Coll: {coll_r:4.1f}%  Trap: {trap_r:4.1f}%  Timeout: {time_r:4.1f}%")
             print(f"  > Avg Rew   | Ego: {avg_rew_e:4.2f}   Adv: {avg_rew_a:4.2f}")
             print("-" * 50)
+
+
+            file_path = f"../EXPORT/{TASK}_saved_percentages.npz"
+            np.savez(
+                file_path,
+                episode=episode,
+                epsilon=epsilon,
+                ego_wr=ego_wr,
+                adv_wr=adv_wr,
+                coll_r=coll_r,
+                trap_r=trap_r,
+                time_r=time_r,
+                avg_rew_e=avg_rew_e,
+                avg_rew_a=avg_rew_a
+            )
+
             
             # Reset window counters
             successes = 0
@@ -362,8 +378,8 @@ def train_qrm_sg(total_episodes=1000,
             timeouts_cnt = 0
             traps_cnt = 0
         
-        # Save every 500 episodes (change to 100 if you want every single step)
-        if episode % 500 == 0:
+        # Save every N episodes (change to 100 if you want every single step)
+        if episode % SAVE_EACH == 0:
             ckpt_path = f'../EXPORT/q_models_{task_name_string}_ep{episode}.npz'
             np.savez(ckpt_path, q_ee=q_ee, q_ae=q_ae, q_ea=q_ea, q_aa=q_aa)
 
