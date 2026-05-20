@@ -309,6 +309,7 @@ def train_qrm_sg(total_episodes=1000,
             ## Case: one between ego and adv reached the end?
             if 'collision' in labels:
                 collisions_cnt += 1
+                adv_wins += 1
                 break
 
             # 2. Controlla le vittorie effettive degli agenti
@@ -327,12 +328,10 @@ def train_qrm_sg(total_episodes=1000,
         # TIMEOUT case, add a penalty to last action
         else: 
             timeouts_cnt += 1
-            idx = (s_e, s_a, v_e, v_a, action_e, action_a)
-            q_ee[idx] += alpha * TIMEOUT_PENALTY
-            q_aa[idx] += alpha * TIMEOUT_PENALTY
-            
-            ep_reward_e += TIMEOUT_PENALTY
-            ep_reward_a += TIMEOUT_PENALTY
+            r_e += TIMEOUT_PENALTY  
+            all_ego_rewards.append(ep_reward_e + TIMEOUT_PENALTY)
+            all_adv_rewards.append(ep_reward_a)
+            continue
 
 
         ## Back to the episode,having done all steps, we update the rewards

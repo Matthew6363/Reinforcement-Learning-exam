@@ -168,6 +168,8 @@ class Reward_Machine():
 
         if self.agent_type == "ego":
             reward += EGO_LIVING_PENALTY
+        if self.agent_type == "adv":
+            reward += ADV_LIVING_PENALTY
 
         # FIXED: Only penalize the specific agent that hit the wall
         if 'ego_on_wall' in labels and self.agent_type == 'ego':
@@ -178,8 +180,8 @@ class Reward_Machine():
         if self.state == 'start':
             if 'collision' in labels:
                 self.state = 'v_lose'
-                if self.agent_type == 'adv': reward += 1
-                if self.agent_type == 'ego': reward += -1 # Fear the adversary
+                if self.agent_type == 'adv': reward += ADV_CATCH_REWARD
+                if self.agent_type == 'ego': reward += EGO_CATCHED_NEG_REWARD # Fear the adversary
                 
             elif 'trapped' in labels:
                 if TRAPS_DO_STOP_FOR_A_TURN:
@@ -187,7 +189,7 @@ class Reward_Machine():
                     if self.agent_type == 'ego': reward += TRAP_NEGATIVE_REWARD
                 else:
                     self.state = 'v_lose' 
-                    if self.agent_type == 'adv': reward += 1
+                    if self.agent_type == 'adv': reward += ADV_CATCH_REWARD
                     if self.agent_type == 'ego': reward += TRAP_NEGATIVE_REWARD
             
             elif 'key' in labels:
@@ -201,8 +203,8 @@ class Reward_Machine():
                 
             elif 'collision' in labels:
                 self.state = 'v_lose'
-                if self.agent_type == 'adv': reward += 1
-                if self.agent_type == 'ego': reward += -1 
+                if self.agent_type == 'adv': reward += ADV_CATCH_REWARD
+                if self.agent_type == 'ego': reward += EGO_CATCHED_NEG_REWARD
                 
             elif 'trapped' in labels:
                 if TRAPS_DO_STOP_FOR_A_TURN:
@@ -210,20 +212,20 @@ class Reward_Machine():
                     if self.agent_type == 'ego': reward += TRAP_NEGATIVE_REWARD
                 else:
                     self.state = 'v_lose' 
-                    if self.agent_type == 'adv': reward += 1
+                    if self.agent_type == 'adv': reward += ADV_TRAP_REWARD
                     if self.agent_type == 'ego': reward += TRAP_NEGATIVE_REWARD
         
         elif self.state == 'v_trap':
             if TRAPS_DO_STOP_FOR_A_TURN:
                 if 'collision' in labels:
                     self.state = 'v_lose'
-                    if self.agent_type == 'adv': reward += 1 
-                    if self.agent_type == 'ego': reward += -1
+                    if self.agent_type == 'adv': reward += ADV_CATCH_REWARD
+                    if self.agent_type == 'ego': reward += EGO_CATCHED_NEG_REWARD
                 elif env_trapped == False: 
                     self.state = 'start'
             else:
                 self.state = 'v_lose'
-                if self.agent_type == 'adv': reward += 1 
+                if self.agent_type == 'adv': reward += ADV_TRAP_REWARD
                 if self.agent_type == 'ego': reward += TRAP_NEGATIVE_REWARD
 
         return self.state, reward            

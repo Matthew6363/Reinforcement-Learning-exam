@@ -264,13 +264,37 @@ class PacmanGridWorld:
             raise ValueError("invalid actions")
 
         if action == 0:  # up
-            if r > 0: r -= 1
+            if r > 0: 
+                r -= 1
+            else:
+                if is_ego:
+                    self.ego_on_wall = True 
+                else:
+                    self.adv_on_wall = True
         elif action == 1:  # down
-            if r < self.grid_size[0] - 1: r += 1
+            if r < self.grid_size[0] - 1: 
+                r += 1
+            else:
+                if is_ego:
+                    self.ego_on_wall = True 
+                else:
+                    self.adv_on_wall = True
         elif action == 2:  # left
-            if c > 0: c -= 1
+            if c > 0: 
+                c -= 1
+            else:
+                if is_ego:
+                    self.ego_on_wall = True 
+                else:
+                    self.adv_on_wall = True
         elif action == 3:  # right
-            if c < self.grid_size[1] - 1: c += 1
+            if c < self.grid_size[1] - 1: 
+                c += 1
+            else:
+                if is_ego:
+                    self.ego_on_wall = True 
+                else:
+                    self.adv_on_wall = True
 
         # Wall collision 
         if (r, c) in self.walls:

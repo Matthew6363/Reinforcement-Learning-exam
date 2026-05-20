@@ -9,12 +9,31 @@ GRID_H = GRID_W = 0
 
 if TASK == "maze":
     TRAPS_DO_STOP_FOR_A_TURN = False
+    
+    # [[ Rewards and penalties ]]
     TRAP_NEGATIVE_REWARD = -0.5
-    WINNING_MEGA_REWARD = 7
     TIMEOUT_PENALTY = 0 # -2.5 
-    EGO_LIVING_PENALTY = -0.02
+    EGO_LIVING_PENALTY = -0.03
+    ADV_LIVING_PENALTY = -0.01
     WALL_HIT_PENALTY = -0.5
+    WINNING_MEGA_REWARD = 7
+    ADV_CATCH_REWARD = 1
+    ADV_TRAP_REWARD  = 0.8
+    EGO_CATCHED_NEG_REWARD = -1
     KEY_REWARD = 3
+
+
+    # [[Suggested Rewards]]
+    TIMEOUT_PENALTY        = -5.0   
+    EGO_LIVING_PENALTY     = -0.01  
+    ADV_LIVING_PENALTY     = -0.04
+    WALL_HIT_PENALTY       = -1.0   
+    WINNING_MEGA_REWARD    =  8.0   
+    KEY_REWARD             =  3.0   
+    EGO_CATCHED_NEG_REWARD = -3.0 
+    TRAP_NEGATIVE_REWARD   = -3.0   
+    ADV_CATCH_REWARD       =  5.0   
+    ADV_TRAP_REWARD        =  1.0  
     
     # Reduced Grid Size
     GRID_W = 8
@@ -37,7 +56,7 @@ ALPHA = 0.1
 FAIL_RATE = 0.005
 
 # Adjusted for 10,000 states (much faster training)
-EPISODES = 20000 
+EPISODES = 10000 
 SAVE_EACH = 300
 TASK_III_EPSILON = 0.5
 STEP_NUM = 5000  
@@ -82,6 +101,6 @@ WALL_COORDS = [
     (8, 1), #(8, 3), (8, 4), (8, 5), (8, 6)
 ]
 
-KEY_COORD = (5, 4)
+KEY_COORD =   (0, 5) #(5, 4)
 TRAP_COORDS = [(2, 3), (7, 5)]
 EXIT_COORDS = [(9, 5)]
