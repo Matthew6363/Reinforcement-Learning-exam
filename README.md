@@ -93,14 +93,45 @@ The underliying idea of this section was about testing the method capabilities i
 
 * The ego agent has to **escape the maze** by getting to the only exit;
 * The doors do "unlock" only if a key was calleted by the agent on a fixed cell of the gridworld;
-* The adv agent behaves as a seeker, which has to *collide* with ego agent to win.
+* The adv agent behaves as a seeker, which has to *collide* with ego agent to win;
+* Some traps on the map are an instant failure for the Ego if it goes into
 
 The reward machine for this case can be visualized here:
+
+```mermaid
+stateDiagram-v2
+    [*] --> Start
+    %% Transitions from Start
+    Start --> V_loss : collision, r_e_b, r_a_Catch
+    Start --> V_loss : trapped, r_e_Trap, r_a_Trap
+    Start --> open : Key, r_e_b
+
+    %% Transitions from open (gate)
+    %% open --> Start : collision
+    open --> V_loss : collision, r_e_Coll, r_a_Catch
+    open --> V_escaped : escaped, r_e_Escape, 0
+```
+Where
+
+* `r_e_b` : *(positive) reward given to the Ego agent if the button to open the gate is pressed, causing a door opening*
+* `r_a_Catch` : *(positive) reward given to the Adv if it actually catches the Ego agent, in any situation*
+* `r_e_Trap`: *(negative) reward given to the Ego agent if it falls into a trap, causing the failure*
+* `r_a_Trap` : *(positive) reward given to the Adv agent if Ego falls into a trap, causing the failure
+* `r_e_Coll` : *(negative) reward given to the Ego agent if it gets captured (collision) by Adv, causing the failure*
+
+Together with some conditionals applied to any states:
+
+* Timeout penalty: if no one wins
+* Penalty of ego life, applied each step
+* Penalty of adv life, applied each step
+* Wall penalty, if agent goes to a wall (and no movement is actually done)
 
 
 ### Considerations and observed results
 
-
+* Negative reward handling
+* Cost of life and timeout penalty
+* Walls and discourage on wall actions
 
 ### Gameplay visualization
 
