@@ -72,7 +72,7 @@ def draw_trap(screen, pos, color, name):
     pygame.draw.rect(surface, (*color, BASE_ALPHA), trap_rect)
     
     screen.blit(surface, (c * CELL_SIZE + MARGIN, r * CELL_SIZE + MARGIN))
-    font = pygame.font.Font(None, 30)
+    font = pygame.font.Font(None, 25)
     img = font.render(name, True, (0, 0, 0))
     text_rect = img.get_rect(center=(c * CELL_SIZE + CELL_SIZE // 2 + MARGIN, 
                                      r * CELL_SIZE + CELL_SIZE // 2 + MARGIN))
