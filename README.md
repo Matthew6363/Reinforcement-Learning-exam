@@ -96,8 +96,28 @@ Problem formulation
 ### Gameplay visualization
 
 <p align="center">
+  <img src="https://github.com/Matthew6363/Reinforcement-Learning-exam/blob/main/GAME_VISUALIZATION_maze/Exported_gifs/q_models_maze_ep4000_simulation.gif" width="300" alt="Descrizione GIF">
+</p>
+
+> **Maze game.** Execution on $8x10$ grid, ['up', 'down', 'left', 'right'] actions, uniform(low=0.001, high=0.01) Q initialization, game.support_enumeration() nash solver and epsilon decay from 0.9 to 0.05. After 4000 episodes learning visualization.
+
+<br/>
+
+<p align="center">
+  <img src="https://github.com/Matthew6363/Reinforcement-Learning-exam/blob/main/GAME_VISUALIZATION_maze/Exported_gifs/q_models_maze_ep7500_simulation.gif" width="300" alt="Descrizione GIF">
+</p>
+
+> **Maze game.** Execution on $8x10$ grid, ['up', 'down', 'left', 'right'] actions, uniform(low=0.001, high=0.01) Q initialization, game.support_enumeration() nash solver and epsilon decay from 0.9 to 0.05. After 6500 episodes learning visualization.
+
+<br/>
+
+<p align="center">
   <img src="https://github.com/Matthew6363/Reinforcement-Learning-exam/blob/main/GAME_VISUALIZATION_maze/Exported_gifs/q_models_maze_ep10000_simulation.gif" width="300" alt="Descrizione GIF">
 </p>
+
+> **Maze game.** Execution on $8x10$ grid, ['up', 'down', 'left', 'right'] actions, uniform(low=0.001, high=0.01) Q initialization, game.support_enumeration() nash solver and epsilon decay from 0.9 to 0.05. After 10000 episodes learning visualization.
+
+<br/>
 
 ## References
 
