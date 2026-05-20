@@ -80,10 +80,8 @@ GRID_COLOR = (60, 60, 60)
 KEY_COLOR = (60,60,255)
 EGO_COLOR = (50, 150, 255)   
 ADV_COLOR = (255, 50, 50)   
-BUTTON_PRESSED_COLOR = (120,120,255)
 TRAP_COLOR = (255, 100, 100)
 EXIT_COLOR = (50, 255, 50)
-EXIT_COLOR_locked = (255, 220, 0)
 WALL_COLOR = (60, 60, 60)
 AGENT_RATIO = 0.4
 BASE_ALPHA = 100    
@@ -91,7 +89,7 @@ BASE_ALPHA = 100
 # New 10x10 maze layout
 WALL_COORDS = [
     # Top and bottom boundaries with exit gaps
-    (0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (0,5), (0, 6), (0, 7), 
+    (0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (0, 6), (0, 7), 
     (9, 0), (9, 1), (9, 2), (9, 3), (9, 4), (9, 6), (9, 7), 
     # Internal structure
     (1, 4),
