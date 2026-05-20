@@ -13,8 +13,8 @@ if TASK == "maze":
     # [[ Rewards and penalties ]]
     TRAP_NEGATIVE_REWARD = -0.5
     TIMEOUT_PENALTY = 0 # -2.5 
-    EGO_LIVING_PENALTY = -0.03
-    ADV_LIVING_PENALTY = -0.01
+    EGO_LIVING_PENALTY = -0.1
+    ADV_LIVING_PENALTY = -0.1
     WALL_HIT_PENALTY = -0.5
     WINNING_MEGA_REWARD = 7
     ADV_CATCH_REWARD = 1
@@ -25,9 +25,9 @@ if TASK == "maze":
 
     # [[Suggested Rewards]]
     TIMEOUT_PENALTY        = -5.0   
-    EGO_LIVING_PENALTY     = -0.01  
-    ADV_LIVING_PENALTY     = -0.04
-    WALL_HIT_PENALTY       = -1.0   
+    EGO_LIVING_PENALTY     = -0.05
+    ADV_LIVING_PENALTY     = -0.02
+    WALL_HIT_PENALTY       = -1.5 
     WINNING_MEGA_REWARD    =  8.0   
     KEY_REWARD             =  3.0   
     EGO_CATCHED_NEG_REWARD = -3.0 
@@ -101,6 +101,6 @@ WALL_COORDS = [
     (8, 1), #(8, 3), (8, 4), (8, 5), (8, 6)
 ]
 
-KEY_COORD =   (0, 5) #(5, 4)
+KEY_COORD =   (5, 4) # (0,5)
 TRAP_COORDS = [(2, 3), (7, 5)]
 EXIT_COORDS = [(9, 5)]
