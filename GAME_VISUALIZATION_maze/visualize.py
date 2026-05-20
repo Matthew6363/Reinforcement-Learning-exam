@@ -130,6 +130,7 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
     env = PacmanGridWorld()
     rm_ego = Reward_Machine('ego')
     rm_adv = Reward_Machine('adv')
+    KEY_coord = env.keys
 
     if SAVE_GIF:
         frames = []
@@ -150,7 +151,8 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
         draw_trap(screen, wall, WALL_COLOR, "")
     for exits in EXIT_COORDS:
         draw_trap(screen, exits, EXIT_COLOR, "" )
-    draw_trap(screen, KEY_COORD, KEY_COLOR, "Key" )
+    if env.keys is not None:
+        draw_trap(screen, env.keys, KEY_COLOR, "Key" )
 
     draw_agent(screen, pos_e, EGO_COLOR) # blue
     draw_agent(screen, pos_a, ADV_COLOR) # red
@@ -185,7 +187,8 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
             draw_trap(screen, wall, WALL_COLOR, "")
         for exits in EXIT_COORDS:
             draw_trap(screen, exits, EXIT_COLOR, "" )
-        draw_trap(screen, KEY_COORD, KEY_COLOR, "Key" )
+        if env.keys is not None:
+            draw_trap(screen, env.keys, KEY_COLOR, "Key")
 
         draw_agent(screen, pos_e, EGO_COLOR)
         draw_agent(screen, pos_a, ADV_COLOR)
@@ -208,17 +211,26 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
         labels = env.get_labels()
 
         env_trapped = env.trapped ## after the action is done, 
-        ego_on_wall = env.ego_on_wall
-        adv_on_wall = env.adv_on_wall
+        #ego_on_wall = env.ego_on_wall
+        #adv_on_wall = env.adv_on_wall
 
 
         
         ## Get RM reward thanks to d(current RM state, current label)
-        _, r_e = rm_ego.step(labels, env_trapped, ego_on_wall, adv_on_wall)
-        _, r_a = rm_adv.step(labels, env_trapped, ego_on_wall, adv_on_wall)
+        _, r_e = rm_ego.step(labels, env_trapped)#, ego_on_wall, adv_on_wall)
+        _, r_a = rm_adv.step(labels, env_trapped)#, ego_on_wall, adv_on_wall)
         
+        print(f"Step {step:03d} | Reward -> Ego: {r_e:+5.2f} | Adv: {r_a:+5.2f} | \t Labels: {list(labels)} | ")
 
-        is_terminal = (rm_ego.state == 'v_escaped' or rm_adv.state == 'v_lose')
+        env.clear_turn_flags()
+
+        # Gestione corretta della terminazione e delle collisioni grafiche
+        if 'collision' in labels:
+            is_terminal = True
+        else:
+            is_terminal = (rm_ego.state == 'v_escaped' or rm_adv.state == 'v_lose')
+
+        #is_terminal = (rm_ego.state == 'v_escaped' or rm_adv.state == 'v_lose')
 
         ## Is this the last step? (i.e. Has someone won?)
         if is_terminal: #rm_ego.state == 'v_end' or rm_adv.state == 'v_end':
@@ -235,7 +247,8 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
                 draw_trap(screen, wall, WALL_COLOR, "" )
             for exits in EXIT_COORDS:
                 draw_trap(screen, exits, EXIT_COLOR, "" )
-            draw_trap(screen, KEY_COORD, KEY_COLOR, "Key" )
+            if env.keys is not None:
+                draw_trap(screen, env.keys, KEY_COLOR, "Key" )
 
             draw_agent(screen, pos_e, EGO_COLOR)
             draw_agent(screen, pos_a, ADV_COLOR)
@@ -256,7 +269,7 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
             
             pygame.time.wait(time_waiting)
             break
-            
+        
         # Check if they just physically crashed into each other early
     
     if SAVE_GIF:
@@ -274,7 +287,7 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
 
 if __name__ == "__main__":
 
-    FILE_NAME = 'q_models_maze_ep12500'
+    FILE_NAME = 'q_models_maze_ep500'
     
     visualize_trained_agents(f"../EXPORT/{FILE_NAME}.npz", 
                              checkpoint=0,

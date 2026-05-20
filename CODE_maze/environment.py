@@ -230,6 +230,7 @@ class PacmanGridWorld:
             self.walls = wall_coords
             self.exits = exit_coords
             self.keys = key_coord
+            self.backup_key = key_coord
             self.trapped = False
 
         self.pos_a = self.start_pos_a
@@ -248,6 +249,7 @@ class PacmanGridWorld:
         self.ego_on_wall = False
         self.adv_on_wall = False
         self.doors_opened = False
+        self.keys = self.backup_key
 
         return self.pos_e, self.pos_a
         
@@ -345,6 +347,17 @@ class PacmanGridWorld:
 
         return labels
 
+    def clear_turn_flags(self):
+        """
+        To be called at the end of the sim step
+        """
+        if self.ego_on_wall:
+            self.ego_on_wall = False
+        if self.adv_on_wall:
+            self.adv_on_wall = False
+        if self.pos_e == self.keys:
+            self.doors_opened = True
+            self.keys = None
 
 def build_test_env():
     env = PacmanGridWorld()

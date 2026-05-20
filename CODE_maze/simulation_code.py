@@ -99,6 +99,8 @@ def train_qrm_sg(total_episodes=1000,
     successes       = 0
     adv_wins        = 0
     collisions_cnt  = 0
+    traps_cnt       = 0
+    timeouts_cnt    = 0
     all_ego_rewards = []
     all_adv_rewards = []
 
@@ -174,8 +176,8 @@ def train_qrm_sg(total_episodes=1000,
             ## Get the translation of the step for the RM 
             labels = env.get_labels()
             env_trapped = env.ego_trapped ## after the action is done, 
-            ego_on_wall = env.ego_on_wall
-            adv_on_wall = env.adv_on_wall
+            #ego_on_wall = env.ego_on_wall
+            #adv_on_wall = env.adv_on_wall
 
             ## Get the next reached state in the game by the two players
             next_state_e, next_state_a = pos_to_idx(next_pos_e), pos_to_idx(next_pos_a)
@@ -209,8 +211,8 @@ def train_qrm_sg(total_episodes=1000,
                     ## Simulate what reward/next-state WOULD have been.
                     #  We get both the state it would have been (each ego and adv) and
                     #  the reward it would have had in that case
-                    next_u_e_str, r_e_cf = rm_ego.simulate_step(u_e_str, labels, env_trapped, ego_on_wall, adv_on_wall)
-                    next_u_a_str, r_a_cf = rm_adv.simulate_step(u_a_str, labels, env_trapped, ego_on_wall, adv_on_wall)
+                    next_u_e_str, r_e_cf = rm_ego.simulate_step(u_e_str, labels, env_trapped)#, ego_on_wall, adv_on_wall)
+                    next_u_a_str, r_a_cf = rm_adv.simulate_step(u_a_str, labels, env_trapped)#, ego_on_wall, adv_on_wall)
 
                     ## Get the number version of these states
                     u_e  = rm_states_map[u_e_str]     
@@ -283,8 +285,8 @@ def train_qrm_sg(total_episodes=1000,
             ## ............................................... ##
 
             ## Get the real RM next state and current reward
-            next_state_e, r_e = rm_ego.step(labels, env_trapped, ego_on_wall, adv_on_wall)
-            next_state_a, r_a = rm_adv.step(labels, env_trapped, ego_on_wall, adv_on_wall)
+            next_state_e, r_e = rm_ego.step(labels, env_trapped)#, ego_on_wall, adv_on_wall)
+            next_state_a, r_a = rm_adv.step(labels, env_trapped)#, ego_on_wall, adv_on_wall)
 
             ## Update the episode reward scalar
             ep_reward_e += r_e
@@ -302,22 +304,35 @@ def train_qrm_sg(total_episodes=1000,
             ## Set the current pos in the game as the one reached
             state_e, state_a = next_state_e, next_state_a
 
+            env.clear_turn_flags()
+
             ## Case: one between ego and adv reached the end?
+            if 'collision' in labels:
+                collisions_cnt += 1
+                break
+
+            # 2. Controlla le vittorie effettive degli agenti
             if rm_ego.state == 'v_escaped':
                 successes += 1
                 break
                 
             if rm_adv.state == 'v_lose':
-                adv_wins += 1
-                if 'collision' in labels:
-                    collisions_cnt += 1
+                if 'trapped' in labels:
+                    traps_cnt += 1
+                else:
+                    adv_wins += 1
                 break
-
-            ## Case: there's a collision, the episode end without winners
-            elif 'collision' in labels:
-                collisions_cnt += 1
-                #if ALLOW_COLLISION_EARLY_BREAK:
-                break
+                
+        
+        # TIMEOUT case, add a penalty to last action
+        else: 
+            timeouts_cnt += 1
+            idx = (s_e, s_a, v_e, v_a, action_e, action_a)
+            q_ee[idx] += alpha * TIMEOUT_PENALTY
+            q_aa[idx] += alpha * TIMEOUT_PENALTY
+            
+            ep_reward_e += TIMEOUT_PENALTY
+            ep_reward_a += TIMEOUT_PENALTY
 
 
         ## Back to the episode,having done all steps, we update the rewards
@@ -329,13 +344,15 @@ def train_qrm_sg(total_episodes=1000,
             ego_wr = (successes / 100) * 100
             adv_wr = (adv_wins / 100) * 100
             coll_r = (collisions_cnt / 100) * 100
+            trap_r = (traps_cnt / 100) * 100 
+            time_r = (timeouts_cnt / 100) * 100
             
             # Calculate mean reward for the last 100 episodes
             avg_rew_e = np.mean(all_ego_rewards[-100:])
             avg_rew_a = np.mean(all_adv_rewards[-100:])
 
             print(f"Episodes {episode-99:05d}-{episode:05d} | ε: {epsilon:.3f}")
-            print(f"  > Win Rate  | Ego: {ego_wr:4.1f}%  Adv: {adv_wr:4.1f}%  Coll: {coll_r:4.1f}%")
+            print(f"  > Win Rate  | Ego: {ego_wr:4.1f}%  Adv: {adv_wr:4.1f}%  Coll: {coll_r:4.1f}%  Trap: {trap_r:4.1f}%  Timeout: {time_r:4.1f}%")
             print(f"  > Avg Rew   | Ego: {avg_rew_e:4.2f}   Adv: {avg_rew_a:4.2f}")
             print("-" * 50)
             
@@ -343,6 +360,8 @@ def train_qrm_sg(total_episodes=1000,
             successes = 0
             adv_wins = 0
             collisions_cnt = 0
+            timeouts_cnt = 0
+            traps_cnt = 0
         
         # Save every 500 episodes (change to 100 if you want every single step)
         if episode % 500 == 0:

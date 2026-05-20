@@ -156,15 +156,18 @@ class Reward_Machine():
 
     #     return self.state, reward
     
-    def simulate_step(self, hypothetical_state, labels, env_trapped=False, A = None, b = None):
+    def simulate_step(self, hypothetical_state, labels, env_trapped=False):
         current_real_state = self.state
         self.state = hypothetical_state
         next_state, reward = self.step(labels, env_trapped)
         self.state = current_real_state
         return next_state, reward
         
-    def step(self, labels, env_trapped=False, A = None, b = None):
+    def step(self, labels, env_trapped=False):
         reward = 0.0 
+
+        if self.agent_type == "ego":
+            reward += EGO_LIVING_PENALTY
 
         # FIXED: Only penalize the specific agent that hit the wall
         if 'ego_on_wall' in labels and self.agent_type == 'ego':
