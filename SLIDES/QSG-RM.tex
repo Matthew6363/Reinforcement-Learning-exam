@@ -274,6 +274,67 @@ Then, the SG with non-markovian reward functions is formalized as \evidenzia{a p
 
 
 
+% \begin{frame}{The Stage Game Matrix}
+%     \begin{block}{Definition: Stage Game}
+%         A two-player stage game is defined as $(r_\mathfrak{e}, r_\mathfrak{a})$, where $r_i$ is agent i's reward function $R_i$, over the space of joint actions:
+%         \[r_i = \{R_i(a_\mathfrak{a}, a_\mathfrak{e}) | a_\mathfrak{a}\in{A_\mathfrak{a}}, a_\mathfrak{e}\in{A_\mathfrak{e}}\} \]
+%     \end{block}
+%     \begin{itemize}
+%         \item In QRM-SG, a stage game is formulated at each time step based on current Q-functions in augmented state space.
+%         \item The \textbf{Lemke-Howson method} is used to derive best-response strategies at a Nash equilibrium.
+%     \end{itemize}
+% \end{frame}
+
+\begin{frame}{SGRM Steps}
+\vspace{0.2cm}
+The agent consider $S'$ to select actions: at \evidenzia{each time step simultaneous action selection and execution} occurs; this causes the \evidenzia{game state transition} from $s$ to $s'$.
+\vspace{0.2cm}
+
+The SGRM labelling function $L$ returns the \evidenzia{high-level event associated}, $l_t$. Using current label, the RM performs \evidenzia{RM state transition}, by moving from $(v_\mathfrak{e},v_\mathfrak{a})$ to $(v'_\mathfrak{e},v'_\mathfrak{a})$, using each agent's specific RM, i.e. $v'_\mathfrak{i} = \delta(v_\mathfrak{i}, L(s, a_\mathfrak{e}, a_\mathfrak{a}, s')$
+\vspace{0.5cm}
+
+The \evidenzia{transition of both game states and RM states} leads to the step \evidenzia{reward} for the agent $r_{i,t} = \sigma(v_\mathfrak{i}, L(s, a_\mathfrak{e}, a_\mathfrak{a}, s')$
+\end{frame}
+
+
+% Slide 11: Nash Equilibrium & The Stage Game
+\begin{frame}{Nash Equilibrium and Q-functions in SGRM}
+    Q-functions are used at Nash equilibrium.
+    
+    \vspace{0.2cm}
+    \begin{block}{QSG-RM}
+    Q-function at a Nash equilibrium is the EDCR obtained by agent $i$ when \evidenzia{both agents} follw a \evidenzia{joint} Nash Equilibrium strategy from the next period on.
+    \end{block}
+    \vspace{0.2cm}
+    So, it depends on \evidenzia{both agents actions}, and it's defined over the augmented state space.%: $S\times V_\mathfrak{e} \times V_\mathfrak{a}$
+    %The \evidenzia{Lemke-Howson method} is used to derive best-response strategies at a Nash equilibrium.
+
+    \begin{block}{Definition | Q-Function at a Nash Equilibrium in SGRM}
+        Given agent $i$, given augmented state space $S \times V_{\mathfrak{e}} \times V_{\mathfrak{a}}$, we define
+        \[ q_{i}^{*}(s,v_{\mathfrak{e}},v_{\mathfrak{a}},a_{\mathfrak{e}},a_{\mathfrak{a}})=r_{i} + \gamma\sum_{s^{\prime}, v'}p(s^{\prime},v'|s,v,a_{\mathfrak{e}},a_{\mathfrak{a}})\tilde{v}_{i}(s^{\prime},v_{\mathfrak{e}}^{\prime},v_{\mathfrak{a}}^{\prime},\pi_{\mathfrak{e}}^{*},\pi_{\mathfrak{a}}^{*}) \]
+    \end{block}
+    
+\end{frame}
+
+\begin{frame}{Nash Equilibrium and Q-functions in SGRM (cont'd)}
+
+    Using the q-function in the augmented space, best responce policies are then originally extracted using the \evidenzia{Lemke-Howson method}.
+    
+    By definition an agent strategy is optimal if the other agent behavior is considered: this requires both agents to \evidenzia{maintain two Q-functions}.
+    
+    \vspace{0.2cm}
+    \begin{block}{Agent learned (two) Q-functions}
+    $q_{i,j}$ represents the Q-function for agent $i$ as learned by agent $j$.
+    {\footnotesize It represents the \evidenzia{estimation that agent $j$} does of agent \evidenzia{$i$'s expected discounted cumulative reward}, assuming a game-theoretic baseline where each plays \evidenzia{accordingly to Nash Equilibrium} (i.e. choosing the best response to the other player -estimated- strategy.)}
+    \end{block}
+    
+    As a consequence, \evidenzia{each agent can estimate} (its own and) \evidenzia{other player's strategy} $\pi_{i,j}$, using the q-function estimation of its EDCR.
+% \begin{itemize}
+    %     \item $q_{ij}$ represents the Q-function for agent $i$ as learned by agent $j$.
+    %     \item Each agent learns the Q-functions of \textbf{all agents} in the system to calculate current equilibria locally.
+    % \end{itemize}
+\end{frame}
+
 \begin{frame}{The Stage Game Matrix}
     \begin{block}{Definition: Stage Game}
         A two-player stage game is defined as $(r_\mathfrak{e}, r_\mathfrak{a})$, where $r_i$ is agent i's reward function $R_i$, over the space of joint actions:
@@ -282,19 +343,6 @@ Then, the SG with non-markovian reward functions is formalized as \evidenzia{a p
     \begin{itemize}
         \item In QRM-SG, a stage game is formulated at each time step based on current Q-functions in augmented state space.
         \item The \textbf{Lemke-Howson method} is used to derive best-response strategies at a Nash equilibrium.
-    \end{itemize}
-\end{frame}
-
-% Slide 11: Nash Equilibrium & The Stage Game
-\begin{frame}{Nash Equilibrium \& The Stage Game}
-    \begin{block}{Augmented Q-Function at Nash Equilibrium}
-        Defined over the coupled augmented state space $S \times V_{\mathfrak{e}} \times V_{\mathfrak{a}}$:
-        \[ q_{i}^{*}(s,v_{\mathfrak{e}},v_{\mathfrak{a}},a_{\mathfrak{e}},a_{\mathfrak{a}})=r_{i} + \gamma\sum_{s^{\prime}, v'}p(s^{\prime},v'|s,v,a_{\mathfrak{e}},a_{\mathfrak{a}})\tilde{v}_{i}(s^{\prime},v_{\mathfrak{e}}^{\prime},v_{\mathfrak{a}}^{\prime},\pi_{\mathfrak{e}}^{*},\pi_{\mathfrak{a}}^{*}) \]
-    \end{block}
-    
-    \begin{itemize}
-        \item $q_{ij}$ represents the Q-function for agent $i$ as learned by agent $j$.
-        \item Each agent learns the Q-functions of \textbf{all agents} in the system to calculate current equilibria locally.
     \end{itemize}
 \end{frame}
 
