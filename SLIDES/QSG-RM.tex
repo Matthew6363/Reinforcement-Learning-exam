@@ -158,8 +158,8 @@ $$
 \end{frame}
 
 % Slide 7: Reward Machines
-\begin{frame}{Reward Machines (RM)}
-    \begin{block}{Definition | Reward Machine}
+\begin{frame}{Reward Machines}
+    \begin{block}{Definition | Reward Machine (RM)}
         Finite state automaton designed to encode non-Markovian rewards with state transitions and output functions: $\mathcal{A}=(V,v_{I},2^{\mathcal{P}},\mathbb{R},\delta,\sigma)$
         \begin{itemize}
             \item \textbf{Input Alphabet ($2^{\mathcal{P}}$):} Interprets propositional logic variables $\mathcal{P}$ generated from lower-level environment updates.
@@ -187,52 +187,92 @@ capture each other. \cite{hu2023reinforcement}}}
 
 \end{frame}
 
-\section{Game Theory Setting}
-
 % Slide 8: Reward Machine Encoding
-\begin{frame}{Reward Machine Encoding}
-    \begin{block}{Definition 4: Reward Machine Encoding}
-        A reward machine $\mathcal{A}_{i}=(V_{i},v_{I,i},2^{\mathcal{P}},\mathbb{R}_{i},\delta_{i},\sigma_{i})$ encodes the non-Markovian reward function $R_i$ of agent $i$ in the stochastic game $\mathcal{G}$ if for every trajectory and corresponding event sequence $l_0 l_1 \dots l_k$, it holds that:
-        \[ r_{i,0} \dots r_{i,k} = \mathcal{A}_i(l_0 l_1 \dots l_k) \]
+\begin{frame}{Connecting SG and RMs}
+    A \evidenzia{link between RM and SG} is required %we introduce a \evidenzia{labelling function} 
+    %$L$ maps SG states to high-level events: %these are \evidenzia{received} by the reward machine $\mathcal{A}_i$ and used to return the related \evidenzia{reward}
+    \vspace{0.2cm}
+    
+    \begin{block}{Labelling Function}
+    %Maps environment transitions to logical propositions:
+        \[L: S \times A_{\mathfrak{e}} \times A_{\mathfrak{a}} \times S \rightarrow 2^{\mathcal{P}}\]
+        $l_t = L(s_t, a_{\mathfrak{a},t}, a_{\mathfrak{e},t}, s_{t+1})$ is the set of \evidenzia{true propositions} in $\mathcal{P}$ at step $t$.
     \end{block}
-    \begin{itemize}
-        \item Formalizes RMs as high-level task specifications.
-        \item Each agent uses a separate RM ($\mathcal{A}_{\mathfrak{e}}, \mathcal{A}_{\mathfrak{a}}$) to track independent non-Markovian goals.
-    \end{itemize}
+    \vspace{0.2cm}
+    %Given a reward machine $\mathcal{A}_i$, given as input $l_t$ it outputs the reward $r_{i,t} = \sigma_i(v_i, l_t)$. 
+    %\vspace{0.2cm}
+    \begin{block}{RM can encode non-Markovian RF of a stochastic game}
+    Given a SG, the RM $\mathcal{A}_i$ \evidenzia{encodes} the non-markovian reward function $R_i$ of the game, meaning that \evidenzia{for each trajectory}
+    $s_{0}a_{\mathfrak{e},0}a_{\mathfrak{a},0}s_{1}...s_{k}a_{\mathfrak{e},k}a_{\mathfrak{a},k}s_{k+1}$ (i.e. $l_0l_1...,l_k$) it outputs the \evidenzia{reward sequence} $r_{i,0}r_{i,1}...,r_{i,k}$.
+    \end{block}
+    %\begin{itemize}
+    %    \item Formalizes RMs as high-level task specifications.
+    %    \item Each agent uses a separate RM ($\mathcal{A}_{\mathfrak{e}}, \mathcal{A}_{\mathfrak{a}}$) to track independent non-Markovian goals.
+    %\end{itemize}
+    \vspace{0.2cm}
+    I.e. the RM maps \evidenzia{any sequence of events to a sequence of rewards}.
+    
 \end{frame}
 
 % Slide 9: Augmented State Space Framework
-\begin{frame}{The Augmented State Space Framework}
-    \begin{block}{Labeling Function ($L$)}
-        Maps environment transitions to logical propositions:
-        \[L: S \times A_{\mathfrak{e}} \times A_{\mathfrak{a}} \times S \rightarrow 2^{\mathcal{P}}\]
-        $l_t = L(s_t, a_{\mathfrak{a},t}, a_{\mathfrak{e},t}, s_{t+1})$ is the set of true propositions in $\mathcal{P}$ at step $t$.
-    \end{block}
-    
-    \begin{alertblock}{Lemma 1: Markovian Restoration}
-        The product stochastic game has \textbf{Markovian reward functions} that express the original non-Markovian rewards.
-    \end{alertblock}
-    \begin{itemize}
-        \item Given $l_t$, the RM state transitions to $v_{t+1} = \delta(v_t, l_t)$ and outputs reward $r_{t} = \sigma(v_t, l_t)$.
-        \item This resolves historical dependencies and enables standard Q-learning.
-    \end{itemize}
-\end{frame}
+%\begin{frame}{The Augmented State Space Framework}
+%    \begin{block}{Labeling Function ($L$)}
+%        Maps environment transitions to logical propositions:
+%        \[L: S \times A_{\mathfrak{e}} \times A_{\mathfrak{a}} \times S \rightarrow 2^{\mathcal{P}}\]
+%        $l_t = L(s_t, a_{\mathfrak{a},t}, a_{\mathfrak{e},t}, s_{t+1})$ is the set of true propositions in $\mathcal{P}$ at step $t$.
+%    \end{block}
+%    
+%    \begin{alertblock}{Lemma 1: Markovian Restoration}
+%        The product stochastic game has \textbf{Markovian reward functions} that express the original non-Markovian rewards.
+%    \end{alertblock}
+%    \begin{itemize}
+%        \item Given $l_t$, the RM state transitions to $v_{t+1} = \delta(v_t, l_t)$ and outputs reward $r_{t} = \sigma(v_t, l_t)$.
+%        \item This resolves historical dependencies and enables standard Q-learning.
+%    \end{itemize}
+%\end{frame}
+
+%\section{Game Theory Setting and Problem formulation}
+\section{Q-learning with RM for SG}
 
 % Slide 10: Product Stochastic Game
-\begin{frame}{Product Stochastic Game}
-    \begin{block}{Definition 5: Product Stochastic Game}
-        Given an SG $\mathcal{G}$ and RMs $\mathcal{A}_{\mathfrak{e}}, \mathcal{A}_{\mathfrak{a}}$, the product SG is: 
-        \[\mathcal{H} = (S', s'_I, A_{\mathfrak{e}}, A_{\mathfrak{a}}, p', R'_{\mathfrak{e}}, R'_{\mathfrak{a}}, \gamma) \]
-        where:
+
+\begin{frame}{Problem formulation}
+The paper focuses on \evidenzia{two-agent general-sum stochastic games} (SG) with NM reward functions, where each agent is given a (different) task to complete. 
+
+Task completition \evidenzia{depends on the other's agent behavior}.
+
+\begin{itemize}
+    \item Each agent as a separate reward machine.
+    \item Agents operate in a shared and adversarial environment.
+\end{itemize}
+\vspace{0.5cm}
+Then, the SG with non-markovian reward functions is formalized as \evidenzia{a product stochastic game} to obtain \evidenzia{Markovian rewards} using \evidenzia{reward machines}.
+\end{frame}
+
+\begin{frame}{Markovian formulation: SGRM}
+    %The SG with non-markovian reward functions is formalized as \evidenzia{a product stochastic game} to obtain \evidenzia{Markovian rewards} using reward machines.
+    %\vspace{0.2cm}
+
+    \begin{block}{Definition | Stochastic Game with Reward Machines (SGRM)}
+        \vspace{0.2cm}Given an SG $\mathcal{G}$ and RMs $\mathcal{A}_{\mathfrak{e}}, \mathcal{A}_{\mathfrak{a}}$, a SGRM is defined as a product stochastic game:
+
+        \begin{center}
+            $\mathcal{H} = (S', s'_I, A_{\mathfrak{e}}, A_{\mathfrak{a}}, p', R'_{\mathfrak{e}}, R'_{\mathfrak{a}}, \gamma)$
+        \end{center}
+
         \begin{itemize}
-            \item \textbf{Augmented State Space:} $S' = S \times V_{\mathfrak{e}} \times V_{\mathfrak{a}}$. An augmented state is $s' = (s, v_{\mathfrak{e}}, v_{\mathfrak{a}})$.
-            \item \textbf{Initial Augmented State:} $s'_I = (s_I, v_{I,\mathfrak{e}}, v_{I,\mathfrak{a}})$.
-            \item \textbf{Transition Probabilities:} $p'(s', a_{\mathfrak{e}}, a_{\mathfrak{a}}, \bar{s}') = p(s, a_{\mathfrak{e}}, a_{\mathfrak{a}}, \bar{s})$ if $\bar{v}_i = \delta_i(v_i, L(s, a_{\mathfrak{e}}, a_{\mathfrak{a}}, \bar{s}))$ for $i \in \{\mathfrak{e}, \mathfrak{a}\}$, and $0$ otherwise.
-            \item \textbf{Markovian Reward Functions:} 
-            \[ R'_i(s', a_{\mathfrak{e}}, a_{\mathfrak{a}}, \bar{s}') = \sigma_i(v_i, L(s, a_{\mathfrak{e}}, a_{\mathfrak{a}}, \bar{s})) \]
+            \item \textbf{Augmented State Space:} $S' = S \times V_{\mathfrak{e}} \times V_{\mathfrak{a}}$. An \evidenzia{augmented state} is $s' = (s, v_{\mathfrak{e}}, v_{\mathfrak{a}})$.
+            %\item \textbf{Initial Augmented State:} $s'_I = (s_I, v_{I,\mathfrak{e}}, v_{I,\mathfrak{a}})$.
+            \item \textbf{Transition Probabilities:} $p'(s', a_{\mathfrak{e}}, a_{\mathfrak{a}}, \bar{s}') = p(s, a_{\mathfrak{e}}, a_{\mathfrak{a}}, \bar{s})$ if $\bar{v}_i = \delta_i(v_i, L(s, a_{\mathfrak{e}}, a_{\mathfrak{a}}, \bar{s}))$ for both $i \in \{\mathfrak{e}, \mathfrak{a}\}$, and $0$ otherwise.
+            \item \textbf{Markovian Reward Functions:} $R'_i(s', a_{\mathfrak{e}}, a_{\mathfrak{a}}, \bar{s}') = \sigma_i(v_i, L(s, a_{\mathfrak{e}}, a_{\mathfrak{a}}, \bar{s})),\quad \forall i$
         \end{itemize}
     \end{block}
+    \vspace{0.2cm}
+    The \evidenzia{SGRM} is proved to have a Markovian \evidenzia{RF} to express the original \evidenzia{non-markovian RF} of the \evidenzia{SG}.
+
 \end{frame}
+
+
 
 \begin{frame}{The Stage Game Matrix}
     \begin{block}{Definition: Stage Game}

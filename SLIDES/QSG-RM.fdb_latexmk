@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex QSG-RM"] 1779381757.9112 "QSG-RM.aux" "QSG-RM.bbl" "QSG-RM" 1779382149.82715 0
+["bibtex QSG-RM"] 1779389068.90913 "QSG-RM.aux" "QSG-RM.bbl" "QSG-RM" 1779390178.24897 0
   "./references.bib" 1779374425.72974 379 835e6dd664ac2aa3bdb9558c0d608f83 ""
   "/usr/local/texlive/2024/texmf-dist/bibtex/bst/base/plain.bst" 1292289607 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "QSG-RM.aux" 1779382149.58218 7657 6f79e48e4e39dc1ed40f8d8380ad5f5e "pdflatex"
+  "QSG-RM.aux" 1779390177.92201 7675 a29c67f4d3c39c04df2bc14c5f59f8ea "pdflatex"
   (generated)
   "QSG-RM.bbl"
   "QSG-RM.blg"
   (rewritten before read)
-["pdflatex"] 1779382148.32735 "/Users/matteoliotta/Desktop/Reinforcement-Learning-exam/SLIDES/QSG-RM.tex" "QSG-RM.pdf" "QSG-RM" 1779382149.82728 0
-  "/Users/matteoliotta/Desktop/Reinforcement-Learning-exam/SLIDES/QSG-RM.tex" 1779382148.11239 27500 8cd40b315a5a26e40808d99a909999fa ""
+["pdflatex"] 1779390175.70568 "/Users/matteoliotta/Desktop/Reinforcement-Learning-exam/SLIDES/QSG-RM.tex" "QSG-RM.pdf" "QSG-RM" 1779390178.24912 0
+  "/Users/matteoliotta/Desktop/Reinforcement-Learning-exam/SLIDES/QSG-RM.tex" 1779390175.48925 29584 c56eadabf2f0056a8ede3c197bc6ad0d ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/jknappen/ec/tcss0900.tfm" 1136768653 1536 ba0169ee8bc017972775b933313cbbb0 ""
@@ -246,11 +246,11 @@
   "/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1741080588.50242 5467645 128b85b7cde5f5edc5cb7f1dd7ff8736 ""
   "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1741080535 8221446 45be5a59bfa38f1ec9e6d60099604014 ""
   "/usr/local/texlive/2024/texmf.cnf" 1710266656 577 e590dabc9e28c5b61546e15f63eebcdf ""
-  "QSG-RM.aux" 1779382149.58218 7657 6f79e48e4e39dc1ed40f8d8380ad5f5e "pdflatex"
-  "QSG-RM.bbl" 1779381757.99584 309 e641264008a54ddeb02b46f63b609087 "bibtex QSG-RM"
-  "QSG-RM.nav" 1779382149.58315 4927 74ce23dcff6433e3c52452aa1a5de32a "pdflatex"
-  "QSG-RM.out" 1779382149.58301 1116 b20710c6533de95f970e83036b67cf8a "pdflatex"
-  "QSG-RM.tex" 1779382148.11239 27500 8cd40b315a5a26e40808d99a909999fa ""
+  "QSG-RM.aux" 1779390177.92201 7675 a29c67f4d3c39c04df2bc14c5f59f8ea "pdflatex"
+  "QSG-RM.bbl" 1779389068.98633 309 e641264008a54ddeb02b46f63b609087 "bibtex QSG-RM"
+  "QSG-RM.nav" 1779390177.9232 4939 494e3a6bd08b57c7c3a9e76bb2a31a41 "pdflatex"
+  "QSG-RM.out" 1779390177.92285 1152 aeeefa8625299c1a59d8bb853a828c1f "pdflatex"
+  "QSG-RM.tex" 1779390175.48925 29584 c56eadabf2f0056a8ede3c197bc6ad0d ""
   "images/RMexaple_solo.png" 1779381479.98401 58898 cae9ae39b6226d4d929e6e632243645c ""
   "images/RMgridexample.png" 1779381447.68415 15650 5585481d4e09578f1163ca649fb171ae ""
   (generated)
