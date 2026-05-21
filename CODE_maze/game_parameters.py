@@ -42,7 +42,12 @@ if TASK == "maze":
     ACTIONS = [0, 1, 2, 3]
 
     # Q-table shape for 10x10 (100 * 100 joint states)
-    Q_SHAPE = (GRID_W*GRID_H, GRID_W*GRID_H, 5, 5, 4, 4) 
+    if TRAPS_DO_STOP_FOR_A_TURN:
+        Q_SHAPE = (GRID_W*GRID_H, GRID_W*GRID_H, 5, 5, 4, 4) 
+    else:
+        Q_SHAPE = (GRID_W*GRID_H, GRID_W*GRID_H, 4, 4, 4, 4) 
+    
+    
 
     # New Starting Positions
     START_ego = (0, 0) # (8,6) does work
