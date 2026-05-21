@@ -76,45 +76,88 @@
 
 % Slide 3: Stochastic Games
 \begin{frame}{Stochastic Games with Non-Markovian Rewards}
-    \begin{block}{Definition | Two-Player General-Sum Stochastic Game (SG) }
+    \vspace{0.7cm}
+    \begin{block}{Definition | Two-Player General-Sum Stochastic Game (SG)}
         \vspace{0.2cm}
         Modeled as the tuple $\mathcal{G}=(S,s_{I},A_{\mathfrak{e}},A_{\mathfrak{a}},p,R_{\mathfrak{e}},R_{\mathfrak{a}},\gamma)$, where:
         \begin{itemize}
             \item \textbf{Finite State Space ($S$):} consisting of states $s=[s_{\mathfrak{e}};s_{\mathfrak{a}}]$, with $s_{\mathfrak{e}}, s_{\mathfrak{a}}$ substates for \textit{Ego} and \textit{Adv} agents respectively. $s_{I}\in S$ is the initial state.%, for both the ego and adversarial agent.
             \item \textbf{Action Spaces:} Each agent has its own finite set of actions $A_{\mathfrak{e}}$ and $A_{\mathfrak{a}}$.
             \item \textbf{Probabilistic Transition Function}: $p:S\times A_{\mathfrak{e}}\times A_{\mathfrak{a}}\times S\rightarrow[0,1]$ %defines the probability of transitioning to a new state given the current state and joint actions.
-            \item \textbf{Non-Markovian Reward functions}: $R_{\mathfrak{e} \ or\ a} : (S\times A_{\mathfrak{e}}\times A_{\mathfrak{a}})^{+}\times S\rightarrow\mathbb{R}$ map from \evidenzia{complete trajectory histories} %(i.e. it has memory) 
+            \item \textbf{Non*-Markovian Reward functions}: $R_{\mathfrak{e} \ or\ a} : (S\times A_{\mathfrak{e}}\times A_{\mathfrak{a}})^{+}\times S\rightarrow\mathbb{R}$ map from \evidenzia{complete trajectory histories} %(i.e. it has memory) 
             to real value domains, specifying the n-m rewards for both agents.
         \end{itemize}
-        \vspace{0.2cm}
+        %\vspace{0.2cm}
     \end{block}
+    \vspace{0.2cm}{\footnotesize (*) Usual definition assumes system Markovianity.}
 \end{frame}
 
 % Slide 4: Trajectories and Rewards
 \begin{frame}{Trajectories and Rewards}
     \begin{itemize}
-        \item \textbf{Trajectory:} Sequence of states and actions $s_{0}a_{\mathfrak{e},0}a_{\mathfrak{a},0}s_{1}...s_{k}a_{\mathfrak{e},k}a_{\mathfrak{a},k}s_{k+1}$ starting from $s_{I}$.
-        \item \textbf{Shared Observation:} Both agents observe the same environment trajectory.
-        \item \textbf{Reward Sequence:} Each agent $i \in \{\mathfrak{e}, \mathfrak{a}\}$ receives a sequence $r_{i,1}...r_{i,k}$ based on the full history.
-        \item \textbf{Discounted Cumulative Reward:} The ego agent achieves a total reward of $\sum_{t=0}^{k}\gamma^{t}r_{\mathfrak{e},t}$, and the adversarial agent achieves $\sum_{t=0}^{k}\gamma^{t}r_{\mathfrak{a},t}$.
+        \item \textbf{Trajectory:} Sequence of states and actions $t_{0:k+1} = s_{0}a_{\mathfrak{e},0}a_{\mathfrak{a},0}s_{1}...s_{k}a_{\mathfrak{e},k}a_{\mathfrak{a},k}s_{k+1}$ with $s_0 = s_{I}$.
+        \item \textbf{Reward Sequence:} Given a \evidenzia{trajectory}, each agent $(i \in \{\mathfrak{e}, \mathfrak{a}\})$ receives reward sequence $r_{i,1}...r_{i,k}$, where $r_{i,k} = R(s_{0},a_{\mathfrak{e},0},a_{\mathfrak{a},0},...,s_{k})$.
+        \item \textbf{Shared Observation:} Both agents \evidenzia{observe the same} trajectory.
+        \item \textbf{Discounted Cumulative Reward:} Given a \evidenzia{trajectory} $t_{0:k+1}$, %(i.e. at each episode step), 
+        agents achieves a DCR reward $\sum_{t=0}^{k}\gamma^{t}r_{\mathfrak{i},t}$ % with $(i \in \{\mathfrak{e}, \mathfrak{a}\})$.
+        \item \textbf{Finite episodes assumption}: The game is episodic with a finite horizon, ensuring that the cumulative reward is well-defined.
     \end{itemize}
 \end{frame}
 
 % Slide 5: Strategies and Objectives
 \begin{frame}{Strategies and Objectives}
     \begin{itemize}
-        \item \textbf{Markovian Strategy:} A mapping $\pi_{i}:S\times A_{i}\rightarrow[0,1]$ that defines the probability of selecting an action given the state.
-        \item \textbf{Objective:} Maximize the expected discounted cumulative reward starting from an initial state $s$.
+        \item \textbf{Markovian Strategy:} Agents are equipped with a $\pi_{i}:S\times A_{i}\rightarrow[0,1]\quad i \in \{\mathfrak{e}, \mathfrak{a}\}$ strategy, defining action given state selection probability. % of selecting an action given the state.
+        \item \textbf{Objective:} Maximize the \evidenzia{expected} discounted cumulative reward given policy of both agents, from both point of view.%starting from an initial state $s_0$.
     \end{itemize}
-        \begin{block}{Expected Value Function}
-        \begin{equation}
+    \vspace{0.5cm}
+        \begin{block}{SG Expected Discounted Cumulative Reward (Value Function)}
+        Given agent $i \in \{\mathfrak{e}, \mathfrak{a}\}$, the expected DCR under policies $\pi_{\mathfrak{e}}$ and $\pi_{\mathfrak{a}}$ is defined as:
+            %\begin{equation}
+            $$
             \tilde{v}_{i}(s,\pi_{\mathfrak{e}},\pi_{\mathfrak{a}})=\sum_{t=0}^{\infty}\gamma^{t}\mathbb{E}(r_{i,t}|\pi_{\mathfrak{e}},\pi_{\mathfrak{a}},s_{0}=s) 
-        \end{equation}
-        where $i \in \{\mathfrak{e}, \mathfrak{a}\}$.
+            $$
+            %\end{equation}
+        %where $i \in \{\mathfrak{e}, \mathfrak{a}\}$.
         \end{block}
 \end{frame}
 
-% Slide 6: Reward Machines
+% Slide 6: Nash Equilibrium
+\begin{frame}{Nash Equilibrium}
+    \vspace{0.5cm}
+    %\begin{block}{Definition: Nash Equilibrium}
+    Each agent's strategy is a \evidenzia{best-response to the other agent's strategy}, if each agent \evidenzia{cannot improve its own reward} by changing its strategy, given a \evidenzia{fixed opponent's policy}.
+    %\end{block}
+    \vspace{0.5cm}
+    \begin{block}{Definition: Nash Equilibrium in Stochastic Games}
+        For a stochastic game $\mathcal{G} = (S, s_I, A_{\mathfrak{e}}, A_{\mathfrak{a}}, R_{\mathfrak{e}}, R_{\mathfrak{a}}, \gamma, p)$, the strategies of the ego agent, $\pi_\mathfrak{e}^*$, and the adversarial agent, $\pi_\mathfrak{a}^*$, are at a \evidenzia{Nash equilibrium} if:
+        \begin{align*}
+            \tilde{v}_\mathfrak{e}(s, \pi_\mathfrak{e}^*, \pi_\mathfrak{a}^*) \geq \tilde{v}_\mathfrak{e}(s, \pi_\mathfrak{e}, \pi_\mathfrak{a}^*)\\
+            \tilde{v}_\mathfrak{a}(s, \pi_\mathfrak{e}^*, \pi_\mathfrak{a}^*) \geq \tilde{v}_\mathfrak{a}(s, \pi_\mathfrak{e}^*, \pi_\mathfrak{a})
+        \end{align*}
+        hold for any $\pi_\mathfrak{e}$ and $\pi_\mathfrak{a}$.
+     \end{block}
+    
+\end{frame}
+
+\begin{frame}{Objectives (cont'd)}
+The \evidenzia{actual objective} of each agent is to find the policy $\pi_i^*$, 
+maximising the \evidenzia{expected discounted cumulative reward} considering the other agent's action once it reaches the game's Nash equilibrium
+\vspace{0.5cm}
+
+\begin{block}{Agent Objectives at Nash Equilibrium}
+\vspace{0.2cm}
+$$
+\pi_\mathfrak{e}^* = \arg\max_{\pi_\mathfrak{e}} \tilde{v}_i(s, \pi_\mathfrak{e}, \pi_\mathfrak{a}^*)
+$$
+$$
+\pi_\mathfrak{a}^* = \arg\max_{\pi_\mathfrak{a}} \tilde{v}_i(s, \pi_\mathfrak{e}^*, \pi_\mathfrak{a})
+$$
+\vspace{0.2cm}
+\end{block}
+\end{frame}
+
+% Slide 7: Reward Machines
 \begin{frame}{Reward Machines (RM)}
     \begin{block}{Definition: Reward Machine}
         Finite state automaton designed to encode non-Markovian rewards with state transitions and output functions: $\mathcal{A}=(V,v_{I},2^{\mathcal{P}},\mathbb{R},\delta,\sigma)$
@@ -125,22 +168,6 @@
             \item \textbf{Output function:} Discrete scalars along active trajectory $\sigma:V\times2^{\mathcal{P}}\rightarrow\mathbb{R}$.
         \end{itemize}
     \end{block}
-\end{frame}
-
-% Slide 7: Nash Equilibrium
-\begin{frame}{Nash Equilibrium}
-    \begin{block}{Definition: Nash Equilibrium}
-        Each agent's strategy is a best-response to the other agent's strategy, such that each agent cannot unilaterally improve its own reward by changing its own strategy.
-    \end{block}
-
-    \begin{block}{Definition: Nash Equilibrium in Stochastic Games}
-        For a stochastic game $\mathcal{G} = (S, s_I, A_{\mathfrak{e}}, A_{\mathfrak{a}}, R_{\mathfrak{e}}, R_{\mathfrak{a}}, \gamma, p)$, the strategies of the ego agent and the adversarial agent are at a Nash equilibrium if:
-        \begin{align*}
-            \tilde{v}_\mathfrak{e}(s, \pi_\mathfrak{e}^*, \pi_\mathfrak{a}^*) \geq \tilde{v}_\mathfrak{e}(s, \pi_\mathfrak{e}, \pi_\mathfrak{a}^*)\\
-            \tilde{v}_\mathfrak{a}(s, \pi_\mathfrak{e}^*, \pi_\mathfrak{a}^*) \geq \tilde{v}_\mathfrak{a}(s, \pi_\mathfrak{e}^*, \pi_\mathfrak{a})
-        \end{align*}
-        hold for any $\pi_\mathfrak{e}$ and $\pi_\mathfrak{a}$.
-     \end{block}
 \end{frame}
 
 \section{Game Theory Setting}

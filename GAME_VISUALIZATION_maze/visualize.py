@@ -295,4 +295,3 @@ if __name__ == "__main__":
     visualize_trained_agents(f"../EXPORT/{FILE_NAME}.npz", 
                              checkpoint=0,
                              time_waiting=3000)
-                             
