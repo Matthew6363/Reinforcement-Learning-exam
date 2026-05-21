@@ -138,7 +138,7 @@ def visualize_trained_agents(model_path='../CODE/EXPORT/q_models.npz',
     if TRAPS_DO_STOP_FOR_A_TURN:
         rm_states_map = {'start': 0, 'v_trap': 1, 'v_lose': 2, 'v_escaped': 3, 'opened':4} 
     else:
-        rm_states_map = {'start': 0, 'v_lose': 2, 'v_escaped': 3, 'opened':4} 
+        rm_states_map = {'start': 0, 'v_lose': 1, 'v_escaped': 2, 'opened':3}
     
     pos_e, pos_a = env.reset()
     rm_ego.reset()
