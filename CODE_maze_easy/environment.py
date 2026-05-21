@@ -225,7 +225,7 @@ class PacmanGridWorld:
                 r, c = self.start_pos_a
                 self.start_pos_a = (r, c + 1) # now (5, 1)
         
-        if TASK == "maze":
+        if TASK == "maze" or TASK == "maze_easy":
             self.traps = trap_coords
             self.walls = wall_coords
             self.exits = exit_coords

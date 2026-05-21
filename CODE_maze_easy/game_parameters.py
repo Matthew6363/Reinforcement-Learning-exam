@@ -1,13 +1,13 @@
 import numpy as np
 ### [[ GLOBAL PARAMS ]]
 DEBUG = False
-TASK = "maze"
+TASK = "maze_easy"
 TASK_III_EPSILON = 0.5
 GRID_H = GRID_W = 0
 
 ### [[ GRID and game WORD PARAMS ]]
 
-if TASK == "maze":
+if TASK == "maze" or TASK == "maze_easy":
     TRAPS_DO_STOP_FOR_A_TURN = False
     
     # [[ Rewards and penalties ]]
@@ -56,10 +56,10 @@ ALPHA = 0.1
 FAIL_RATE = 0.005
 
 # Adjusted for 10,000 states (much faster training)
-EPISODES = 10000 
+EPISODES = 15000 
 SAVE_EACH = 500
 TASK_III_EPSILON = 0.5
-STEP_NUM = 3000  
+STEP_NUM = 5000  
 START_EPSILON = 0.6 
 END_EPSILON = 0.05
 DECAY_RATE = 0.8
@@ -88,7 +88,7 @@ BASE_ALPHA = 100
 
 WALL_COORDS = [
     (0, 2), (0, 9),
-    (1, 4), (1, 5), (1, 6), (1,7), (1,9),
+    (1, 4), (1, 6), (1,7), (1,9),
     (2, 1), (2, 2), (2, 4), (2, 5), (2, 6), (2, 7),(2,9),
     (3, 1), (3, 2),
     (4,5), (4,6), (4,7), (4,8),

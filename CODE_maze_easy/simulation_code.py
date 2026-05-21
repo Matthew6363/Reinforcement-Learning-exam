@@ -6,6 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 from game_parameters import * # get all env parameters
+import os
 
 
 ######### PROBLEM-SPECIFIC REWARD MACHINE and ENV #######################
@@ -60,28 +61,39 @@ def pos_to_idx(pos):
 # QSG-RM solver with training episodes #
 # ------------------------------------ #
 def train_qrm_sg(total_episodes=1000,
-                 gamma = GAMMA,
-                 alpha = ALPHA,
-                 start_epsilon = START_EPSILON,
-                 end_epsilon = END_EPSILON,
-                 decay_rate = DECAY_RATE,
-                 q_shape = Q_SHAPE,
-                 actions = ACTIONS,
-                 step_num = STEP_NUM,
-                 q_init_strategy = "zeros"):
+                 gamma=GAMMA,
+                 alpha=ALPHA,
+                 start_epsilon=START_EPSILON,
+                 end_epsilon=END_EPSILON,
+                 decay_rate=DECAY_RATE,
+                 q_shape=Q_SHAPE,
+                 actions=ACTIONS,
+                 step_num=STEP_NUM,
+                 q_init_strategy="zeros",
+                 checkpoint_path="../EXPORT/q_models_maze_easy_ep12000.npz",
+                 start_episode = 12001): # <--- NEW PARAMETER
 
-    ## Build the environment and the two RMs
     env = PacmanGridWorld()
     rm_ego = Reward_Machine('ego')
     rm_adv = Reward_Machine('adv')
-    # Notice that it's possible to define just one RM, but it's by far less clear in the end.
 
-
-    ## Initialize the q-tables with given strategy and 
-    q_ee = initialize_q_function(q_shape, strategy=q_init_strategy)
-    q_ae = initialize_q_function(q_shape, strategy=q_init_strategy)
-    q_aa = initialize_q_function(q_shape, strategy=q_init_strategy)
-    q_ea = initialize_q_function(q_shape, strategy=q_init_strategy)
+    ## Initialize OR Load the q-tables
+    if checkpoint_path is not None:
+        print(f"Loading weights from {checkpoint_path}...")
+        data = np.load(checkpoint_path)
+        q_ee = data['q_ee']
+        q_ae = data['q_ae']
+        q_ea = data['q_ea']
+        q_aa = data['q_aa']
+        # Validate shape
+        if q_ee.shape != q_shape:
+            raise ValueError(f"Checkpoint shape {q_ee.shape} does not match current grid/RM config {q_shape}")
+    else:
+        print("Initializing new Q-tables...")
+        q_ee = initialize_q_function(q_shape, strategy=q_init_strategy)
+        q_ae = initialize_q_function(q_shape, strategy=q_init_strategy)
+        q_aa = initialize_q_function(q_shape, strategy=q_init_strategy)
+        q_ea = initialize_q_function(q_shape, strategy=q_init_strategy)
 
     rm_states_map = {} 
     ## Define the map between RM states and its indexes.
@@ -103,18 +115,28 @@ def train_qrm_sg(total_episodes=1000,
     timeouts_cnt    = 0
     all_ego_rewards = []
     all_adv_rewards = []
-    history = {
-        "episodes": [], "epsilon": [], 
-        "ego_wr": [], "adv_wr": [], 
-        "coll_r": [], "trap_r": [], "time_r": [], 
-        "avg_rew_e": [], "avg_rew_a": []
-    }
+    # LOAD HISTORY
+    history_path = f"../EXPORT/{TASK}_saved_percentages.npz"
+    if checkpoint_path is not None and os.path.exists(history_path):
+        print(f"Loading history from {history_path}...")
+        data = np.load(history_path)
+        history = {k: list(data[k]) for k in data.files}
+    else:
+        history = {
+            "episodes": [], "epsilon": [], "ego_wr": [], "adv_wr": [], 
+            "coll_r": [], "trap_r": [], "time_r": [], 
+            "avg_rew_e": [], "avg_rew_a": []
+        }
 
 
     print(f"Starting QRM-SG Training for {total_episodes} episodes...")
 
 
-    for episode in range(1, total_episodes + 1): # For each episode...
+    for episode in range(start_episode, total_episodes + 1):
+        # Calculate epsilon using absolute episode count for consistent decay
+        # decay_episodes is defined based on total duration
+        progress = episode / (total_episodes + start_episode)
+        epsilon = max(end_epsilon, start_epsilon - (start_epsilon - end_epsilon) * progress)
 
         ## ...................... ##
         ## EPISODE INITIALIZATION ##
@@ -362,7 +384,7 @@ def train_qrm_sg(total_episodes=1000,
             print("-" * 50)
 
 
-            file_path = f"../EXPORT/{TASK}_easy_saved_percentages.npz"
+            file_path = f"../EXPORT/{TASK}_saved_percentages.npz"
             
             history["episodes"].append(episode)
             history["epsilon"].append(epsilon)
@@ -374,8 +396,7 @@ def train_qrm_sg(total_episodes=1000,
             history["avg_rew_e"].append(avg_rew_e)
             history["avg_rew_a"].append(avg_rew_a)
 
-            np.savez(file_path, **history)
-
+            np.savez(history_path, **{k: np.array(v) for k, v in history.items()})
             
             # Reset window counters
             successes = 0
