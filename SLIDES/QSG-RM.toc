@@ -1,8 +1,8 @@
 \beamer@sectionintoc {1}{Basic Definitions}{3}{0}{1}
-\beamer@sectionintoc {2}{Game Theory Setting}{10}{0}{2}
-\beamer@sectionintoc {3}{Unified Framework}{16}{0}{3}
-\beamer@subsectionintoc {3}{1}{Algorithmic Phase Analysis}{18}{0}{3}
-\beamer@sectionintoc {4}{Theoretical Foundations}{22}{0}{4}
-\beamer@sectionintoc {5}{Results and Applications}{29}{0}{5}
-\beamer@sectionintoc {6}{Conclusion}{32}{0}{6}
-\beamer@sectionintoc {7}{References}{34}{0}{7}
+\beamer@sectionintoc {2}{Game Theory Setting}{11}{0}{2}
+\beamer@sectionintoc {3}{Unified Framework}{17}{0}{3}
+\beamer@subsectionintoc {3}{1}{Algorithmic Phase Analysis}{19}{0}{3}
+\beamer@sectionintoc {4}{Theoretical Foundations}{23}{0}{4}
+\beamer@sectionintoc {5}{Results and Applications}{30}{0}{5}
+\beamer@sectionintoc {6}{Conclusion}{33}{0}{6}
+\beamer@sectionintoc {7}{References}{35}{0}{7}

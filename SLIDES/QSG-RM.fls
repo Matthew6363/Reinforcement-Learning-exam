@@ -423,6 +423,17 @@ INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/euler/eufm10.
 INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/euler/eufm7.tfm
 INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/euler/eufm5.tfm
 INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmssi10.tfm
+INPUT ./images/RMgridexample.png
+INPUT ./images/RMgridexample.png
+INPUT ./images/RMgridexample.png
+INPUT ./images/RMgridexample.png
+INPUT ./images/RMgridexample.png
+INPUT ./images/RMexaple_solo.png
+INPUT ./images/RMexaple_solo.png
+INPUT ./images/RMexaple_solo.png
+INPUT ./images/RMexaple_solo.png
+INPUT ./images/RMexaple_solo.png
+INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmssbx10.tfm
 INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/jknappen/ec/tcss0900.tfm
 INPUT /usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmtt9.tfm
 INPUT ./QSG-RM.bbl

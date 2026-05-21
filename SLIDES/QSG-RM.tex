@@ -129,7 +129,7 @@
     Each agent's strategy is a \evidenzia{best-response to the other agent's strategy}, if each agent \evidenzia{cannot improve its own reward} by changing its strategy, given a \evidenzia{fixed opponent's policy}.
     %\end{block}
     \vspace{0.5cm}
-    \begin{block}{Definition: Nash Equilibrium in Stochastic Games}
+    \begin{block}{Definition | Nash Equilibrium in Stochastic Games}
         For a stochastic game $\mathcal{G} = (S, s_I, A_{\mathfrak{e}}, A_{\mathfrak{a}}, R_{\mathfrak{e}}, R_{\mathfrak{a}}, \gamma, p)$, the strategies of the ego agent, $\pi_\mathfrak{e}^*$, and the adversarial agent, $\pi_\mathfrak{a}^*$, are at a \evidenzia{Nash equilibrium} if:
         \begin{align*}
             \tilde{v}_\mathfrak{e}(s, \pi_\mathfrak{e}^*, \pi_\mathfrak{a}^*) \geq \tilde{v}_\mathfrak{e}(s, \pi_\mathfrak{e}, \pi_\mathfrak{a}^*)\\
@@ -159,7 +159,7 @@ $$
 
 % Slide 7: Reward Machines
 \begin{frame}{Reward Machines (RM)}
-    \begin{block}{Definition: Reward Machine}
+    \begin{block}{Definition | Reward Machine}
         Finite state automaton designed to encode non-Markovian rewards with state transitions and output functions: $\mathcal{A}=(V,v_{I},2^{\mathcal{P}},\mathbb{R},\delta,\sigma)$
         \begin{itemize}
             \item \textbf{Input Alphabet ($2^{\mathcal{P}}$):} Interprets propositional logic variables $\mathcal{P}$ generated from lower-level environment updates.
@@ -168,6 +168,23 @@ $$
             \item \textbf{Output function:} Discrete scalars along active trajectory $\sigma:V\times2^{\mathcal{P}}\rightarrow\mathbb{R}$.
         \end{itemize}
     \end{block}
+\end{frame}
+
+\begin{frame}{Reward Machines example visualization}
+We define Reward Machines as a formalism to express \evidenzia{task specification}, decomposed into \evidenzia{several stages}.
+\vspace{0.2cm}    
+\begin{block}{Example | variant of the PAC-MAN game}
+    \vspace{0.2cm}
+
+        \begin{center}
+        \includegraphics[width=0.17\textwidth]{images/RMgridexample.png}
+        \hspace{2cm}
+        \includegraphics[width=0.2\textwidth]{images/RMexaple_solo.png}
+    \end{center}
+{\scriptsize \evidenzia{Figure 1.,2.} \textit{Variant of the PAC-MAN game is a symmetric zero-sum game where two agents try to
+capture each other. \cite{hu2023reinforcement}}}
+\end{block}
+
 \end{frame}
 
 \section{Game Theory Setting}
