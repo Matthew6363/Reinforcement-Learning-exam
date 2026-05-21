@@ -1,26 +1,64 @@
-\documentclass{beamer}
-\usetheme{Madrid}
-\usecolortheme{whale}
+%\documentclass[10pt]{beamer}
+\documentclass[10pt, aspectratio=169]{beamer}
+
+% MADRID THEME
+%\usetheme{Madrid}
+%\usecolortheme{whale}
+
+\usetheme{metropolis}
 
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsfonts}
 \usepackage{algorithmic}
+
+\definecolor{verdeSalvia}{RGB}{112, 130, 114}  
+\definecolor{grigioScuro}{RGB}{60, 64, 61}     
+\definecolor{grigioSfondo}{RGB}{245, 246, 245} 
+\definecolor{verdelime}{RGB}{154, 181, 16}
+\definecolor{verdeOlivaScuro}{RGB}{75, 90, 76}
+
+\setbeamercolor{structure}{fg=verdeSalvia}
+\setbeamercolor{normal text}{fg=grigioScuro}
+\setbeamercolor{alerted text}{fg=verdelime}
+\setbeamercolor{block title}{bg=verdeSalvia, fg=white}
+\setbeamercolor{block body}{bg=grigioSfondo, fg=grigioScuro}
+
+% Configurazione degli elenchi puntati nello stile standard
 \setbeamertemplate{enumerate items}[default]
 
-\title[Reinforcement Learning Course]{Reinforcement Learning With Reward Machines in Stochastic Games}
-\author[]{Matteo Liotta and Mattia Simonutti}
-\institute[UniTS]{University of Trieste}
-\date[2026]{}
+\setbeamertemplate{enumerate items}[default]
 
-\AtBeginSection[]
-{
-  \begin{frame}{Outline}
-    \tableofcontents[currentsection]
-  \end{frame}
+\newcommand{\evidenzia}[1]{\textcolor{verdeSalvia}{\textbf{#1}}}
+
+%\title[Reinforcement Learning Course]{Reinforcement Learning With Reward Machines in Stochastic Games}
+\title{Reinforcement Learning With Reward Machines in Stochastic Games}
+\subtitle{\small Reinforcement Learning Course - Final Project | 06-2026}
+%\author[M. Liotta \and M. Simonutti]{Matteo Liotta (\textit{matteo.liotta@studenti.units.it}) Mattia Simonutti (\textit{mattia.simonutti@studenti.units.it} )}
+\author[M. Liotta \and M. Simonutti]{%
+  \hspace{1cm} % Distanza della mail di Matteo dalla parete SINISTRA
+  \begin{tabular}{@{}c@{}}
+    \textbf{Matteo Liotta} \\ 
+    \footnotesize\texttt{matteo.liotta@studenti.units.it}
+  \end{tabular}
+  \and
+  \hfill % Mantiene lo spazio elastico centrale tra i due autori
+  \begin{tabular}{@{}c@{}}
+    \textbf{Mattia Simonutti} \\ 
+    \footnotesize\texttt{mattia.simonutti@studenti.units.it}
+  \end{tabular}
+  \hspace{1cm} % Distanza della mail di Mattia dalla parete DESTRA
 }
 
+\institute[UniTS]{%
+  \centering
+  University of Trieste \\
+  \textit{Department of Mathematics and Geosciences}
+}
+\date[2026]{}
+
 \begin{document}
+
 
 % Slide 1: Title
 \frame{\titlepage}
@@ -28,9 +66,9 @@
 % Slide 2: Problem Setting
 \begin{frame}{Problem Setting}
     \begin{itemize}
-        \item \textbf{Problem:} How to tackle complex tasks in multi-agent RL where reward functions are non-Markovian?
-        \item \textbf{Proposed Approach:} Embed reward machines into the state to form an augmented product stochastic game, converting non-Markovian rewards into standard Markovian ones.
-        \item \textbf{Goal:} Learn and converge to the optimal best-response strategy at a Nash equilibrium for each agent in a general-sum game setting.
+        \item \textbf{Problem:} How to tackle complex tasks in \evidenzia{multi-agent RL} where reward functions are \evidenzia{non-Markovian}?
+        \item \textbf{Proposed Approach:} Usage of \evidenzia{Reward Machines} to incorporate the high-level knowledge of the task. By RM state incorporation, form an augmented product stochastic game, \evidenzia{converting non-Markovian rewards} into \evidenzia{standard Markovian ones} \cite{hu2023reinforcement}.
+        \item \textbf{Goal:} Learn and converge to the optimal best-response strategy at a \evidenzia{Nash equilibrium} for each agent in a \evidenzia{general-sum game setting}.
     \end{itemize}
 \end{frame}
 
@@ -38,13 +76,17 @@
 
 % Slide 3: Stochastic Games
 \begin{frame}{Stochastic Games with Non-Markovian Rewards}
-    \begin{block}{Definition: Two-Player General-Sum Stochastic Game}
+    \begin{block}{Definition | Two-Player General-Sum Stochastic Game (SG) }
+        \vspace{0.2cm}
         Modeled as the tuple $\mathcal{G}=(S,s_{I},A_{\mathfrak{e}},A_{\mathfrak{a}},p,R_{\mathfrak{e}},R_{\mathfrak{a}},\gamma)$, where:
         \begin{itemize}
-            \item \textbf{State Space ($S$):} Tracks paired substates $s=[s_{\mathfrak{e}};s_{\mathfrak{a}}]$ for both the ego and adversarial agent.
-            \item \textbf{Non-Markovian Rewards:} The reward functions $R_{\mathfrak{e}}$ and $R_{\mathfrak{a}}$ map from complete trajectory histories to real value domains $(S\times A_{\mathfrak{e}}\times A_{\mathfrak{a}})^{+}\times S\rightarrow\mathbb{R}$.
+            \item \textbf{Finite State Space ($S$):} consisting of states $s=[s_{\mathfrak{e}};s_{\mathfrak{a}}]$, with $s_{\mathfrak{e}}, s_{\mathfrak{a}}$ substates for \textit{Ego} and \textit{Adv} agents respectively. $s_{I}\in S$ is the initial state.%, for both the ego and adversarial agent.
             \item \textbf{Action Spaces:} Each agent has its own finite set of actions $A_{\mathfrak{e}}$ and $A_{\mathfrak{a}}$.
+            \item \textbf{Probabilistic Transition Function}: $p:S\times A_{\mathfrak{e}}\times A_{\mathfrak{a}}\times S\rightarrow[0,1]$ %defines the probability of transitioning to a new state given the current state and joint actions.
+            \item \textbf{Non-Markovian Reward functions}: $R_{\mathfrak{e} \ or\ a} : (S\times A_{\mathfrak{e}}\times A_{\mathfrak{a}})^{+}\times S\rightarrow\mathbb{R}$ map from \evidenzia{complete trajectory histories} %(i.e. it has memory) 
+            to real value domains, specifying the n-m rewards for both agents.
         \end{itemize}
+        \vspace{0.2cm}
     \end{block}
 \end{frame}
 
@@ -369,6 +411,13 @@
         \item \textbf{Robust Architecture:} Augmented state transformations allow tabular actors to navigate complex environments successfully.
         \item \textbf{Future Directions:} Dynamically learning unknown reward machine configurations simultaneously during policy calculation; extensions to general-sum games with more agents.
     \end{itemize}
+\end{frame}
+
+\section{References}
+\begin{frame}[allowframebreaks]{References}
+    \setbeamertemplate{bibliography item}[text] % Forza Beamer a mostrare i numeri [1] al posto dei loghi dei libri
+    \bibliographystyle{plain} % 'plain' assegna i numeri progressivi [1], [2], ecc.
+    \bibliography{references}
 \end{frame}
 
 \end{document}

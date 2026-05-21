@@ -5,3 +5,4 @@
 \beamer@sectionintoc {4}{Theoretical Foundations}{21}{0}{4}
 \beamer@sectionintoc {5}{Results and Applications}{28}{0}{5}
 \beamer@sectionintoc {6}{Conclusion}{31}{0}{6}
+\beamer@sectionintoc {7}{References}{33}{0}{7}
