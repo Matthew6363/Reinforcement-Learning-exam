@@ -61,7 +61,7 @@
 \headcommand {\beamer@framepages {25}{25}}
 \headcommand {\beamer@sectionpages {19}{25}}
 \headcommand {\beamer@subsectionpages {21}{25}}
-\headcommand {\sectionentry {4}{Theoretical Foundations}{26}{Theoretical Foundations}{0}}
+\headcommand {\sectionentry {4}{Additional Keypoints}{26}{Additional Keypoints}{0}}
 \headcommand {\slideentry {4}{0}{1}{26/26}{}{0}}
 \headcommand {\beamer@framepages {26}{26}}
 \headcommand {\slideentry {4}{0}{2}{27/27}{}{0}}
@@ -76,31 +76,37 @@
 \headcommand {\beamer@framepages {31}{31}}
 \headcommand {\slideentry {4}{0}{7}{32/32}{}{0}}
 \headcommand {\beamer@framepages {32}{32}}
-\headcommand {\beamer@sectionpages {26}{32}}
-\headcommand {\beamer@subsectionpages {26}{32}}
-\headcommand {\sectionentry {5}{Results and Applications}{33}{Results and Applications}{0}}
-\headcommand {\slideentry {5}{0}{1}{33/33}{}{0}}
+\headcommand {\slideentry {4}{0}{8}{33/33}{}{0}}
 \headcommand {\beamer@framepages {33}{33}}
-\headcommand {\slideentry {5}{0}{2}{34/34}{}{0}}
+\headcommand {\slideentry {4}{0}{9}{34/34}{}{0}}
 \headcommand {\beamer@framepages {34}{34}}
-\headcommand {\slideentry {5}{0}{3}{35/35}{}{0}}
+\headcommand {\slideentry {4}{0}{10}{35/35}{}{0}}
 \headcommand {\beamer@framepages {35}{35}}
-\headcommand {\beamer@sectionpages {33}{35}}
-\headcommand {\beamer@subsectionpages {33}{35}}
-\headcommand {\sectionentry {6}{Conclusion}{36}{Conclusion}{0}}
-\headcommand {\slideentry {6}{0}{1}{36/36}{}{0}}
+\headcommand {\beamer@sectionpages {26}{35}}
+\headcommand {\beamer@subsectionpages {26}{35}}
+\headcommand {\sectionentry {5}{Results and Applications}{36}{Results and Applications}{0}}
+\headcommand {\slideentry {5}{0}{1}{36/36}{}{0}}
 \headcommand {\beamer@framepages {36}{36}}
-\headcommand {\slideentry {6}{0}{2}{37/37}{}{0}}
+\headcommand {\slideentry {5}{0}{2}{37/37}{}{0}}
 \headcommand {\beamer@framepages {37}{37}}
-\headcommand {\beamer@sectionpages {36}{37}}
-\headcommand {\beamer@subsectionpages {36}{37}}
-\headcommand {\sectionentry {7}{References}{38}{References}{0}}
-\headcommand {\slideentry {7}{0}{1}{38/38}{}{0}}
+\headcommand {\slideentry {5}{0}{3}{38/38}{}{0}}
 \headcommand {\beamer@framepages {38}{38}}
-\headcommand {\slideentry {7}{0}{2}{39/39}{}{0}}
+\headcommand {\beamer@sectionpages {36}{38}}
+\headcommand {\beamer@subsectionpages {36}{38}}
+\headcommand {\sectionentry {6}{Conclusion}{39}{Conclusion}{0}}
+\headcommand {\slideentry {6}{0}{1}{39/39}{}{0}}
 \headcommand {\beamer@framepages {39}{39}}
-\headcommand {\beamer@partpages {1}{39}}
-\headcommand {\beamer@subsectionpages {38}{39}}
-\headcommand {\beamer@sectionpages {38}{39}}
-\headcommand {\beamer@documentpages {39}}
-\headcommand {\gdef \inserttotalframenumber {32}}
+\headcommand {\slideentry {6}{0}{2}{40/40}{}{0}}
+\headcommand {\beamer@framepages {40}{40}}
+\headcommand {\beamer@sectionpages {39}{40}}
+\headcommand {\beamer@subsectionpages {39}{40}}
+\headcommand {\sectionentry {7}{References}{41}{References}{0}}
+\headcommand {\slideentry {7}{0}{1}{41/41}{}{0}}
+\headcommand {\beamer@framepages {41}{41}}
+\headcommand {\slideentry {7}{0}{2}{42/42}{}{0}}
+\headcommand {\beamer@framepages {42}{42}}
+\headcommand {\beamer@partpages {1}{42}}
+\headcommand {\beamer@subsectionpages {41}{42}}
+\headcommand {\beamer@sectionpages {41}{42}}
+\headcommand {\beamer@documentpages {42}}
+\headcommand {\gdef \inserttotalframenumber {35}}

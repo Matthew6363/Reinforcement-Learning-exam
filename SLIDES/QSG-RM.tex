@@ -471,7 +471,52 @@ The \evidenzia{transition of both game states and RM states} leads to the step \
     \end{block}
 \end{frame}
 
-\section{Theoretical Foundations}
+\section{Additional Keypoints}
+
+\begin{frame}{Introduction of the counterfactual Reasoning}
+
+    The original paper introduces the Nash Q-learning as a function of the augmented state space, i.e. $(s, v_{\mathfrak{e}}, v_{\mathfrak{a}})$. This means that we can update the Q-function estimation for that given state using the algorithm described in the previous slide. 
+    
+    \begin{itemize}
+        \item Given a state $(s, v_{\mathfrak{e}}, v_{\mathfrak{a}})$
+        \item Given reached state $(s', v'_{\mathfrak{e}}, v'_{\mathfrak{a}})$ though actions $a_{\mathfrak{e}}$ and $a_{\mathfrak{a}}$
+        \item We can update as seen the \evidenzia{Q-function estimation for that state} $(s, v_{\mathfrak{e}}, v_{\mathfrak{a}})$
+    \end{itemize}
+
+    \begin{block}{Pointed Problem}
+    Even in a sample game, we can reach a game state having \evidenzia{many different} RM internal states. Consequently, in order to perform a \evidenzia{general state game learning}, we're required to \evidenzia{experience many steps/episodes}.
+    \end{block}
+
+\end{frame}
+
+\begin{frame}{Introduction of the counterfactual Reasoning (cont'd)}
+
+    However, the environment-agent interaction is \evidenzia{independent from the agent internal RM state}: high-level events depends on game states (agent position); it's the RM that then tells the agent how it is rewarded for that event, depending on its current RM state.
+    %If an agent enters a cell in which there is a trap, it does even independently from the agent history/memory. 
+    %It's the RM, having received the environment label responds \evidenzia{accordingly with the state it is in}.
+
+    So once in state $s$, \evidenzia{we don't need to experience} transitions to $s'$ with \evidenzia{any possible} combination of %(both) 
+    agents RM states.
+    
+    \vspace{0.2cm}
+    \begin{block}{Counterfactual Reasoning}
+    Since the \evidenzia{practical environment transition is independent from the RM state}, instead of updating the Q-value for state $(s, v_{\mathfrak{e}}, v_{\mathfrak{a}})$ \evidenzia{only}, we can
+    \begin{itemize}
+        \item Consider all RMs states $\tilde v_{\mathfrak{e}},\tilde v_{\mathfrak{a}}$, simulate being in augmented state $(s, \tilde v_{\mathfrak{e}},\tilde v_{\mathfrak{a}})$.
+        \item Simulate state and the RM transition to $\tilde v'_{\mathfrak{e}},\tilde v'_{\mathfrak{a}}$ if $s'$ is reached, i.e. reaching $(s', \tilde v'_{\mathfrak{e}},\tilde v'_{\mathfrak{a}})$
+        \item Update  the Q-value associated to $(s, \tilde v_{\mathfrak{e}},\tilde v_{\mathfrak{a}})$
+    \end{itemize} 
+    \end{block}
+
+\end{frame}
+\begin{frame}{Introduction of the counterfactual Reasoning (cont'd)}
+
+    Without loss of generality problems, the SGRM augmented state transition 
+    $$(s, \tilde v_{\mathfrak{e}},\tilde v_{\mathfrak{a}}) \rightarrow (s',  v'_{\mathfrak{e}}, v'_{\mathfrak{a}})$$
+    we can update its correspondent Q-value estimation, together with all other augmented states in which the game state $s$ is mapped to $s'$, \evidenzia{as if} we'd experienced
+    $$(s, \tilde v_{\mathfrak{e}},\tilde v_{\mathfrak{a}}) \rightarrow (s', \tilde v'_{\mathfrak{e}},\tilde v'_{\mathfrak{a}}) \quad \forall v_{\mathfrak{e}}, v_{\mathfrak{a}} \in V_{\mathfrak{e}}, V_{\mathfrak{a}} $$
+    
+\end{frame}
 
 \begin{frame}{Convergence Assumptions}
     \begin{block}{Assumption 1: Exploration}
