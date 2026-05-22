@@ -381,26 +381,32 @@ The \evidenzia{transition of both game states and RM states} leads to the step \
 
 \subsection{Algorithmic Phase Analysis}
 
-\begin{frame}{QRM-SG Phase 1: Initialization}
+\begin{frame}{QRM-SG Phase 1 | Initialization}
     \begin{block}{Process Breakdown (Lines 1--4)}
     \begin{algorithmic}
-        \STATE \textbf{Initialize} $\alpha_t, \gamma, \epsilon$ 
+        \vspace{0.2cm}
+        \STATE \textbf{Hyperparameter}: episode length $eplength$, $\gamma$, $\epsilon$
+        \STATE \textbf{Input}: Reward machines $\mathcal{A}_{\mathfrak{e}}, \mathcal{A}_{\mathfrak{a}}$
+        \vspace{0.2cm}
+        %\STATE \textbf{Initialize} $\alpha_t, \gamma, \epsilon$ 
         \STATE $s \leftarrow InitialState(); v_{\mathfrak{e}} \leftarrow v_{I,\mathfrak{e}}; v_{\mathfrak{a}} \leftarrow v_{I,\mathfrak{a}}$ 
         \STATE $q_{\mathfrak{e}i}(\cdot), q_{\mathfrak{a}i}(\cdot) \leftarrow InitialQfunctions()$ 
     \end{algorithmic}
     \end{block}
-    \textbf{Analysis:}
+    \evidenzia{Analysis:}
     \begin{itemize}
-        \item Each agent starts with a "dual-view" Q-table, estimating values for self and opponent to allow local equilibrium computation. 
-        \item State is defined in the product space $S \times V_{\mathfrak{e}} \times V_{\mathfrak{a}}$, ensuring the Markov property is preserved. 
+        \item Each agent initializes \evidenzia{two} Q-tables to store values for self and opponent, allowing local equilibrium computation. 
+        \item A SGRM (augmented) states are defined in the product space $S \times V_{\mathfrak{e}} \times V_{\mathfrak{a}}$; each tuple element $s$, $v_{\mathfrak{e}}$ and $v_{\mathfrak{a}}$ is \evidenzia{individually initialized}.  %, ensuring the Markov property is preserved. 
     \end{itemize}
 \end{frame}
 
-\begin{frame}{QRM-SG Phase 2: Nash-Action Selection}
+\begin{frame}{QRM-SG Phase 2 | Nash-Action Selection}
     \begin{block}{Process Breakdown (Lines 7--13)}
     \begin{algorithmic}
+        \vspace{0.2cm}
+        \STATE $\bar \epsilon \leftarrow GenerateRandomValue(0,1)$
         \IF{$\overline{\epsilon} < \epsilon$} 
-            \STATE $a_i \leftarrow ChooseActionRandomly()$ 
+            \STATE $a_i \leftarrow ChooseActionRandomly({\footnotesize [U,D,L,R]})$ 
         \ELSE
             \STATE $\pi_{\mathfrak{e}i}, \pi_{\mathfrak{a}i} \leftarrow CalculateNashEquilibrium(q_{\mathfrak{e}i}, q_{\mathfrak{a}i})$
             \STATE $a_i \leftarrow \text{argmax } \pi_{ii}(a|s, v_{\mathfrak{e}}, v_{\mathfrak{a}})$ 
