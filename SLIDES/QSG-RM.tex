@@ -516,7 +516,7 @@ The \evidenzia{transition of both game states and RM states} leads to the step \
     we can update its correspondent Q-value estimation, together with all other augmented states in which the game state $s$ is mapped to $s'$, \evidenzia{as if} we'd experienced
     $$(s, \tilde v_{\mathfrak{e}},\tilde v_{\mathfrak{a}}) \rightarrow (s', \tilde v'_{\mathfrak{e}},\tilde v'_{\mathfrak{a}}) \quad \forall v_{\mathfrak{e}}, v_{\mathfrak{a}} \in V_{\mathfrak{e}}, V_{\mathfrak{a}}$$
     
-    \begin{block}{What does it means (in practice)?}
+    \begin{block}{What does it means in practice?}
     For a $N\times M$ grid, 2 agents, 4 actions for agent, RMs with $K_\mathfrak{e}$, $K_\mathfrak{a}$ states, if standard RM based code requires $E$ episodes to converge, then with the counterfactual reasoning we can expect to converge in $\frac{E}{K_\mathfrak{e} \cdot K_\mathfrak{a}}$ episodes.
     \end{block}
 
@@ -547,61 +547,61 @@ The \evidenzia{transition of both game states and RM states} leads to the step \
 
 \end{frame}
 
-\begin{frame}{Theorem 1: Convergence Guarantee}
-    \begin{block}{Theorem 1}
-        Under Assumptions 1, 2 and 3, the sequence $q_{it}=(q_{\mathfrak{e}i}^t, q_{\mathfrak{a}i}^t)$ at time $t$, $i \in \{\mathfrak{e}, \mathfrak{a}\}$ updated by: 
-        \begin{equation*}
-        \begin{aligned}
-            q_{ji}(s, v, a) = &(1-\alpha_t)q_{ji}(s, v, a) + \\ 
-            &\alpha_t(r_{j,t} + \gamma \pi_{\mathfrak{e}i}(\cdot | s', v')\pi_{\mathfrak{a}i}(\cdot | s', v')q_{ji}(s', v'))
-        \end{aligned}
-        \end{equation*} 
-        for $j \in \{\mathfrak{e}, \mathfrak{a}\}$, where $(\pi_{\mathfrak{e}i}(\cdot|s', v'), \pi_{\mathfrak{a}i}(\cdot|s', v'))$ is the appropriate type of Nash equilibrium solution for the stage game $(q_{\mathfrak{e}i}^t(s', v'), q_{\mathfrak{a}i}^t(s', v'))$, converges to the Q-functions at a Nash equilibrium $(q_{\mathfrak{e}i}^*, q_{\mathfrak{a}i}^*)$.
-    \end{block}
-\end{frame}
+% \begin{frame}{Theorem 1: Convergence Guarantee}
+%     \begin{block}{Theorem 1}
+%         Under Assumptions 1, 2 and 3, the sequence $q_{it}=(q_{\mathfrak{e}i}^t, q_{\mathfrak{a}i}^t)$ at time $t$, $i \in \{\mathfrak{e}, \mathfrak{a}\}$ updated by: 
+%         \begin{equation*}
+%         \begin{aligned}
+%             q_{ji}(s, v, a) = &(1-\alpha_t)q_{ji}(s, v, a) + \\ 
+%             &\alpha_t(r_{j,t} + \gamma \pi_{\mathfrak{e}i}(\cdot | s', v')\pi_{\mathfrak{a}i}(\cdot | s', v')q_{ji}(s', v'))
+%         \end{aligned}
+%         \end{equation*} 
+%         for $j \in \{\mathfrak{e}, \mathfrak{a}\}$, where $(\pi_{\mathfrak{e}i}(\cdot|s', v'), \pi_{\mathfrak{a}i}(\cdot|s', v'))$ is the appropriate type of Nash equilibrium solution for the stage game $(q_{\mathfrak{e}i}^t(s', v'), q_{\mathfrak{a}i}^t(s', v'))$, converges to the Q-functions at a Nash equilibrium $(q_{\mathfrak{e}i}^*, q_{\mathfrak{a}i}^*)$.
+%     \end{block}
+% \end{frame}
 
 % Slide 17: Algorithm 1: QRM-SG Pseudocode
-\begin{frame}{Algorithm 1: QRM-SG Full Pseudocode}
-    \begin{algorithmic}[1]
-        \STATE \textbf{Initialize} $q_{\mathfrak{e}i}$ and $q_{\mathfrak{a}i}$ for all $i \in \{\mathfrak{e}, \mathfrak{a}\}$
-        \FOR{episode $l=1,2,\dots$}
-            \STATE $s \leftarrow s_I, v_{\mathfrak{e}} \leftarrow v_{I,\mathfrak{e}}, v_{\mathfrak{a}} \leftarrow v_{I,\mathfrak{a}}$
-            \FOR{$t=0$ \textbf{to} $eplength$}
-                \STATE Choose action $a_i$ using $\epsilon$-greedy policy and \textbf{Lemke-Howson}
-                \STATE Execute actions, observe $s'$, and high-level event $l_t = L(s, a_{\mathfrak{e}}, a_{\mathfrak{a}}, s')$
-                \STATE Update RM states: $v_i' \leftarrow \delta_i(v_i, l_t)$ and reward $r_{i,t} \leftarrow \sigma_i(v_i, l_t)$
-                \STATE Compute Nash strategy $\pi_{ji}(\cdot|s', v')$ at next augmented state
-                \STATE Update Q-functions:
-                \STATE $q_{ji} \leftarrow (1-\alpha_t)q_{ji} + \alpha_t(r_{j,t} + \gamma \sum \pi \pi q_{ji}')$
-                \STATE $s \leftarrow s', v_{\mathfrak{e}} \leftarrow v_{\mathfrak{e}}', v_{\mathfrak{a}} \leftarrow v_{\mathfrak{a}}'$
-            \ENDFOR
-        \ENDFOR
-    \end{algorithmic}
-\end{frame}
+% \begin{frame}{Algorithm 1: QRM-SG Full Pseudocode}
+%     \begin{algorithmic}[1]
+%         \STATE \textbf{Initialize} $q_{\mathfrak{e}i}$ and $q_{\mathfrak{a}i}$ for all $i \in \{\mathfrak{e}, \mathfrak{a}\}$
+%         \FOR{episode $l=1,2,\dots$}
+%             \STATE $s \leftarrow s_I, v_{\mathfrak{e}} \leftarrow v_{I,\mathfrak{e}}, v_{\mathfrak{a}} \leftarrow v_{I,\mathfrak{a}}$
+%             \FOR{$t=0$ \textbf{to} $eplength$}
+%                 \STATE Choose action $a_i$ using $\epsilon$-greedy policy and \textbf{Lemke-Howson}
+%                 \STATE Execute actions, observe $s'$, and high-level event $l_t = L(s, a_{\mathfrak{e}}, a_{\mathfrak{a}}, s')$
+%                 \STATE Update RM states: $v_i' \leftarrow \delta_i(v_i, l_t)$ and reward $r_{i,t} \leftarrow \sigma_i(v_i, l_t)$
+%                 \STATE Compute Nash strategy $\pi_{ji}(\cdot|s', v')$ at next augmented state
+%                 \STATE Update Q-functions:
+%                 \STATE $q_{ji} \leftarrow (1-\alpha_t)q_{ji} + \alpha_t(r_{j,t} + \gamma \sum \pi \pi q_{ji}')$
+%                 \STATE $s \leftarrow s', v_{\mathfrak{e}} \leftarrow v_{\mathfrak{e}}', v_{\mathfrak{a}} \leftarrow v_{\mathfrak{a}}'$
+%             \ENDFOR
+%         \ENDFOR
+%     \end{algorithmic}
+% \end{frame}
 
 % Slide 18: Algorithm Analysis
-\begin{frame}{Algorithm Analysis and Convergence Properties}
-    \begin{itemize}
-        \item \textbf{Off-Policy Learning:} RMs enable decomposition of complex RL problems into structured subproblems for efficient learning.
-        \item \textbf{Coupled Learning:} The learning processes of agents are coupled because the high-level events depend on joint actions.
-        \item \textbf{Decentralized View:} Each agent maintains a "centralized" perspective by learning everyone's Q-functions to compute equilibria locally.
-    \end{itemize}
-\end{frame}
+% \begin{frame}{Algorithm Analysis and Convergence Properties}
+%     \begin{itemize}
+%         \item \textbf{Off-Policy Learning:} RMs enable decomposition of complex RL problems into structured subproblems for efficient learning.
+%         \item \textbf{Coupled Learning:} The learning processes of agents are coupled because the high-level events depend on joint actions.
+%         \item \textbf{Decentralized View:} Each agent maintains a "centralized" perspective by learning everyone's Q-functions to compute equilibria locally.
+%     \end{itemize}
+% \end{frame}
 
-% Slide 20: Mathematical Foundation: Convergence Proof
-\begin{frame}{Mathematical Foundation: Convergence Proof}
-    The proof relies on viewing the update as a stochastic approximation of a mapping $F^t$: 
-    \begin{block}{Key Lemmas from Supplementary Materials}
-        \begin{itemize}
-            \item \textbf{Lemma 2:} Establishes general convergence for iterations $q^{t+1}=(1-\alpha_t)q^t + \alpha_t[F^tq^t]$.
-            \item \textbf{Lemma 4:} Shows that Q-functions at a Nash equilibrium ($q^*$) are fixed points of $F^t$, i.e., $q^* = \mathbb{E}[F^t q^*]$.
-            \item \textbf{Lemma 7:} Proves $F^t$ is a \textbf{contraction mapping} under Assumption 3:
-            \[ ||F^t q - F^t \dot{q}|| \le \gamma ||q - \dot{q}|| \]
-        \end{itemize}
-    \end{block}
-\end{frame}
+% % Slide 20: Mathematical Foundation: Convergence Proof
+% \begin{frame}{Mathematical Foundation: Convergence Proof}
+%     The proof relies on viewing the update as a stochastic approximation of a mapping $F^t$: 
+%     \begin{block}{Key Lemmas from Supplementary Materials}
+%         \begin{itemize}
+%             \item \textbf{Lemma 2:} Establishes general convergence for iterations $q^{t+1}=(1-\alpha_t)q^t + \alpha_t[F^tq^t]$.
+%             \item \textbf{Lemma 4:} Shows that Q-functions at a Nash equilibrium ($q^*$) are fixed points of $F^t$, i.e., $q^* = \mathbb{E}[F^t q^*]$.
+%             \item \textbf{Lemma 7:} Proves $F^t$ is a \textbf{contraction mapping} under Assumption 3:
+%             \[ ||F^t q - F^t \dot{q}|| \le \gamma ||q - \dot{q}|| \]
+%         \end{itemize}
+%     \end{block}
+% \end{frame}
 
-\section{Results and Applications}
+\section{Game Results and Experiments}
 
 % Slide 21: Experimental Framework & Baselines
 \begin{frame}{Experimental Framework \& Baselines}

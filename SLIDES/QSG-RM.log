@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.3.4)  22 MAY 2026 16:18
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.3.4)  22 MAY 2026 18:49
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1138,15 +1138,7 @@ LaTeX Font Warning: Command \footnotesize invalid in math mode on input line 380
 
 ] [37
 
-] [38
-
-] [39
-
-] [40
-
-] [41
-
-] (./QSG-RM.bbl) [42
+] (./QSG-RM.bbl) [38
 
 ]
 \tf@nav=\write6
@@ -1164,21 +1156,21 @@ LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
  ***********
 Package rerunfilecheck Info: File `QSG-RM.out' has not changed.
-(rerunfilecheck)             Checksum: F7D16D91C3FC353572D7C61BAEC3FD0D;1180.
+(rerunfilecheck)             Checksum: 1763C2EDC28201B9021646B926E455EF;1203.
  ) 
 Here is how much of TeX's memory you used:
- 25552 strings out of 474116
- 513906 string characters out of 5743683
- 1938187 words of memory out of 5000000
- 47284 multiletter control sequences out of 15000+600000
+ 25536 strings out of 474116
+ 513758 string characters out of 5743683
+ 1937187 words of memory out of 5000000
+ 47276 multiletter control sequences out of 15000+600000
  573583 words of font info for 92 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,15n,123p,1936b,760s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/euler/eufm10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/euler/eufm5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/euler/eufm7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfss0900.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfss1000.pfb>
-Output written on QSG-RM.pdf (42 pages, 281873 bytes).
+Output written on QSG-RM.pdf (38 pages, 275333 bytes).
 PDF statistics:
- 414 PDF objects out of 1000 (max. 8388607)
- 314 compressed objects within 4 object streams
- 94 named destinations out of 1000 (max. 500000)
+ 392 PDF objects out of 1000 (max. 8388607)
+ 297 compressed objects within 3 object streams
+ 86 named destinations out of 1000 (max. 500000)
  117 words of extra memory for PDF output out of 10000 (max. 10000000)
 
