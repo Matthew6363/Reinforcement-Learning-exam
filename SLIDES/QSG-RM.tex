@@ -346,21 +346,36 @@ The \evidenzia{transition of both game states and RM states} leads to the step \
     \end{itemize}
 \end{frame}
 
-\section{Unified Framework}
+%\section{Unified Framework}
+\section{QSG-RM Algorithm Overview}
 
 % Slide 12: QRM-SG Architecture
-\begin{frame}{QRM-SG Algorithm Architecture}
+\begin{frame}{QRM-SG Algorithm Key aspects}
     \begin{block}{Actor Mechanics (Action Selection)}
         \begin{itemize}
-            \item Balances policy exploration using an $\epsilon$-greedy wrapper around calculated stage-game equilibrium solutions.
-            \item With probability $1-\epsilon$, the model tracks the maximum probability mixed-strategy weights output by the \textbf{Lemke-Howson algorithm}.
+            %\item Balances policy \evidenzia{exploration} and \evidenzia{exploitation} an $\epsilon$-greedy wrapper around calculated stage-game equilibrium solutions.
+            \item $\epsilon$-greedy policy is adopted to balance the \evidenzia{exploration} and \evidenzia{exploitation}.
+            %\item With probability $1-\epsilon$, the model chooses the max probabiity action in mixed-strategy $\pi_{\mathfrak{e},\mathfrak{e}}$, $\pi_{\mathfrak{a},\mathfrak{a}}$ outputed by \evidenzia{Lemke-Howson algorithm} %tracks the maximum probability mixed-strategy $\pi_{\mathfrak{e},\mathfrak{e}}$, $\pi_{\mathfrak{a},\mathfrak{a}}$ outputed by \evidenzia{Lemke-Howson algorithm}.
+            {
+            %\footnotesize
+            $$a_i \leftarrow 
+            \left\{
+                \begin{aligned}
+                &\operatorname{argmax}_{a\in A_i} \pi_{ii}(a \mid s, v_\mathfrak{e}, v_\mathfrak{a}) && {\footnotesize\text{with probability } 1-\epsilon} \\
+                &\text{random} && {\footnotesize\text{with probability } \epsilon}\\
+            \end{aligned}
+            \right.
+            $$
+            }
         \end{itemize}
     \end{block}
+    \vspace{0.2cm}
     
     \begin{block}{Critic Updates (Learning Loop)}
         Values are updated according to standard stochastic approximation:
         \[ q_{ji} \leftarrow (1-\alpha_{t})q_{ji} + \alpha_{t}(r_{i,t} + \gamma \overline{q}_{ji}(s^{\prime}, v_{\mathfrak{e}}^{\prime}, v_{\mathfrak{a}}^{\prime})) \]
-        where $\overline{q}_{ji}$ is the expected value scalar at the next augmented state under best-response actions.
+        where %$\overline{q}_{ji}\in \mathbb{R}$ is the expected value at the next augmented state under best-response actions:
+        \[ \bar q_{ji} \leftarrow \pi_{\mathfrak{e},\mathfrak{i}}(s', v'_\mathfrak{e}, v'_\mathfrak{a} )  \pi_{\mathfrak{a},\mathfrak{i}}(s', v'_\mathfrak{e}, v'_\mathfrak{a} )  q_{ji} (s', v'_\mathfrak{e}, v'_\mathfrak{a} ) \in \mathbb{R}\]
     \end{block}
 \end{frame}
 
