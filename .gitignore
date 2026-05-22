@@ -16,4 +16,5 @@ CODE_maze/__pycache__/game_parameters.cpython-313.pyc
 CODE_maze/__pycache__/reward_machine_maze.cpython-313.pyc
 
 EXPORT/eval_results_maze.npz
+EXPORT/eval_results_maze.npz
 EXPORT/maze_windowed.png
