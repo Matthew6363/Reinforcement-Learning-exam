@@ -103,7 +103,7 @@ KEY_COORD = (2, 3)
 TRAP_COORDS = [(1, 5), (6, 2)] # Adjusted for 7x10 bounds
 
 # STARTING POSITIONS
-START_ego = (6, 0)
+START_ego = (3, 9)
 START_adv = (0, 3) # Bottom right corner
 
 # EXIT (Green)
