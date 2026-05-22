@@ -1,0 +1,570 @@
+%\documentclass[10pt]{beamer}
+\documentclass[10pt, aspectratio=169]{beamer}
+
+% MADRID THEME
+%\usetheme{Madrid}
+%\usecolortheme{whale}
+
+\usetheme{metropolis}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{algorithmic}
+
+\definecolor{verdeSalvia}{RGB}{112, 130, 114}  
+\definecolor{grigioScuro}{RGB}{60, 64, 61}     
+\definecolor{grigioSfondo}{RGB}{245, 246, 245} 
+\definecolor{verdelime}{RGB}{154, 181, 16}
+\definecolor{verdeOlivaScuro}{RGB}{75, 90, 76}
+
+\setbeamercolor{structure}{fg=verdeSalvia}
+\setbeamercolor{normal text}{fg=grigioScuro}
+\setbeamercolor{alerted text}{fg=verdelime}
+\setbeamercolor{block title}{bg=verdeSalvia, fg=white}
+\setbeamercolor{block body}{bg=grigioSfondo, fg=grigioScuro}
+
+% Configurazione degli elenchi puntati nello stile standard
+\setbeamertemplate{enumerate items}[default]
+
+\setbeamertemplate{enumerate items}[default]
+
+\newcommand{\evidenzia}[1]{\textcolor{verdeSalvia}{\textbf{#1}}}
+
+%\title[Reinforcement Learning Course]{Reinforcement Learning With Reward Machines in Stochastic Games}
+\title{Reinforcement Learning With Reward Machines in Stochastic Games}
+\subtitle{\small Reinforcement Learning Course - Final Project | 06-2026}
+%\author[M. Liotta \and M. Simonutti]{Matteo Liotta (\textit{matteo.liotta@studenti.units.it}) Mattia Simonutti (\textit{mattia.simonutti@studenti.units.it} )}
+\author[M. Liotta \and M. Simonutti]{%
+  \hspace{1cm} % Distanza della mail di Matteo dalla parete SINISTRA
+  \begin{tabular}{@{}c@{}}
+    \textbf{Matteo Liotta} \\ 
+    \footnotesize\texttt{matteo.liotta@studenti.units.it}
+  \end{tabular}
+  \and
+  \hfill % Mantiene lo spazio elastico centrale tra i due autori
+  \begin{tabular}{@{}c@{}}
+    \textbf{Mattia Simonutti} \\ 
+    \footnotesize\texttt{mattia.simonutti@studenti.units.it}
+  \end{tabular}
+  \hspace{1cm} % Distanza della mail di Mattia dalla parete DESTRA
+}
+
+\institute[UniTS]{%
+  \centering
+  University of Trieste \\
+  \textit{Department of Mathematics and Geosciences}
+}
+\date[2026]{}
+
+\begin{document}
+
+
+% Slide 1: Title
+\frame{\titlepage}
+
+% Slide 2: Problem Setting
+\begin{frame}{Problem Setting}
+    \begin{itemize}
+        \item \textbf{Problem:} How to tackle complex tasks in \evidenzia{multi-agent RL} where reward functions are \evidenzia{non-Markovian}?
+        \item \textbf{Proposed Approach:} Usage of \evidenzia{Reward Machines} to incorporate the high-level knowledge of the task. By RM state incorporation, form an augmented product stochastic game, \evidenzia{converting non-Markovian rewards} into \evidenzia{standard Markovian ones} \cite{hu2023reinforcement}.
+        \item \textbf{Goal:} Learn and converge to the optimal best-response strategy at a \evidenzia{Nash equilibrium} for each agent in a \evidenzia{general-sum game setting}.
+    \end{itemize}
+\end{frame}
+
+\section{Basic Definitions}
+
+% Slide 3: Stochastic Games
+\begin{frame}{Stochastic Games with Non-Markovian Rewards}
+    \vspace{0.7cm}
+    \begin{block}{Definition | Two-Player General-Sum Stochastic Game (SG)}
+        \vspace{0.2cm}
+        Modeled as the tuple $\mathcal{G}=(S,s_{I},A_{\mathfrak{e}},A_{\mathfrak{a}},p,R_{\mathfrak{e}},R_{\mathfrak{a}},\gamma)$, where:
+        \begin{itemize}
+            \item \textbf{Finite State Space ($S$):} consisting of states $s=[s_{\mathfrak{e}};s_{\mathfrak{a}}]$, with $s_{\mathfrak{e}}, s_{\mathfrak{a}}$ substates for \textit{Ego} and \textit{Adv} agents respectively. $s_{I}\in S$ is the initial state.%, for both the ego and adversarial agent.
+            \item \textbf{Action Spaces:} Each agent has its own finite set of actions $A_{\mathfrak{e}}$ and $A_{\mathfrak{a}}$.
+            \item \textbf{Probabilistic Transition Function}: $p:S\times A_{\mathfrak{e}}\times A_{\mathfrak{a}}\times S\rightarrow[0,1]$ %defines the probability of transitioning to a new state given the current state and joint actions.
+            \item \textbf{Non*-Markovian Reward functions}: $R_{\mathfrak{e} \ or\ a} : (S\times A_{\mathfrak{e}}\times A_{\mathfrak{a}})^{+}\times S\rightarrow\mathbb{R}$ map from \evidenzia{complete trajectory histories} %(i.e. it has memory) 
+            to real value domains, specifying the n-m rewards for both agents.
+        \end{itemize}
+        %\vspace{0.2cm}
+    \end{block}
+    \vspace{0.2cm}{\footnotesize (*) Usual definition assumes system Markovianity.}
+\end{frame}
+
+% Slide 4: Trajectories and Rewards
+\begin{frame}{Trajectories and Rewards}
+    \begin{itemize}
+        \item \textbf{Trajectory:} Sequence of states and actions $t_{0:k+1} = s_{0}a_{\mathfrak{e},0}a_{\mathfrak{a},0}s_{1}...s_{k}a_{\mathfrak{e},k}a_{\mathfrak{a},k}s_{k+1}$ with $s_0 = s_{I}$.
+        \item \textbf{Reward Sequence:} Given a \evidenzia{trajectory}, each agent $(i \in \{\mathfrak{e}, \mathfrak{a}\})$ receives reward sequence $r_{i,1}...r_{i,k}$, where $r_{i,k} = R(s_{0},a_{\mathfrak{e},0},a_{\mathfrak{a},0},...,s_{k})$.
+        \item \textbf{Shared Observation:} Both agents \evidenzia{observe the same} trajectory.
+        \item \textbf{Discounted Cumulative Reward:} Given a \evidenzia{trajectory} $t_{0:k+1}$, %(i.e. at each episode step), 
+        agents achieves a DCR reward $\sum_{t=0}^{k}\gamma^{t}r_{\mathfrak{i},t}$ % with $(i \in \{\mathfrak{e}, \mathfrak{a}\})$.
+        \item \textbf{Finite episodes assumption}: The game is episodic with a finite horizon, ensuring that the cumulative reward is well-defined.
+    \end{itemize}
+\end{frame}
+
+% Slide 5: Strategies and Objectives
+\begin{frame}{Strategies and Objectives}
+    \begin{itemize}
+        \item \textbf{Markovian Strategy:} Agents are equipped with a $\pi_{i}:S\times A_{i}\rightarrow[0,1]\quad i \in \{\mathfrak{e}, \mathfrak{a}\}$ strategy, defining action given state selection probability. % of selecting an action given the state.
+        \item \textbf{Objective:} Maximize the \evidenzia{expected} discounted cumulative reward given policy of both agents, from both point of view.%starting from an initial state $s_0$.
+    \end{itemize}
+    \vspace{0.5cm}
+        \begin{block}{Definition | SG Expected Discounted Cumulative Reward}% (Value Function)}
+        Given agent $i \in \{\mathfrak{e}, \mathfrak{a}\}$, the expected DCR under policies $\pi_{\mathfrak{e}}$ and $\pi_{\mathfrak{a}}$ is defined as:
+            %\begin{equation}
+            $$
+            \tilde{v}_{i}(s,\pi_{\mathfrak{e}},\pi_{\mathfrak{a}})=\sum_{t=0}^{\infty}\gamma^{t}\mathbb{E}(r_{i,t}|\pi_{\mathfrak{e}},\pi_{\mathfrak{a}},s_{0}=s) 
+            $$
+            %\end{equation}
+        %where $i \in \{\mathfrak{e}, \mathfrak{a}\}$.
+        \end{block}
+\end{frame}
+
+% Slide 6: Nash Equilibrium
+\begin{frame}{Nash Equilibrium}
+    \vspace{0.5cm}
+    %\begin{block}{Definition: Nash Equilibrium}
+    Each agent's strategy is a \evidenzia{best-response to the other agent's strategy}, if each agent \evidenzia{cannot improve its own reward} by changing its strategy, given a \evidenzia{fixed opponent's policy}.
+    %\end{block}
+    \vspace{0.5cm}
+    \begin{block}{Definition | Nash Equilibrium in Stochastic Games}
+        For a stochastic game $\mathcal{G} = (S, s_I, A_{\mathfrak{e}}, A_{\mathfrak{a}}, R_{\mathfrak{e}}, R_{\mathfrak{a}}, \gamma, p)$, the strategies of the ego agent, $\pi_\mathfrak{e}^*$, and the adversarial agent, $\pi_\mathfrak{a}^*$, are at a \evidenzia{Nash equilibrium} if:
+        \begin{align*}
+            \tilde{v}_\mathfrak{e}(s, \pi_\mathfrak{e}^*, \pi_\mathfrak{a}^*) \geq \tilde{v}_\mathfrak{e}(s, \pi_\mathfrak{e}, \pi_\mathfrak{a}^*)\\
+            \tilde{v}_\mathfrak{a}(s, \pi_\mathfrak{e}^*, \pi_\mathfrak{a}^*) \geq \tilde{v}_\mathfrak{a}(s, \pi_\mathfrak{e}^*, \pi_\mathfrak{a})
+        \end{align*}
+        hold for any $\pi_\mathfrak{e}$ and $\pi_\mathfrak{a}$.
+     \end{block}
+    
+\end{frame}
+
+\begin{frame}{Objectives (cont'd)}
+The \evidenzia{actual objective} of each agent is to find the policy $\pi_i^*$, 
+maximising the \evidenzia{expected discounted cumulative reward} considering the other agent's action once it reaches the game's Nash equilibrium
+\vspace{0.5cm}
+
+\begin{block}{Agent Objectives at Nash Equilibrium}
+\vspace{0.2cm}
+$$
+\pi_\mathfrak{e}^* = \arg\max_{\pi_\mathfrak{e}} \tilde{v}_i(s, \pi_\mathfrak{e}, \pi_\mathfrak{a}^*)
+$$
+$$
+\pi_\mathfrak{a}^* = \arg\max_{\pi_\mathfrak{a}} \tilde{v}_i(s, \pi_\mathfrak{e}^*, \pi_\mathfrak{a})
+$$
+\vspace{0.2cm}
+\end{block}
+\end{frame}
+
+% Slide 7: Reward Machines
+\begin{frame}{Reward Machines}
+    \begin{block}{Definition | Reward Machine (RM)}
+        Finite state automaton designed to encode non-Markovian rewards with state transitions and output functions: $\mathcal{A}=(V,v_{I},2^{\mathcal{P}},\mathbb{R},\delta,\sigma)$
+        \begin{itemize}
+            \item \textbf{Input Alphabet ($2^{\mathcal{P}}$):} Interprets propositional logic variables $\mathcal{P}$ generated from lower-level environment updates.
+            \item \textbf{Set of RM states ($V$):} Finite collection of internal tracking states, with $v_{I}$ as the initial state.
+            \item \textbf{Transition function:} Deterministic state progression $\delta:V\times2^{\mathcal{P}}\rightarrow V$.
+            \item \textbf{Output function:} Discrete scalars along active trajectory $\sigma:V\times2^{\mathcal{P}}\rightarrow\mathbb{R}$.
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Reward Machines example visualization}
+We define Reward Machines as a formalism to express \evidenzia{task specification}, decomposed into \evidenzia{several stages}.
+\vspace{0.2cm}    
+\begin{block}{Example | variant of the PAC-MAN game}
+    \vspace{0.2cm}
+
+        \begin{center}
+        \includegraphics[width=0.17\textwidth]{images/RMgridexample.png}
+        \hspace{2cm}
+        \includegraphics[width=0.2\textwidth]{images/RMexaple_solo.png}
+    \end{center}
+{\scriptsize \evidenzia{Figure 1.,2.} \textit{Variant of the PAC-MAN game is a symmetric zero-sum game where two agents try to
+capture each other. \cite{hu2023reinforcement}}}
+\end{block}
+
+\end{frame}
+
+% Slide 8: Reward Machine Encoding
+\begin{frame}{Connecting SG and RMs}
+    A \evidenzia{link between RM and SG} is required %we introduce a \evidenzia{labelling function} 
+    %$L$ maps SG states to high-level events: %these are \evidenzia{received} by the reward machine $\mathcal{A}_i$ and used to return the related \evidenzia{reward}
+    \vspace{0.2cm}
+    
+    \begin{block}{Labelling Function}
+    %Maps environment transitions to logical propositions:
+        \[L: S \times A_{\mathfrak{e}} \times A_{\mathfrak{a}} \times S \rightarrow 2^{\mathcal{P}}\]
+        $l_t = L(s_t, a_{\mathfrak{a},t}, a_{\mathfrak{e},t}, s_{t+1})$ is the set of \evidenzia{true propositions} in $\mathcal{P}$ at step $t$.
+    \end{block}
+    \vspace{0.2cm}
+    %Given a reward machine $\mathcal{A}_i$, given as input $l_t$ it outputs the reward $r_{i,t} = \sigma_i(v_i, l_t)$. 
+    %\vspace{0.2cm}
+    \begin{block}{RM can encode non-Markovian RF of a stochastic game}
+    Given a SG, the RM $\mathcal{A}_i$ \evidenzia{encodes} the non-markovian reward function $R_i$ of the game, meaning that \evidenzia{for each trajectory}
+    $s_{0}a_{\mathfrak{e},0}a_{\mathfrak{a},0}s_{1}...s_{k}a_{\mathfrak{e},k}a_{\mathfrak{a},k}s_{k+1}$ (i.e. $l_0l_1...,l_k$) it outputs the \evidenzia{reward sequence} $r_{i,0}r_{i,1}...,r_{i,k}$.
+    \end{block}
+    %\begin{itemize}
+    %    \item Formalizes RMs as high-level task specifications.
+    %    \item Each agent uses a separate RM ($\mathcal{A}_{\mathfrak{e}}, \mathcal{A}_{\mathfrak{a}}$) to track independent non-Markovian goals.
+    %\end{itemize}
+    \vspace{0.2cm}
+    I.e. the RM maps \evidenzia{any sequence of events to a sequence of rewards}.
+    
+\end{frame}
+
+% Slide 9: Augmented State Space Framework
+%\begin{frame}{The Augmented State Space Framework}
+%    \begin{block}{Labeling Function ($L$)}
+%        Maps environment transitions to logical propositions:
+%        \[L: S \times A_{\mathfrak{e}} \times A_{\mathfrak{a}} \times S \rightarrow 2^{\mathcal{P}}\]
+%        $l_t = L(s_t, a_{\mathfrak{a},t}, a_{\mathfrak{e},t}, s_{t+1})$ is the set of true propositions in $\mathcal{P}$ at step $t$.
+%    \end{block}
+%    
+%    \begin{alertblock}{Lemma 1: Markovian Restoration}
+%        The product stochastic game has \textbf{Markovian reward functions} that express the original non-Markovian rewards.
+%    \end{alertblock}
+%    \begin{itemize}
+%        \item Given $l_t$, the RM state transitions to $v_{t+1} = \delta(v_t, l_t)$ and outputs reward $r_{t} = \sigma(v_t, l_t)$.
+%        \item This resolves historical dependencies and enables standard Q-learning.
+%    \end{itemize}
+%\end{frame}
+
+%\section{Game Theory Setting and Problem formulation}
+\section{Q-learning with RM for SG}
+
+% Slide 10: Product Stochastic Game
+
+\begin{frame}{Problem formulation}
+The paper focuses on \evidenzia{two-agent general-sum stochastic games} (SG) with NM reward functions, where each agent is given a (different) task to complete. 
+
+Task completition \evidenzia{depends on the other's agent behavior}.
+
+\begin{itemize}
+    \item Each agent as a separate reward machine.
+    \item Agents operate in a shared and adversarial environment.
+\end{itemize}
+\vspace{0.5cm}
+Then, the SG with non-markovian reward functions is formalized as \evidenzia{a product stochastic game} to obtain \evidenzia{Markovian rewards} using \evidenzia{reward machines}.
+\end{frame}
+
+\begin{frame}{Markovian formulation: SGRM}
+    %The SG with non-markovian reward functions is formalized as \evidenzia{a product stochastic game} to obtain \evidenzia{Markovian rewards} using reward machines.
+    %\vspace{0.2cm}
+
+    \begin{block}{Definition | Stochastic Game with Reward Machines (SGRM)}
+        \vspace{0.2cm}Given an SG $\mathcal{G}$ and RMs $\mathcal{A}_{\mathfrak{e}}, \mathcal{A}_{\mathfrak{a}}$, a SGRM is defined as a product stochastic game:
+
+        \begin{center}
+            $\mathcal{H} = (S', s'_I, A_{\mathfrak{e}}, A_{\mathfrak{a}}, p', R'_{\mathfrak{e}}, R'_{\mathfrak{a}}, \gamma)$
+        \end{center}
+
+        \begin{itemize}
+            \item \textbf{Augmented State Space:} $S' = S \times V_{\mathfrak{e}} \times V_{\mathfrak{a}}$. An \evidenzia{augmented state} is $s' = (s, v_{\mathfrak{e}}, v_{\mathfrak{a}})$.
+            %\item \textbf{Initial Augmented State:} $s'_I = (s_I, v_{I,\mathfrak{e}}, v_{I,\mathfrak{a}})$.
+            \item \textbf{Transition Probabilities:} $p'(s', a_{\mathfrak{e}}, a_{\mathfrak{a}}, \bar{s}') = p(s, a_{\mathfrak{e}}, a_{\mathfrak{a}}, \bar{s})$ if $\bar{v}_i = \delta_i(v_i, L(s, a_{\mathfrak{e}}, a_{\mathfrak{a}}, \bar{s}))$ for both $i \in \{\mathfrak{e}, \mathfrak{a}\}$, and $0$ otherwise.
+            \item \textbf{Markovian Reward Functions:} $R'_i(s', a_{\mathfrak{e}}, a_{\mathfrak{a}}, \bar{s}') = \sigma_i(v_i, L(s, a_{\mathfrak{e}}, a_{\mathfrak{a}}, \bar{s})),\quad \forall i$
+        \end{itemize}
+    \end{block}
+    \vspace{0.2cm}
+    The \evidenzia{SGRM} is proved to have a Markovian \evidenzia{RF} to express the original \evidenzia{non-markovian RF} of the \evidenzia{SG}.
+
+\end{frame}
+
+
+
+% \begin{frame}{The Stage Game Matrix}
+%     \begin{block}{Definition: Stage Game}
+%         A two-player stage game is defined as $(r_\mathfrak{e}, r_\mathfrak{a})$, where $r_i$ is agent i's reward function $R_i$, over the space of joint actions:
+%         \[r_i = \{R_i(a_\mathfrak{a}, a_\mathfrak{e}) | a_\mathfrak{a}\in{A_\mathfrak{a}}, a_\mathfrak{e}\in{A_\mathfrak{e}}\} \]
+%     \end{block}
+%     \begin{itemize}
+%         \item In QRM-SG, a stage game is formulated at each time step based on current Q-functions in augmented state space.
+%         \item The \textbf{Lemke-Howson method} is used to derive best-response strategies at a Nash equilibrium.
+%     \end{itemize}
+% \end{frame}
+
+\begin{frame}{SGRM Steps}
+\vspace{0.2cm}
+The agent consider $S'$ to select actions: at \evidenzia{each time step simultaneous action selection and execution} occurs; this causes the \evidenzia{game state transition} from $s$ to $s'$.
+\vspace{0.2cm}
+
+The SGRM labelling function $L$ returns the \evidenzia{high-level event associated}, $l_t$. Using current label, the RM performs \evidenzia{RM state transition}, by moving from $(v_\mathfrak{e},v_\mathfrak{a})$ to $(v'_\mathfrak{e},v'_\mathfrak{a})$, using each agent's specific RM, i.e. $v'_\mathfrak{i} = \delta(v_\mathfrak{i}, L(s, a_\mathfrak{e}, a_\mathfrak{a}, s')$
+\vspace{0.5cm}
+
+The \evidenzia{transition of both game states and RM states} leads to the step \evidenzia{reward} for the agent $r_{i,t} = \sigma(v_\mathfrak{i}, L(s, a_\mathfrak{e}, a_\mathfrak{a}, s')$
+\end{frame}
+
+
+% Slide 11: Nash Equilibrium & The Stage Game
+\begin{frame}{Nash Equilibrium and Q-functions in SGRM}
+    Q-functions are used at Nash equilibrium.
+    
+    \vspace{0.2cm}
+    \begin{block}{QSG-RM}
+    Q-function at a Nash equilibrium is the EDCR obtained by agent $i$ when \evidenzia{both agents} follw a \evidenzia{joint} Nash Equilibrium strategy from the next period on.
+    \end{block}
+    \vspace{0.2cm}
+    So, it depends on \evidenzia{both agents actions}, and it's defined over the augmented state space.%: $S\times V_\mathfrak{e} \times V_\mathfrak{a}$
+    %The \evidenzia{Lemke-Howson method} is used to derive best-response strategies at a Nash equilibrium.
+
+    \begin{block}{Definition | Q-Function at a Nash Equilibrium in SGRM}
+        Given agent $i$, given augmented state space $S \times V_{\mathfrak{e}} \times V_{\mathfrak{a}}$, we define
+        \[ q_{i}^{*}(s,v_{\mathfrak{e}},v_{\mathfrak{a}},a_{\mathfrak{e}},a_{\mathfrak{a}})=r_{i} + \gamma\sum_{s^{\prime}, v'}p(s^{\prime},v'|s,v,a_{\mathfrak{e}},a_{\mathfrak{a}})\tilde{v}_{i}(s^{\prime},v_{\mathfrak{e}}^{\prime},v_{\mathfrak{a}}^{\prime},\pi_{\mathfrak{e}}^{*},\pi_{\mathfrak{a}}^{*}) \]
+    \end{block}
+    
+\end{frame}
+
+\begin{frame}{Nash Equilibrium and Q-functions in SGRM (cont'd)}
+
+    Using the q-function in the augmented space, best responce policies are then originally extracted using the \evidenzia{Lemke-Howson method}.
+    
+    By definition an agent strategy is optimal if the other agent behavior is considered: this requires both agents to \evidenzia{maintain two Q-functions}.
+    
+    \vspace{0.2cm}
+    \begin{block}{Agent learned (two) Q-functions}
+    $q_{i,j}$ represents the Q-function for agent $i$ as learned by agent $j$.
+    {\footnotesize It represents the \evidenzia{estimation that agent $j$} does of agent \evidenzia{$i$'s expected discounted cumulative reward}, assuming a game-theoretic baseline where each plays \evidenzia{accordingly to Nash Equilibrium} (i.e. choosing the best response to the other player -estimated- strategy.)}
+    \end{block}
+    
+    As a consequence, \evidenzia{each agent can estimate} (its own and) \evidenzia{other player's strategy} $\pi_{i,j}$, using the q-function estimation of its EDCR.
+% \begin{itemize}
+    %     \item $q_{ij}$ represents the Q-function for agent $i$ as learned by agent $j$.
+    %     \item Each agent learns the Q-functions of \textbf{all agents} in the system to calculate current equilibria locally.
+    % \end{itemize}
+\end{frame}
+
+\begin{frame}{The Stage Game Matrix}
+    \begin{block}{Definition: Stage Game}
+        A two-player stage game is defined as $(r_\mathfrak{e}, r_\mathfrak{a})$, where $r_i$ is agent i's reward function $R_i$, over the space of joint actions:
+        \[r_i = \{R_i(a_\mathfrak{a}, a_\mathfrak{e}) | a_\mathfrak{a}\in{A_\mathfrak{a}}, a_\mathfrak{e}\in{A_\mathfrak{e}}\} \]
+    \end{block}
+    \begin{itemize}
+        \item In QRM-SG, a stage game is formulated at each time step based on current Q-functions in augmented state space.
+        \item The \textbf{Lemke-Howson method} is used to derive best-response strategies at a Nash equilibrium.
+    \end{itemize}
+\end{frame}
+
+%\section{Unified Framework}
+\section{QSG-RM Algorithm Overview}
+
+% Slide 12: QRM-SG Architecture
+\begin{frame}{QRM-SG Algorithm Key aspects}
+    \begin{block}{Actor Mechanics (Action Selection)}
+        \begin{itemize}
+            %\item Balances policy \evidenzia{exploration} and \evidenzia{exploitation} an $\epsilon$-greedy wrapper around calculated stage-game equilibrium solutions.
+            \item $\epsilon$-greedy policy is adopted to balance the \evidenzia{exploration} and \evidenzia{exploitation}.
+            %\item With probability $1-\epsilon$, the model chooses the max probabiity action in mixed-strategy $\pi_{\mathfrak{e},\mathfrak{e}}$, $\pi_{\mathfrak{a},\mathfrak{a}}$ outputed by \evidenzia{Lemke-Howson algorithm} %tracks the maximum probability mixed-strategy $\pi_{\mathfrak{e},\mathfrak{e}}$, $\pi_{\mathfrak{a},\mathfrak{a}}$ outputed by \evidenzia{Lemke-Howson algorithm}.
+            {
+            %\footnotesize
+            $$a_i \leftarrow 
+            \left\{
+                \begin{aligned}
+                &\operatorname{argmax}_{a\in A_i} \pi_{ii}(a \mid s, v_\mathfrak{e}, v_\mathfrak{a}) && {\footnotesize\text{with probability } 1-\epsilon} \\
+                &\text{random} && {\footnotesize\text{with probability } \epsilon}\\
+            \end{aligned}
+            \right.
+            $$
+            }
+        \end{itemize}
+    \end{block}
+    \vspace{0.2cm}
+    
+    \begin{block}{Critic Updates (Learning Loop)}
+        Values are updated according to standard stochastic approximation:
+        \[ q_{ji} \leftarrow (1-\alpha_{t})q_{ji} + \alpha_{t}(r_{i,t} + \gamma \overline{q}_{ji}(s^{\prime}, v_{\mathfrak{e}}^{\prime}, v_{\mathfrak{a}}^{\prime})) \]
+        where %$\overline{q}_{ji}\in \mathbb{R}$ is the expected value at the next augmented state under best-response actions:
+        \[ \bar q_{ji} \leftarrow \pi_{\mathfrak{e},\mathfrak{i}}(s', v'_\mathfrak{e}, v'_\mathfrak{a} )  \pi_{\mathfrak{a},\mathfrak{i}}(s', v'_\mathfrak{e}, v'_\mathfrak{a} )  q_{ji} (s', v'_\mathfrak{e}, v'_\mathfrak{a} ) \in \mathbb{R}\]
+    \end{block}
+\end{frame}
+
+\subsection{Algorithmic Phase Analysis}
+
+\begin{frame}{QRM-SG Phase 1: Initialization}
+    \begin{block}{Process Breakdown (Lines 1--4)}
+    \begin{algorithmic}
+        \STATE \textbf{Initialize} $\alpha_t, \gamma, \epsilon$ 
+        \STATE $s \leftarrow InitialState(); v_{\mathfrak{e}} \leftarrow v_{I,\mathfrak{e}}; v_{\mathfrak{a}} \leftarrow v_{I,\mathfrak{a}}$ 
+        \STATE $q_{\mathfrak{e}i}(\cdot), q_{\mathfrak{a}i}(\cdot) \leftarrow InitialQfunctions()$ 
+    \end{algorithmic}
+    \end{block}
+    \textbf{Analysis:}
+    \begin{itemize}
+        \item Each agent starts with a "dual-view" Q-table, estimating values for self and opponent to allow local equilibrium computation. 
+        \item State is defined in the product space $S \times V_{\mathfrak{e}} \times V_{\mathfrak{a}}$, ensuring the Markov property is preserved. 
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{QRM-SG Phase 2: Nash-Action Selection}
+    \begin{block}{Process Breakdown (Lines 7--13)}
+    \begin{algorithmic}
+        \IF{$\overline{\epsilon} < \epsilon$} 
+            \STATE $a_i \leftarrow ChooseActionRandomly()$ 
+        \ELSE
+            \STATE $\pi_{\mathfrak{e}i}, \pi_{\mathfrak{a}i} \leftarrow CalculateNashEquilibrium(q_{\mathfrak{e}i}, q_{\mathfrak{a}i})$
+            \STATE $a_i \leftarrow \text{argmax } \pi_{ii}(a|s, v_{\mathfrak{e}}, v_{\mathfrak{a}})$ 
+        \ENDIF
+    \end{algorithmic}
+    \end{block}
+    \textbf{Analysis:}
+    \begin{itemize}
+        \item \textbf{Exploration:} Standard $\epsilon$-greedy mechanism balances discovery and optimization.
+        \item \textbf{Exploitation:} Agents solve a bimatrix stage game using the \textbf{Lemke-Howson method} to find mixed strategy equilibria.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{QRM-SG Phase 3: Reward Machine Dynamics}
+    \begin{block}{Process Breakdown (Lines 14--18)}
+    \begin{algorithmic}
+        \STATE $s' \leftarrow ExecuteAction(s, a_{\mathfrak{e}}, a_{\mathfrak{a}})$ 
+        \STATE $l_t \leftarrow L(s, a_{\mathfrak{e}}, a_{\mathfrak{a}}, s')$ 
+        \STATE $v_i' \leftarrow \delta_i(v_i, l_t); r_{i,t} \leftarrow \sigma_i(v_i, l_t)$ 
+    \end{algorithmic}
+    \end{block}
+    \textbf{Analysis:}
+    \begin{itemize}
+        \item Bridges low-level physical dynamics ($s \to s'$) with high-level automata state tracking. 
+        \item The labeling function $L$ detects high-level environmental events (e.g., "power base reached"). 
+        \item Rewards $r_{i,t}$ are generated by the RM transition, making them context and history-aware. 
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{QRM-SG Phase 4: Q-Value Update (Critic)}
+    \begin{block}{Process Breakdown (Lines 19--24)}
+    \begin{algorithmic}
+        \STATE $\pi_{ji}(\cdot|s', v') \leftarrow Nash(q_{ei}(s', v'), q_{ai}(s', v'))$ 
+        \STATE $\overline{q}_{ji} \leftarrow \pi_{ei} \pi_{ai} q_{ji}(s', v')$
+        \STATE $q_{ji} \leftarrow (1-\alpha_t)q_{ji} + \alpha_t(r_{j,t} + \gamma \overline{q}_{ji})$ 
+    \end{algorithmic}
+    \end{block}
+    \textbf{Analysis:}
+    \begin{itemize}
+        \item \textbf{Bootstrapping:} Updates current Q-values by computing the Nash equilibrium of the \textbf{future} state $(s', v')$. 
+        \item \textbf{Scalarization:} $\overline{q}_{ji}$ is the expected value of agent $j$ when both follow the Nash strategy profile. 
+        \item \textbf{Coupled Update:} Agents must learn both Q-functions concurrently to maintain equilibrium local estimates. 
+    \end{itemize}
+\end{frame}
+
+\section{Theoretical Foundations}
+
+\begin{frame}{Convergence Assumptions}
+    \begin{block}{Assumption 1: Exploration}
+        Every state $s \in S$, RM states $v_{\mathfrak{e}} \in V_{\mathfrak{e}}$, $v_{\mathfrak{a}} \in V_{\mathfrak{a}}$, and actions $a_{\mathfrak{e}} \in A_{\mathfrak{e}}$, $a_{\mathfrak{a}} \in A_{\mathfrak{a}}$, are visited infinitely often when the number of episodes goes to infinity. 
+    \end{block}
+    \begin{block}{Assumption 2: Learning Rate}
+        The learning rate $\alpha_t$ satisfies the following conditions for all $t$:
+        \begin{enumerate}
+            \item $0 < \alpha_t < 1$, $\sum_t \alpha_t(s, v_{\mathfrak{e}}, v_{\mathfrak{a}}, a_{\mathfrak{e}}, a_{\mathfrak{a}}) = \infty$, $\sum_t [\alpha_t(s, v_{\mathfrak{e}}, v_{\mathfrak{a}}, a_{\mathfrak{e}}, a_{\mathfrak{a}})]^2 < \infty$, and the latter two hold uniformly and with probability 1. 
+            \item $\alpha_t(s, v_{\mathfrak{e}}, v_{\mathfrak{a}}, a_{\mathfrak{e}}, a_{\mathfrak{a}}) = 0$ if $(s, v_{\mathfrak{e}}, v_{\mathfrak{a}}, a_{\mathfrak{e}}, a_{\mathfrak{a}}) \neq (s^t, v_{\mathfrak{e}}^t, v_{\mathfrak{a}}^t, a_{\mathfrak{e}}^t, a_{\mathfrak{a}}^t)$.
+        \end{enumerate}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Convergence Assumptions}
+    \begin{block}{Assumption 3: Stage Game Structure}
+        One of the following conditions holds during learning: 
+        \begin{enumerate}
+            \item Every stage game $(q_{\mathfrak{e}i}(s, v_{\mathfrak{e}}, v_{\mathfrak{a}}), q_{\mathfrak{a}i}(s, v_{\mathfrak{e}}, v_{\mathfrak{a}}))$, $i \in \{\mathfrak{e}, \mathfrak{a}\}$, for all $t, s, v_{\mathfrak{e}},$ and $v_{\mathfrak{a}}$, has a \textbf{global optimal point} $(\tilde{\pi}_{\mathfrak{e}i}, \tilde{\pi}_{\mathfrak{a}i})$ (i.e., $\tilde{\pi}_{ji}q_{ji} \geq \tilde{\pi}_{ji}'q_{ji}$ for any $\tilde{\pi}_{ji}'$, $j \in \{\mathfrak{e}, \mathfrak{a}\}$) and agents' rewards in this equilibrium are used to update their Q-functions. 
+            \item Every stage game $(q_{\mathfrak{e}i}(s, v_{\mathfrak{e}}, v_{\mathfrak{a}}), q_{\mathfrak{a}i}(s, v_{\mathfrak{e}}, v_{\mathfrak{a}}))$, $i \in \{\mathfrak{e}, \mathfrak{a}\}$, for all $t, s, v_{\mathfrak{e}},$ and $v_{\mathfrak{a}}$, has a \textbf{saddle point} $(\tilde{\pi}_{\mathfrak{e}i}, \tilde{\pi}_{\mathfrak{a}i})$ (i.e., $\tilde{\pi}_{ji}\tilde{\pi}_{-ji}q_{ji} \geq \tilde{\pi}_{ji}'\tilde{\pi}_{-ji}q_{ji}$ for any $\tilde{\pi}_{ji}'$, $\tilde{\pi}_{ji}\tilde{\pi}_{-ji}q_{ji} \leq \tilde{\pi}_{ji}\tilde{\pi}_{-ji}'q_{ji}$ for any $\tilde{\pi}_{-ji}'$, $j \in \{\mathfrak{e}, \mathfrak{a}\}$), and agents' rewards in this equilibrium are used to update their Q-functions. 
+        \end{enumerate}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Theorem 1: Convergence Guarantee}
+    \begin{block}{Theorem 1}
+        Under Assumptions 1, 2 and 3, the sequence $q_{it}=(q_{\mathfrak{e}i}^t, q_{\mathfrak{a}i}^t)$ at time $t$, $i \in \{\mathfrak{e}, \mathfrak{a}\}$ updated by: 
+        \begin{equation*}
+        \begin{aligned}
+            q_{ji}(s, v, a) = &(1-\alpha_t)q_{ji}(s, v, a) + \\ 
+            &\alpha_t(r_{j,t} + \gamma \pi_{\mathfrak{e}i}(\cdot | s', v')\pi_{\mathfrak{a}i}(\cdot | s', v')q_{ji}(s', v'))
+        \end{aligned}
+        \end{equation*} 
+        for $j \in \{\mathfrak{e}, \mathfrak{a}\}$, where $(\pi_{\mathfrak{e}i}(\cdot|s', v'), \pi_{\mathfrak{a}i}(\cdot|s', v'))$ is the appropriate type of Nash equilibrium solution for the stage game $(q_{\mathfrak{e}i}^t(s', v'), q_{\mathfrak{a}i}^t(s', v'))$, converges to the Q-functions at a Nash equilibrium $(q_{\mathfrak{e}i}^*, q_{\mathfrak{a}i}^*)$.
+    \end{block}
+\end{frame}
+
+% Slide 17: Algorithm 1: QRM-SG Pseudocode
+\begin{frame}{Algorithm 1: QRM-SG Full Pseudocode}
+    \begin{algorithmic}[1]
+        \STATE \textbf{Initialize} $q_{\mathfrak{e}i}$ and $q_{\mathfrak{a}i}$ for all $i \in \{\mathfrak{e}, \mathfrak{a}\}$
+        \FOR{episode $l=1,2,\dots$}
+            \STATE $s \leftarrow s_I, v_{\mathfrak{e}} \leftarrow v_{I,\mathfrak{e}}, v_{\mathfrak{a}} \leftarrow v_{I,\mathfrak{a}}$
+            \FOR{$t=0$ \textbf{to} $eplength$}
+                \STATE Choose action $a_i$ using $\epsilon$-greedy policy and \textbf{Lemke-Howson}
+                \STATE Execute actions, observe $s'$, and high-level event $l_t = L(s, a_{\mathfrak{e}}, a_{\mathfrak{a}}, s')$
+                \STATE Update RM states: $v_i' \leftarrow \delta_i(v_i, l_t)$ and reward $r_{i,t} \leftarrow \sigma_i(v_i, l_t)$
+                \STATE Compute Nash strategy $\pi_{ji}(\cdot|s', v')$ at next augmented state
+                \STATE Update Q-functions:
+                \STATE $q_{ji} \leftarrow (1-\alpha_t)q_{ji} + \alpha_t(r_{j,t} + \gamma \sum \pi \pi q_{ji}')$
+                \STATE $s \leftarrow s', v_{\mathfrak{e}} \leftarrow v_{\mathfrak{e}}', v_{\mathfrak{a}} \leftarrow v_{\mathfrak{a}}'$
+            \ENDFOR
+        \ENDFOR
+    \end{algorithmic}
+\end{frame}
+
+% Slide 18: Algorithm Analysis
+\begin{frame}{Algorithm Analysis and Convergence Properties}
+    \begin{itemize}
+        \item \textbf{Off-Policy Learning:} RMs enable decomposition of complex RL problems into structured subproblems for efficient learning.
+        \item \textbf{Coupled Learning:} The learning processes of agents are coupled because the high-level events depend on joint actions.
+        \item \textbf{Decentralized View:} Each agent maintains a "centralized" perspective by learning everyone's Q-functions to compute equilibria locally.
+    \end{itemize}
+\end{frame}
+
+% Slide 20: Mathematical Foundation: Convergence Proof
+\begin{frame}{Mathematical Foundation: Convergence Proof}
+    The proof relies on viewing the update as a stochastic approximation of a mapping $F^t$: 
+    \begin{block}{Key Lemmas from Supplementary Materials}
+        \begin{itemize}
+            \item \textbf{Lemma 2:} Establishes general convergence for iterations $q^{t+1}=(1-\alpha_t)q^t + \alpha_t[F^tq^t]$.
+            \item \textbf{Lemma 4:} Shows that Q-functions at a Nash equilibrium ($q^*$) are fixed points of $F^t$, i.e., $q^* = \mathbb{E}[F^t q^*]$.
+            \item \textbf{Lemma 7:} Proves $F^t$ is a \textbf{contraction mapping} under Assumption 3:
+            \[ ||F^t q - F^t \dot{q}|| \le \gamma ||q - \dot{q}|| \]
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\section{Results and Applications}
+
+% Slide 21: Experimental Framework & Baselines
+\begin{frame}{Experimental Framework \& Baselines}
+    \begin{itemize}
+        \item \textbf{Testing Environment:} Evaluated on $6\times6$ (and $12\times12$) competitive, sparse-reward grid world variations of Pac-Man.
+        \item \textbf{Comparative Baselines:}
+        \begin{itemize}
+            \item \texttt{Nash-Q}: Pure spatial state-action tracking.
+            \item \texttt{Nash-QAS}: Incorporates an unstructured history status vector.
+            \item \texttt{MADDPG-SG} \& \texttt{MADDPG-AS}: Deep multi-agent deterministic policy gradient variants.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+% Slide 22: Empirical Performance
+\begin{frame}{Case Study Empirical Analysis}
+    \begin{itemize}
+        \item \textbf{Case Study I (Sequential Ordering):} QRM-SG converges to equilibrium by $\approx 7,500$ episodes, whereas unaugmented baselines fail entirely.
+        \item \textbf{Case Study II \& III (Energy Loops):} Explores complex recharge loops with randomized origin points. QRM-SG reaches stability within $\approx 1,000$ to $1,500$ runs.
+        \item \textbf{Scalability:} Successfully finds the Nash equilibrium on an expanded $12\times12$ map space by episode 21,000.
+    \end{itemize}
+\end{frame}
+
+\section{Conclusion}
+
+% Slide 23: Summary
+\begin{frame}{Summary \& Future Outlook}
+    \begin{itemize}
+        \item \textbf{Core Contribution:} Bridges reward machines with MARL to model non-Markovian constraints in stochastic games.
+        \item \textbf{Robust Architecture:} Augmented state transformations allow tabular actors to navigate complex environments successfully.
+        \item \textbf{Future Directions:} Dynamically learning unknown reward machine configurations simultaneously during policy calculation; extensions to general-sum games with more agents.
+    \end{itemize}
+\end{frame}
+
+\section{References}
+\begin{frame}[allowframebreaks]{References}
+    \setbeamertemplate{bibliography item}[text] % Forza Beamer a mostrare i numeri [1] al posto dei loghi dei libri
+    \bibliographystyle{plain} % 'plain' assegna i numeri progressivi [1], [2], ecc.
+    \bibliography{references}
+\end{frame}
+
+\end{document}

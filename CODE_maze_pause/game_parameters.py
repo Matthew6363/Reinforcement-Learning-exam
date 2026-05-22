@@ -1,14 +1,14 @@
 import numpy as np
 ### [[ GLOBAL PARAMS ]]
 DEBUG = False
-TASK = "maze"
+TASK = "maze_pause"
 TASK_III_EPSILON = 0.5
 GRID_H = GRID_W = 0
 
 ### [[ GRID and game WORD PARAMS ]]
 
-if TASK == "maze":
-    TRAPS_DO_STOP_FOR_A_TURN = False
+if TASK == "maze_pause":
+    TRAPS_DO_STOP_FOR_A_TURN = True
     
     # [[ Rewards and penalties ]]
     TRAP_NEGATIVE_REWARD = -0.5
@@ -31,9 +31,9 @@ if TASK == "maze":
     WINNING_MEGA_REWARD    =  8.0   
     KEY_REWARD             =  3.0   
     EGO_CATCHED_NEG_REWARD = -3.0 
-    TRAP_NEGATIVE_REWARD   = -3.0   
+    TRAP_NEGATIVE_REWARD   = -1.0   
     ADV_CATCH_REWARD       =  5.0   
-    ADV_TRAP_REWARD        =  1.0  
+    ADV_TRAP_REWARD        =  1.0  # maybe it can push ego towards
     
     # Reduced Grid Size
     GRID_W = 8
@@ -42,12 +42,7 @@ if TASK == "maze":
     ACTIONS = [0, 1, 2, 3]
 
     # Q-table shape for 10x10 (100 * 100 joint states)
-    if TRAPS_DO_STOP_FOR_A_TURN:
-        Q_SHAPE = (GRID_W*GRID_H, GRID_W*GRID_H, 5, 5, 4, 4) 
-    else:
-        Q_SHAPE = (GRID_W*GRID_H, GRID_W*GRID_H, 4, 4, 4, 4) 
-    
-    
+    Q_SHAPE = (GRID_W*GRID_H, GRID_W*GRID_H, 5, 5, 4, 4) 
 
     # New Starting Positions
     START_ego = (0, 0) # (8,6) does work

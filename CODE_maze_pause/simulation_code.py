@@ -85,10 +85,8 @@ def train_qrm_sg(total_episodes=1000,
 
     rm_states_map = {} 
     ## Define the map between RM states and its indexes.
-    if TRAPS_DO_STOP_FOR_A_TURN:
-        rm_states_map = {'start': 0, 'v_trap': 1, 'v_lose': 2, 'v_escaped': 3, 'opened':4} 
-    else:
-        rm_states_map = {'start': 0, 'v_lose': 1, 'v_escaped': 2, 'opened':3}
+    
+    rm_states_map = {'start': 0, 'v_trap': 1, 'v_lose': 2, 'v_escaped': 3, 'opened':4} 
         
     rm_states = list(rm_states_map.keys())   # used for counterfactual loop
 
