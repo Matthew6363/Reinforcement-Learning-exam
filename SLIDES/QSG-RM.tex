@@ -517,7 +517,7 @@ The \evidenzia{transition of both game states and RM states} leads to the step \
     $$(s, \tilde v_{\mathfrak{e}},\tilde v_{\mathfrak{a}}) \rightarrow (s', \tilde v'_{\mathfrak{e}},\tilde v'_{\mathfrak{a}}) \quad \forall v_{\mathfrak{e}}, v_{\mathfrak{a}} \in V_{\mathfrak{e}}, V_{\mathfrak{a}}$$
     
     \begin{block}{What does it means (in practice)?}
-    For a $N\times M$ grid, 2 agents, 4 actions for agent, RMs with $K_\mathfrak{e}$, $K_\mathfrak{a}$ states, if standard RM based code requires $E$ episodes to converge, then with the counterfactual reasoning we can expect to converge in $\frac{E}{K_1 \cdot K_2}$ episodes.
+    For a $N\times M$ grid, 2 agents, 4 actions for agent, RMs with $K_\mathfrak{e}$, $K_\mathfrak{a}$ states, if standard RM based code requires $E$ episodes to converge, then with the counterfactual reasoning we can expect to converge in $\frac{E}{K_\mathfrak{e} \cdot K_\mathfrak{a}}$ episodes.
     \end{block}
 
 \end{frame}
