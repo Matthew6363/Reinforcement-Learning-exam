@@ -514,8 +514,12 @@ The \evidenzia{transition of both game states and RM states} leads to the step \
     Without loss of generality problems, the SGRM augmented state transition 
     $$(s, \tilde v_{\mathfrak{e}},\tilde v_{\mathfrak{a}}) \rightarrow (s',  v'_{\mathfrak{e}}, v'_{\mathfrak{a}})$$
     we can update its correspondent Q-value estimation, together with all other augmented states in which the game state $s$ is mapped to $s'$, \evidenzia{as if} we'd experienced
-    $$(s, \tilde v_{\mathfrak{e}},\tilde v_{\mathfrak{a}}) \rightarrow (s', \tilde v'_{\mathfrak{e}},\tilde v'_{\mathfrak{a}}) \quad \forall v_{\mathfrak{e}}, v_{\mathfrak{a}} \in V_{\mathfrak{e}}, V_{\mathfrak{a}} $$
+    $$(s, \tilde v_{\mathfrak{e}},\tilde v_{\mathfrak{a}}) \rightarrow (s', \tilde v'_{\mathfrak{e}},\tilde v'_{\mathfrak{a}}) \quad \forall v_{\mathfrak{e}}, v_{\mathfrak{a}} \in V_{\mathfrak{e}}, V_{\mathfrak{a}}$$
     
+    \begin{block}{What does it means (in practice)?}
+    For a $N\times M$ grid, 2 agents, 4 actions for agent, with a $K_1$ and $K_2$ state RM, if standard RM based code requires $E$ episodes to converge, then with the counterfactual reasoning we can expect to converge in $\frac{E}{K_1 \cdot K_2}$ episodes.
+    \end{block}
+
 \end{frame}
 
 \begin{frame}{Convergence Assumptions}
@@ -539,6 +543,8 @@ The \evidenzia{transition of both game states and RM states} leads to the step \
             \item Every stage game $(q_{\mathfrak{e}i}(s, v_{\mathfrak{e}}, v_{\mathfrak{a}}), q_{\mathfrak{a}i}(s, v_{\mathfrak{e}}, v_{\mathfrak{a}}))$, $i \in \{\mathfrak{e}, \mathfrak{a}\}$, for all $t, s, v_{\mathfrak{e}},$ and $v_{\mathfrak{a}}$, has a \textbf{saddle point} $(\tilde{\pi}_{\mathfrak{e}i}, \tilde{\pi}_{\mathfrak{a}i})$ (i.e., $\tilde{\pi}_{ji}\tilde{\pi}_{-ji}q_{ji} \geq \tilde{\pi}_{ji}'\tilde{\pi}_{-ji}q_{ji}$ for any $\tilde{\pi}_{ji}'$, $\tilde{\pi}_{ji}\tilde{\pi}_{-ji}q_{ji} \leq \tilde{\pi}_{ji}\tilde{\pi}_{-ji}'q_{ji}$ for any $\tilde{\pi}_{-ji}'$, $j \in \{\mathfrak{e}, \mathfrak{a}\}$), and agents' rewards in this equilibrium are used to update their Q-functions. 
         \end{enumerate}
     \end{block}
+
+
 \end{frame}
 
 \begin{frame}{Theorem 1: Convergence Guarantee}
