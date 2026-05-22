@@ -9,6 +9,7 @@ GRID_H = GRID_W = 0
 
 if TASK == "maze":
     TRAPS_DO_STOP_FOR_A_TURN = False
+    SAVE_1_0_WINNING_VECTOR = False #True
     
     # [[ Rewards and penalties ]]
     TRAP_NEGATIVE_REWARD = -0.5
@@ -61,7 +62,7 @@ ALPHA = 0.1
 FAIL_RATE = 0.005
 
 # Adjusted for 10,000 states (much faster training)
-EPISODES = 10000 
+EPISODES = 30000 
 SAVE_EACH = 500
 TASK_III_EPSILON = 0.5
 STEP_NUM = 5000  

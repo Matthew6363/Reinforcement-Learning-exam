@@ -1,20 +1,9 @@
-presentazione
+presentazione/
 Final - Projects for RL course.PDF
 codice_bello_claude.py
-QSGRM_env
+QSGRM_env/
+EXPORT/
 **/__pycache__/
-eval_results_task_II.npz
-
-LOGs/log_error_II.txt
-CODE/__pycache__/environment.cpython-313.pyc
-CODE/__pycache__/environment.cpython-313.pyc
-GAME_VISUALIZATION/.DS_Store
 .DS_Store
-CODE/__pycache__/environment.cpython-313.pyc
-CODE_maze/__pycache__/environment.cpython-313.pyc
-CODE_maze/__pycache__/game_parameters.cpython-313.pyc
-CODE_maze/__pycache__/reward_machine_maze.cpython-313.pyc
-
-EXPORT/eval_results_maze.npz
-EXPORT/eval_results_maze.npz
-EXPORT/maze_windowed.png
+eval_results_task_II.npz
+LOGs/log_error_II.txt

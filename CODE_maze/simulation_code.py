@@ -106,6 +106,8 @@ def train_qrm_sg(total_episodes=1000,
     timeouts_cnt    = 0
     all_ego_rewards = []
     all_adv_rewards = []
+    if SAVE_1_0_WINNING_VECTOR == True:
+        winning_vector = []
     history = {
         "episodes": [], "epsilon": [], 
         "ego_wr": [], "adv_wr": [], 
@@ -319,14 +321,21 @@ def train_qrm_sg(total_episodes=1000,
             if 'collision' in labels:
                 collisions_cnt += 1
                 adv_wins += 1
+                if SAVE_1_0_WINNING_VECTOR == True:
+                    winning_vector.append(0.0)
                 break
 
             # 2. Controlla le vittorie effettive degli agenti
             if rm_ego.state == 'v_escaped':
                 successes += 1
+                if SAVE_1_0_WINNING_VECTOR == True:
+                    winning_vector.append(1.0)
                 break
                 
             if rm_adv.state == 'v_lose':
+                if SAVE_1_0_WINNING_VECTOR == True:
+                    winning_vector.append(0.0)
+
                 if 'trapped' in labels:
                     traps_cnt += 1
                 else:
@@ -340,6 +349,11 @@ def train_qrm_sg(total_episodes=1000,
             r_e += TIMEOUT_PENALTY  
             all_ego_rewards.append(ep_reward_e + TIMEOUT_PENALTY)
             all_adv_rewards.append(ep_reward_a)
+
+            if SAVE_1_0_WINNING_VECTOR == True:
+                    winning_vector.append(-1.0)
+
+            
             #continue
 
 
@@ -398,6 +412,9 @@ def train_qrm_sg(total_episodes=1000,
     np.savez(f'../EXPORT/eval_results_{task_name_string}.npz',
              ego_rewards=all_ego_rewards,
              adv_rewards=all_adv_rewards)
+    
+    if SAVE_1_0_WINNING_VECTOR == True:
+        np.savez(f'../EXPORT/winning_vector_{task_name_string}.npz', winning_vector=winning_vector)
 
     ## Plot evolution
     window    = 80

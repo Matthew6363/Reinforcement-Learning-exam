@@ -255,6 +255,35 @@ def solve_stage_game(q_matrix_ego, q_matrix_adv,
        (np.max(q_matrix_adv) - np.min(q_matrix_adv) < 0.05):
         return np.ones(NUM_ACTIONS)/NUM_ACTIONS, np.ones(NUM_ACTIONS)/NUM_ACTIONS
     
+    #### For pure stragies 
+    best_ego_responses = np.argmax(q_matrix_ego, axis=0) 
+    best_adv_responses = np.argmax(q_matrix_adv, axis=1) 
+    
+    pure_equilibria = []
+    
+    for adv_col in range(NUM_ACTIONS):
+        ego_row = best_ego_responses[adv_col]
+        if best_adv_responses[ego_row] == adv_col:
+            pure_equilibria.append((ego_row, adv_col))
+            
+    if pure_equilibria:
+        best_score = -np.inf
+        best_pi_e, best_pi_a = None, None
+        
+        for ego_action, adv_action in pure_equilibria:
+            score = q_matrix_ego[ego_action, adv_action] + q_matrix_adv[ego_action, adv_action]
+            
+            if score > best_score:
+                best_score = score
+                best_pi_e = np.zeros(NUM_ACTIONS)
+                best_pi_e[ego_action] = 1.0
+                best_pi_a = np.zeros(NUM_ACTIONS)
+                best_pi_a[adv_action] = 1.0
+                
+        return best_pi_e, best_pi_a
+
+    #### For pure stragies 
+
     ## SHIFT MATRICES TO POSITIVE
     min_e = np.min(q_matrix_ego)
     min_a = np.min(q_matrix_adv)
@@ -265,6 +294,7 @@ def solve_stage_game(q_matrix_ego, q_matrix_adv,
     ## INIT a Nash Game with the 2 q-tables
     noise_e = 0.0
     noise_a = 0.0
+
     if ADD_NOISE:
         noise_e = np.random.uniform(1e-6, 1e-5, size=q_matrix_ego.shape)
         noise_a = np.random.uniform(1e-6, 1e-5, size=q_matrix_adv.shape)
@@ -277,34 +307,31 @@ def solve_stage_game(q_matrix_ego, q_matrix_adv,
         warnings.simplefilter("ignore")
         
         try:
-            if LEMKE_HOWSON:
-                random_label = np.random.randint(0, NUM_ACTIONS) 
-                pi_e, pi_a = game.lemke_howson(initial_dropped_label=random_label)
-
-                if len(pi_e) < NUM_ACTIONS:
-                    new_pi_e = np.zeros(NUM_ACTIONS)
-                    new_pi_e[:len(pi_e)] = pi_e
-                    pi_e = new_pi_e
-                    
-                if len(pi_a) < NUM_ACTIONS:
-                    new_pi_a = np.zeros(NUM_ACTIONS)
-                    new_pi_a[:len(pi_a)] = pi_a
-                    pi_a = new_pi_a
-
-            else:
-                equilibria = game.support_enumeration() 
-                pi_e, pi_a = next(equilibria) 
+            # extract all equilibria
+            equilibria = list(game.support_enumeration())
             
-            # Normalize and clean probabilities
-            pi_e = np.clip(pi_e, 0, 1)
-            if pi_e.sum() > 0: pi_e /= pi_e.sum()
-            else: pi_e = np.ones(NUM_ACTIONS)/NUM_ACTIONS
-                
-            pi_a = np.clip(pi_a, 0, 1)
-            if pi_a.sum() > 0: pi_a /= pi_a.sum()
-            else: pi_a = np.ones(NUM_ACTIONS)/NUM_ACTIONS
-                
-            return pi_e, pi_a
+            if not equilibria:
+                return np.ones(NUM_ACTIONS)/NUM_ACTIONS, np.ones(NUM_ACTIONS)/NUM_ACTIONS
+
+            best_pi_e, best_pi_a = None, None
+            best_score = -np.inf
+
+            for pi_e, pi_a in equilibria:
+            
+                pi_e = np.clip(pi_e, 0, 1)
+                pi_e = pi_e / pi_e.sum() if pi_e.sum() > 0 else np.ones(NUM_ACTIONS)/NUM_ACTIONS
+                    
+                pi_a = np.clip(pi_a, 0, 1)
+                pi_a = pi_a / pi_a.sum() if pi_a.sum() > 0 else np.ones(NUM_ACTIONS)/NUM_ACTIONS
+
+                # finding global optimum
+                score = (pi_e @ q_matrix_ego @ pi_a) + (pi_e @ q_matrix_adv @ pi_a)
+                if score > best_score:
+                    best_score = score
+                    best_pi_e = pi_e
+                    best_pi_a = pi_a
+            
+            return best_pi_e, best_pi_a
 
         except Exception as e:
             # Guaranteed fallback size 4 when equilibria generator is empty
