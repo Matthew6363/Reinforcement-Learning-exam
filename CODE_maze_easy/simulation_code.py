@@ -70,8 +70,8 @@ def train_qrm_sg(total_episodes=1000,
                  actions=ACTIONS,
                  step_num=STEP_NUM,
                  q_init_strategy="zeros",
-                 checkpoint_path="../EXPORT/q_models_maze_easy_ep12000.npz",
-                 start_episode = 12001): # <--- NEW PARAMETER
+                 checkpoint_path=None, #"../EXPORT/q_models_maze_easy_ep12000.npz.nope"
+                 start_episode = 1): # <--- NEW PARAMETER
 
     env = PacmanGridWorld()
     rm_ego = Reward_Machine('ego')
@@ -387,7 +387,7 @@ def train_qrm_sg(total_episodes=1000,
             print("-" * 50)
 
 
-            file_path = f"../EXPORT/{TASK}_saved_percentages.npz"
+            file_path = f"../EXPORT/{TASK}_2_saved_percentages.npz"
             
             history["episodes"].append(episode)
             history["epsilon"].append(epsilon)
@@ -410,7 +410,7 @@ def train_qrm_sg(total_episodes=1000,
         
         # Save every N episodes (change to 100 if you want every single step)
         if episode % SAVE_EACH == 0:
-            ckpt_path = f'../EXPORT/q_models_{task_name_string}_ep{episode}.npz'
+            ckpt_path = f'../EXPORT/q_models_{task_name_string}_2_ep{episode}.npz'
             np.savez(ckpt_path, q_ee=q_ee, q_ae=q_ae, q_ea=q_ea, q_aa=q_aa)
 
 
