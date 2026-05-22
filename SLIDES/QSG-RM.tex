@@ -444,20 +444,31 @@ The \evidenzia{transition of both game states and RM states} leads to the step \
     \end{itemize}
 \end{frame}
 
-\begin{frame}{QRM-SG Phase 4: Q-Value Update (Critic)}
+\begin{frame}{Nash Q-Learning}
+
+    Given an agent in a one player game setting, \evidenzia{off policy Q-learning} method can be used to update the Q-function estimation, as a TD learning method, using the following update rule:
+    $$Q(s,a) \leftarrow Q(s,a) + \alpha[r + \gamma \max_{a'} Q(s',a') - Q(s,a)]$$
+    But the max operator is \evidenzia{not applicable in a multi-agent setting}, where reward depends on joint behavior. This is then sobstituted by the \evidenzia{Nash equilibrium}, for each agent q-function:
+    $$Q_i(s,\textbf{a}) \leftarrow Q_i(s,\textbf{a}) + \alpha[r_i + \gamma Nash(Q_i(s',\textbf{a})) - Q_i(s,\textbf{a})]$$    
+    Where $Nash(Q_i(s',\textbf{a}))$ is the \evidenzia{expected value of agent $i$} when both agents follow the Nash strategy profile \evidenzia{at the next state $(s',v'_\mathfrak{e}, v'_\mathfrak{a})$}:
+    $$Nash(Q_i(s',\textbf{a})) = \mathbb{E}_{\textbf{a}} [Q_i(s',\textbf{a})] = \pi_{\mathfrak{e}i}(s', v'_\mathfrak{e}, v'_\mathfrak{a} )  \pi_{\mathfrak{a}i}(s', v'_\mathfrak{e}, v'_\mathfrak{a} )  Q_i (s', v'_\mathfrak{e}, v'_\mathfrak{a} )$$
+
+\end{frame}
+
+\begin{frame}{Nash Q-Learning (cont'd) and Q updates}
+
+    %$$Nash(Q_i(s',\textbf{a})) = \mathbb{E}_{\textbf{a}} [Q_i(s',\textbf{a})] = \pi_{\mathfrak{e}i}(s', v'_\mathfrak{e}, v'_\mathfrak{a} )  \pi_{\mathfrak{a}i}(s', v'_\mathfrak{e}, v'_\mathfrak{a} )  Q_i (s', v'_\mathfrak{e}, v'_\mathfrak{a} )$$
+    This means that, just like in standard Q-learning, the algorithm \evidenzia{looks ahead} to the next state $(s',v'_\mathfrak{e}, v'_\mathfrak{a})$, and \evidenzia{instead of looking at the max entry} with respect to all actions, it looks at \evidenzia{all state-action pairs and considers the average value}, weighted by \evidenzia{relative action choice probabilities} at the Nash equilibrium. 
+    \vspace{0.5cm}
+    
     \begin{block}{Process Breakdown (Lines 19--24)}
+    \vspace{0.2cm}
     \begin{algorithmic}
-        \STATE $\pi_{ji}(\cdot|s', v') \leftarrow Nash(q_{ei}(s', v'), q_{ai}(s', v'))$ 
-        \STATE $\overline{q}_{ji} \leftarrow \pi_{ei} \pi_{ai} q_{ji}(s', v')$
-        \STATE $q_{ji} \leftarrow (1-\alpha_t)q_{ji} + \alpha_t(r_{j,t} + \gamma \overline{q}_{ji})$ 
+            \STATE $\pi_{ji}(\cdot|s', v') \leftarrow Nash(q_{ei}(s', v'), q_{ai}(s', v'))$ 
+            \STATE $\overline{q}_{ji} \leftarrow \pi_{ei} \pi_{ai} q_{ji}(s', v')$
+            \STATE $q_{ji} \leftarrow (1-\alpha_t)q_{ji} + \alpha_t(r_{j,t} + \gamma \overline{q}_{ji})$ 
     \end{algorithmic}
     \end{block}
-    \textbf{Analysis:}
-    \begin{itemize}
-        \item \textbf{Bootstrapping:} Updates current Q-values by computing the Nash equilibrium of the \textbf{future} state $(s', v')$. 
-        \item \textbf{Scalarization:} $\overline{q}_{ji}$ is the expected value of agent $j$ when both follow the Nash strategy profile. 
-        \item \textbf{Coupled Update:} Agents must learn both Q-functions concurrently to maintain equilibrium local estimates. 
-    \end{itemize}
 \end{frame}
 
 \section{Theoretical Foundations}

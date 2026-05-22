@@ -57,48 +57,50 @@
 \headcommand {\beamer@framepages {23}{23}}
 \headcommand {\slideentry {3}{1}{4}{24/24}{Algorithmic Phase Analysis}{0}}
 \headcommand {\beamer@framepages {24}{24}}
-\headcommand {\beamer@sectionpages {19}{24}}
-\headcommand {\beamer@subsectionpages {21}{24}}
-\headcommand {\sectionentry {4}{Theoretical Foundations}{25}{Theoretical Foundations}{0}}
-\headcommand {\slideentry {4}{0}{1}{25/25}{}{0}}
+\headcommand {\slideentry {3}{1}{5}{25/25}{Algorithmic Phase Analysis}{0}}
 \headcommand {\beamer@framepages {25}{25}}
-\headcommand {\slideentry {4}{0}{2}{26/26}{}{0}}
+\headcommand {\beamer@sectionpages {19}{25}}
+\headcommand {\beamer@subsectionpages {21}{25}}
+\headcommand {\sectionentry {4}{Theoretical Foundations}{26}{Theoretical Foundations}{0}}
+\headcommand {\slideentry {4}{0}{1}{26/26}{}{0}}
 \headcommand {\beamer@framepages {26}{26}}
-\headcommand {\slideentry {4}{0}{3}{27/27}{}{0}}
+\headcommand {\slideentry {4}{0}{2}{27/27}{}{0}}
 \headcommand {\beamer@framepages {27}{27}}
-\headcommand {\slideentry {4}{0}{4}{28/28}{}{0}}
+\headcommand {\slideentry {4}{0}{3}{28/28}{}{0}}
 \headcommand {\beamer@framepages {28}{28}}
-\headcommand {\slideentry {4}{0}{5}{29/29}{}{0}}
+\headcommand {\slideentry {4}{0}{4}{29/29}{}{0}}
 \headcommand {\beamer@framepages {29}{29}}
-\headcommand {\slideentry {4}{0}{6}{30/30}{}{0}}
+\headcommand {\slideentry {4}{0}{5}{30/30}{}{0}}
 \headcommand {\beamer@framepages {30}{30}}
-\headcommand {\slideentry {4}{0}{7}{31/31}{}{0}}
+\headcommand {\slideentry {4}{0}{6}{31/31}{}{0}}
 \headcommand {\beamer@framepages {31}{31}}
-\headcommand {\beamer@sectionpages {25}{31}}
-\headcommand {\beamer@subsectionpages {25}{31}}
-\headcommand {\sectionentry {5}{Results and Applications}{32}{Results and Applications}{0}}
-\headcommand {\slideentry {5}{0}{1}{32/32}{}{0}}
+\headcommand {\slideentry {4}{0}{7}{32/32}{}{0}}
 \headcommand {\beamer@framepages {32}{32}}
-\headcommand {\slideentry {5}{0}{2}{33/33}{}{0}}
+\headcommand {\beamer@sectionpages {26}{32}}
+\headcommand {\beamer@subsectionpages {26}{32}}
+\headcommand {\sectionentry {5}{Results and Applications}{33}{Results and Applications}{0}}
+\headcommand {\slideentry {5}{0}{1}{33/33}{}{0}}
 \headcommand {\beamer@framepages {33}{33}}
-\headcommand {\slideentry {5}{0}{3}{34/34}{}{0}}
+\headcommand {\slideentry {5}{0}{2}{34/34}{}{0}}
 \headcommand {\beamer@framepages {34}{34}}
-\headcommand {\beamer@sectionpages {32}{34}}
-\headcommand {\beamer@subsectionpages {32}{34}}
-\headcommand {\sectionentry {6}{Conclusion}{35}{Conclusion}{0}}
-\headcommand {\slideentry {6}{0}{1}{35/35}{}{0}}
+\headcommand {\slideentry {5}{0}{3}{35/35}{}{0}}
 \headcommand {\beamer@framepages {35}{35}}
-\headcommand {\slideentry {6}{0}{2}{36/36}{}{0}}
+\headcommand {\beamer@sectionpages {33}{35}}
+\headcommand {\beamer@subsectionpages {33}{35}}
+\headcommand {\sectionentry {6}{Conclusion}{36}{Conclusion}{0}}
+\headcommand {\slideentry {6}{0}{1}{36/36}{}{0}}
 \headcommand {\beamer@framepages {36}{36}}
-\headcommand {\beamer@sectionpages {35}{36}}
-\headcommand {\beamer@subsectionpages {35}{36}}
-\headcommand {\sectionentry {7}{References}{37}{References}{0}}
-\headcommand {\slideentry {7}{0}{1}{37/37}{}{0}}
+\headcommand {\slideentry {6}{0}{2}{37/37}{}{0}}
 \headcommand {\beamer@framepages {37}{37}}
-\headcommand {\slideentry {7}{0}{2}{38/38}{}{0}}
+\headcommand {\beamer@sectionpages {36}{37}}
+\headcommand {\beamer@subsectionpages {36}{37}}
+\headcommand {\sectionentry {7}{References}{38}{References}{0}}
+\headcommand {\slideentry {7}{0}{1}{38/38}{}{0}}
 \headcommand {\beamer@framepages {38}{38}}
-\headcommand {\beamer@partpages {1}{38}}
-\headcommand {\beamer@subsectionpages {37}{38}}
-\headcommand {\beamer@sectionpages {37}{38}}
-\headcommand {\beamer@documentpages {38}}
-\headcommand {\gdef \inserttotalframenumber {31}}
+\headcommand {\slideentry {7}{0}{2}{39/39}{}{0}}
+\headcommand {\beamer@framepages {39}{39}}
+\headcommand {\beamer@partpages {1}{39}}
+\headcommand {\beamer@subsectionpages {38}{39}}
+\headcommand {\beamer@sectionpages {38}{39}}
+\headcommand {\beamer@documentpages {39}}
+\headcommand {\gdef \inserttotalframenumber {32}}
