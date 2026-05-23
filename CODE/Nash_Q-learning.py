@@ -12,17 +12,18 @@ from game_parameters import *
 from reward_machine_task_I import Reward_Machine   # generic version, works for all tasks
 from environment import PacmanGridWorld
 import nashpy as nash
+import warnings
 
 # ========== Config ==========
 NUM_ACTIONS = 4
 GRID_SIZE = GRID_W * GRID_H   # 36
 ALPHA = 0.15
 GAMMA = 0.9
-EPSILON_START = 0.5
+EPSILON_START = 0.25
 EPSILON_END = 0.01
 DECAY_EPISODES_RATIO = 0.8
-EPISODES = 16000
-MAX_STEPS = 9999
+EPISODES = 15000
+MAX_STEPS = 5000
 WINDOW_SIZE = 80
 
 def pos_to_idx(pos):
@@ -35,27 +36,105 @@ q_ae = np.zeros(shape)   # ego's estimate of adversary's Q
 q_ea = np.zeros(shape)   # adversary's estimate of ego's Q
 q_aa = np.zeros(shape)   # adversary's estimate of adversary's Q
 
-def solve_nash(P, Q):
-    """Return mixed strategies (pi_e, pi_a) for given 4x4 matrices."""
-    if np.all(P == 0) and np.all(Q == 0):
-        return np.ones(4)/4, np.ones(4)/4
-    game = nash.Game(P, Q)
-    try:
-        equilibria = game.support_enumeration()
-        pi_e, pi_a = next(equilibria)
-        pi_e = np.clip(pi_e, 0, 1)
-        pi_a = np.clip(pi_a, 0, 1)
-        if pi_e.sum() > 0:
-            pi_e /= pi_e.sum()
-        else:
-            pi_e = np.ones(4)/4
-        if pi_a.sum() > 0:
-            pi_a /= pi_a.sum()
-        else:
-            pi_a = np.ones(4)/4
-        return pi_e, pi_a
-    except Exception:
-        return np.ones(4)/4, np.ones(4)/4
+def solve_stage_game(q_matrix_ego, q_matrix_adv, 
+                     agent_actions = ['up', 'down', 'left', 'right'],
+                     debug = DEBUG
+                     ):
+    '''
+    This function is about solving the game, by updating the tabular q functions (matrices) 
+    for both ego and adv as paper stated. This return STRATEGIES (policies) given the q-tables.
+    '''
+
+    NUM_ACTIONS = len(agent_actions)
+    
+    ## FAST BYPASS FOR UNLEARNED MATRICES (Speeds up early training 10x)
+    # If the Q-values haven't meaningfully diverged (max diff is less than 0.05),
+    # the state hasn't learned a real reward yet. Bypass the expensive Nash solver.
+    if (np.max(q_matrix_ego) - np.min(q_matrix_ego) < 0.05) and \
+       (np.max(q_matrix_adv) - np.min(q_matrix_adv) < 0.05):
+        return np.ones(NUM_ACTIONS)/NUM_ACTIONS, np.ones(NUM_ACTIONS)/NUM_ACTIONS
+    
+    #### For pure stragies 
+    best_ego_responses = np.argmax(q_matrix_ego, axis=0) 
+    best_adv_responses = np.argmax(q_matrix_adv, axis=1) 
+    
+    pure_equilibria = []
+    
+    for adv_col in range(NUM_ACTIONS):
+        ego_row = best_ego_responses[adv_col]
+        if best_adv_responses[ego_row] == adv_col:
+            pure_equilibria.append((ego_row, adv_col))
+            
+    if pure_equilibria:
+        best_score = -np.inf
+        best_pi_e, best_pi_a = None, None
+        
+        for ego_action, adv_action in pure_equilibria:
+            score = q_matrix_ego[ego_action, adv_action] + q_matrix_adv[ego_action, adv_action]
+            
+            if score > best_score:
+                best_score = score
+                best_pi_e = np.zeros(NUM_ACTIONS)
+                best_pi_e[ego_action] = 1.0
+                best_pi_a = np.zeros(NUM_ACTIONS)
+                best_pi_a[adv_action] = 1.0
+                
+        return best_pi_e, best_pi_a
+
+    #### For pure stragies 
+
+    ## SHIFT MATRICES TO POSITIVE
+    min_e = np.min(q_matrix_ego)
+    min_a = np.min(q_matrix_adv)
+    
+    shift_e = abs(min_e) + 1.0 if min_e < 0 else 0.0
+    shift_a = abs(min_a) + 1.0 if min_a < 0 else 0.0
+
+    ## INIT a Nash Game with the 2 q-tables
+    noise_e = 0.0
+    noise_a = 0.0
+
+    if ADD_NOISE:
+        noise_e = np.random.uniform(1e-6, 1e-5, size=q_matrix_ego.shape)
+        noise_a = np.random.uniform(1e-6, 1e-5, size=q_matrix_adv.shape)
+        
+    game = nash.Game(q_matrix_ego + shift_e + noise_e, 
+                     q_matrix_adv + shift_a + noise_a)
+    
+    # Mute nashpy's internal UserWarnings about degenerate games
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        
+        try:
+            # extract all equilibria
+            equilibria = list(game.support_enumeration())
+            
+            if not equilibria:
+                return np.ones(NUM_ACTIONS)/NUM_ACTIONS, np.ones(NUM_ACTIONS)/NUM_ACTIONS
+
+            best_pi_e, best_pi_a = None, None
+            best_score = -np.inf
+
+            for pi_e, pi_a in equilibria:
+            
+                pi_e = np.clip(pi_e, 0, 1)
+                pi_e = pi_e / pi_e.sum() if pi_e.sum() > 0 else np.ones(NUM_ACTIONS)/NUM_ACTIONS
+                    
+                pi_a = np.clip(pi_a, 0, 1)
+                pi_a = pi_a / pi_a.sum() if pi_a.sum() > 0 else np.ones(NUM_ACTIONS)/NUM_ACTIONS
+
+                # finding global optimum
+                score = (pi_e @ q_matrix_ego @ pi_a) + (pi_e @ q_matrix_adv @ pi_a)
+                if score > best_score:
+                    best_score = score
+                    best_pi_e = pi_e
+                    best_pi_a = pi_a
+            
+            return best_pi_e, best_pi_a
+
+        except Exception as e:
+            # Guaranteed fallback size 4 when equilibria generator is empty
+            return np.ones(NUM_ACTIONS)/NUM_ACTIONS, np.ones(NUM_ACTIONS)/NUM_ACTIONS
 
 def train_nash_q():
     env = PacmanGridWorld()
@@ -93,10 +172,10 @@ def train_nash_q():
             else:
                 # Exploit: each agent uses its own Nash equilibrium policy
                 # Adversary's policy from its Q‑tables
-                _, pi_a = solve_nash(q_ea[s_e, s_a], q_aa[s_e, s_a])
+                _, pi_a = solve_stage_game(q_ea[s_e, s_a], q_aa[s_e, s_a])
                 aa = np.argmax(pi_a) if len(pi_a) > 0 else np.random.randint(4)
                 # Ego's policy from its Q‑tables
-                pi_e, _ = solve_nash(q_ee[s_e, s_a], q_ae[s_e, s_a])
+                pi_e, _ = solve_stage_game(q_ee[s_e, s_a], q_ae[s_e, s_a])
                 ae = np.argmax(pi_e) if len(pi_e) > 0 else np.random.randint(4)
 
             # ----- Environment step -----
@@ -115,12 +194,12 @@ def train_nash_q():
                 v_ee = v_ae = v_ea = v_aa = 0.0
             else:
                 # Ego's view of next state's Nash equilibrium
-                pi_e_next, pi_a_next = solve_nash(q_ee[ns_e, ns_a], q_ae[ns_e, ns_a])
+                pi_e_next, pi_a_next = solve_stage_game(q_ee[ns_e, ns_a], q_ae[ns_e, ns_a])
                 v_ee = pi_e_next @ q_ee[ns_e, ns_a] @ pi_a_next
                 v_ae = pi_e_next @ q_ae[ns_e, ns_a] @ pi_a_next
 
                 # Adversary's view of next state's Nash equilibrium
-                pi_e_next2, pi_a_next2 = solve_nash(q_ea[ns_e, ns_a], q_aa[ns_e, ns_a])
+                pi_e_next2, pi_a_next2 = solve_stage_game(q_ea[ns_e, ns_a], q_aa[ns_e, ns_a])
                 v_ea = pi_e_next2 @ q_ea[ns_e, ns_a] @ pi_a_next2
                 v_aa = pi_e_next2 @ q_aa[ns_e, ns_a] @ pi_a_next2
 
@@ -142,7 +221,7 @@ def train_nash_q():
             avg_e = np.mean(all_r_ego[-100:]) if len(all_r_ego) >= 100 else np.mean(all_r_ego)
             print(f"Episode {ep:5d} | ε={eps:.3f} | Ego reward last 100: {avg_e:.3f}")
 
-        if ep % 500 == 0:
+        if ep % 15000 == 0:
             ckpt_path = f'../EXPORT/q_models_Nash_{task_name_string}_ep{ep}.npz'
             np.savez(ckpt_path, q_ee=q_ee, q_ae=q_ae, q_ea=q_ea, q_aa=q_aa)
 

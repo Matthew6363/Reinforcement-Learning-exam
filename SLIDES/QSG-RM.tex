@@ -606,12 +606,16 @@ The \evidenzia{transition of both game states and RM states} leads to the step \
 % Slide 21: Experimental Framework & Baselines
 \begin{frame}{Experimental Framework \& Baselines}
     \begin{itemize}
-        \item \textbf{Testing Environment:} Evaluated on $6\times6$ (and $12\times12$) competitive, sparse-reward grid world variations of Pac-Man.
+        \item \textbf{Testing Environment:} Evaluated on $6\times6$ competitive, sparse-reward grid world variations of Pac-Man. And larger $8\times9$ or $7\times10$ competitive maze maps.
+        \item \textbf{Tasks:} Three case studies with distinct non-Markovian rewards, in the same environment:
+        \begin{itemize}
+            \item \texttt{Task I:} Ego must visit its power base, than destroy Adv's power base and finally eat Adv;
+            \item \texttt{Task II:} Task I plus a recharge step: ego must visit its power base again once destroyed Adv's base, before eating Adv;
+            \item \texttt{Task III:} Task II with random origin for adv agent between two positions.
+        \end{itemize}
         \item \textbf{Comparative Baselines:}
         \begin{itemize}
             \item \texttt{Nash-Q}: Pure spatial state-action tracking.
-            \item \texttt{Nash-QAS}: Incorporates an unstructured history status vector.
-            \item \texttt{MADDPG-SG} \& \texttt{MADDPG-AS}: Deep multi-agent deterministic policy gradient variants.
         \end{itemize}
     \end{itemize}
 \end{frame}

@@ -55,7 +55,10 @@ class PacmanGridWorld:
         '''
         Reset the Environment, by making the current state the initial state again
         '''
-        self.pos_a = self.start_pos_a
+
+        if np.random.rand() > TASK_III_EPSILON:
+            r, c = self.start_pos_a
+            self.start_pos_a = (r, c + 1) 
         self.pos_e = self.start_pos_e
 
         return self.pos_e, self.pos_a
