@@ -37,6 +37,7 @@ class PacmanGridWorld:
         
         # initialize positions
         self.start_pos_a = starting_pos_adv
+        self.reset_pos_a = starting_pos_adv
         self.start_pos_e = starting_pos_ego
 
         if TASK == "task_III":
@@ -55,7 +56,13 @@ class PacmanGridWorld:
         '''
         Reset the Environment, by making the current state the initial state again
         '''
-        self.pos_a = self.start_pos_a
+        if TASK == "task_III":
+            # with 50% prob change the base to the other (5,1) from (5,0) of
+            # all the other cases
+            if np.random.rand() > TASK_III_EPSILON: 
+                r, c = self.reset_pos_a
+                self.start_pos_a = (r, c + 1) # now (5, 1)
+
         self.pos_e = self.start_pos_e
 
         return self.pos_e, self.pos_a
