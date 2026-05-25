@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.4.18)  23 MAY 2026 12:37
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.4.18)  25 MAY 2026 16:01
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -637,267 +637,414 @@ Package: ifthen 2024/03/16 v1.1e Standard LaTeX ifthen package (DPC)
 \c@ALC@depth=\count373
 \ALC@tlm=\skip79
 \algorithmicindent=\skip80
-)
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@halignto' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\hbox' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@acol' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<def>-command' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@preamble' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@classz' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@acol' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<def>-command' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@preamble' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@acol' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<def>-command' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@preamble' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@classiv' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<def>-command' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@preamble' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\\' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@tabularcr' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\mathsurround' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\z@' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@ifnextchar' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\\' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\crcr' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\hfill' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@halignto' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\hbox' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@acol' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<def>-command' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@preamble' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@classz' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@acol' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<def>-command' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@preamble' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@acol' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<def>-command' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@preamble' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@classiv' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<def>-command' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@preamble' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\\' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@tabularcr' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\mathsurround' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\z@' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@ifnextchar' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\\' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\crcr' on input line 51.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 51.
-
-(/usr/local/texlive/2026/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/animate/animate.sty
+Package: animate 2024/10/14 PDF & SVG animations from files and inline graphics
+ (/usr/local/texlive/2026/texmf-dist/tex/latex/oberdiek/ifdraft.sty
+Package: ifdraft 2016/05/16 v1.4 Detect class options draft and final (HO)
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/media9/pdfbase.sty
+Package: pdfbase 2024/09/16 v0.59 driver independent access to low-level PDF features
+ (/usr/local/texlive/2026/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count374
-) (./QSG-RM.aux)
+)
+\g_pbs_page_int=\count375
+\g_pbs_oc_int=\count376
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/zref/zref-abspage.sty
+Package: zref-abspage 2026-03-07 v2.37 Module abspage for zref (HO)
+ (/usr/local/texlive/2026/texmf-dist/tex/latex/zref/zref-base.sty
+Package: zref-base 2026-03-07 v2.37 Module base for zref (HO)
+ (/usr/local/texlive/2026/texmf-dist/tex/generic/etexcmds/etexcmds.sty
+Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/auxhook/auxhook.sty
+Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
+)
+Package zref Info: New property list: main on input line 767.
+Package zref Info: New property: default on input line 768.
+Package zref Info: New property: page on input line 769.
+)
+\c@abspage=\count377
+Package zref Info: New property: abspage on input line 67.
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/ocgx2/ocgbase.sty
+Package: ocgbase 2024/09/15 v0.24 support package for ocgx2.sty
+)
+\@anim@box=\box83
+\@anim@measbox=\box84
+\@anim@tmpdima=\dimen317
+\@anim@tmpdimb=\dimen318
+\@anim@num=\count378
+\@anim@curframe=\count379
+\@anim@curframe@zb=\count380
+\@anim@resizeflags=\count381
+\@anim@skipfram=\count382
+\@anim@mulframecnt=\count383
+\@anim@@tmlnfile=\read3
+\@anim@tmpcnt=\count384
+\c@@anim@ltxcnt=\count385
+\@anim@curlayer=\count386
+\@anim@lineno=\count387
+\@anim@curfield=\count388
+\@anim@@resizeflags=\count389
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2023/07/28 v1.6b Sub-captions (AR)
+ (/usr/local/texlive/2026/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2023/08/05 v3.6o Customizing captions (AR)
+ (/usr/local/texlive/2026/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
+\caption@tempdima=\dimen319
+\captionmargin=\dimen320
+\caption@leftmargin=\dimen321
+\caption@rightmargin=\dimen322
+\caption@width=\dimen323
+\caption@indent=\dimen324
+\caption@parindent=\dimen325
+\caption@hangindent=\dimen326
+Package caption Info: beamer document class detected.
+ (/usr/local/texlive/2026/texmf-dist/tex/latex/caption/caption-beamer.sto
+File: caption-beamer.sto 2022/01/06 v2.0c Adaption of the caption package to the beamer document classes (AR)
+))
+\c@caption@flags=\count390
+\c@continuedfloat=\count391
+Package caption Info: hyperref package is loaded.
+Package caption Info: Hyperref support is turned off
+(caption)             because hyperref has stopped early.
+)
+Package caption Info: New subtype `subfigure' on input line 238.
+\c@subfigure=\count392
+Package caption Info: New subtype `subtable' on input line 238.
+\c@subtable=\count393
+) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryautomata.code.tex
+File: tikzlibraryautomata.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+ (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryshapes.multipart.code.tex
+File: tikzlibraryshapes.multipart.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+ (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshapes.multipart.code.tex
+File: pgflibraryshapes.multipart.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfnodepartlowerbox=\box85
+\pgfnodeparttwobox=\box86
+\pgfnodepartthreebox=\box87
+\pgfnodepartfourbox=\box88
+\pgfnodeparttwentybox=\box89
+\pgfnodepartnineteenbox=\box90
+\pgfnodeparteighteenbox=\box91
+\pgfnodepartseventeenbox=\box92
+\pgfnodepartsixteenbox=\box93
+\pgfnodepartfifteenbox=\box94
+\pgfnodepartfourteenbox=\box95
+\pgfnodepartthirteenbox=\box96
+\pgfnodeparttwelvebox=\box97
+\pgfnodepartelevenbox=\box98
+\pgfnodeparttenbox=\box99
+\pgfnodepartninebox=\box100
+\pgfnodeparteightbox=\box101
+\pgfnodepartsevenbox=\box102
+\pgfnodepartsixbox=\box103
+\pgfnodepartfivebox=\box104
+))) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarypositioning.code.tex
+File: tikzlibrarypositioning.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.meta.code.tex
+File: pgflibraryarrows.meta.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfarrowinset=\dimen327
+\pgfarrowlength=\dimen328
+\pgfarrowwidth=\dimen329
+\pgfarrowlinewidth=\dimen330
+) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryshapes.geometric.code.tex
+File: tikzlibraryshapes.geometric.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+ (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshapes.geometric.code.tex
+File: pgflibraryshapes.geometric.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+))
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<let>-command' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@halignto' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\hbox' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<let>-command' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@acol' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<def>-command' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@preamble' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<let>-command' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@classz' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@acol' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<def>-command' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@preamble' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@acol' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<def>-command' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@preamble' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<let>-command' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@classiv' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<def>-command' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@preamble' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<let>-command' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\\' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@tabularcr' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\mathsurround' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\z@' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@ifnextchar' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\\' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\crcr' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\hfill' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<let>-command' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@halignto' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\hbox' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<let>-command' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@acol' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<def>-command' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@preamble' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<let>-command' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@classz' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@acol' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<def>-command' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@preamble' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@acol' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<def>-command' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@preamble' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<let>-command' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@classiv' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<def>-command' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@preamble' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<let>-command' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\\' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@tabularcr' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\mathsurround' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\z@' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@ifnextchar' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\\' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\crcr' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 91.
+
+(./QSG-RM.aux
+
+LaTeX Warning: Label `fig:reward_plot' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:reward_plot' multiply defined.
+
+
+LaTeX Warning: Label `fig:reward_machine' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:reward_machine' multiply defined.
+
+
+LaTeX Warning: Label `fig:reward_plot' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:reward_plot' multiply defined.
+
+
+LaTeX Warning: Label `fig:reward_machine' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:reward_machine' multiply defined.
+
+
+LaTeX Warning: Label `fig:reward_plot' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:reward_plot' multiply defined.
+
+
+LaTeX Warning: Label `fig:reward_plot' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:reward_plot' multiply defined.
+
+)
 \openout1 = `QSG-RM.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -935,16 +1082,16 @@ LaTeX Font Info:    ... okay on input line 60.
 
 (/usr/local/texlive/2026/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count375
-\scratchdimen=\dimen317
-\scratchbox=\box83
-\nofMPsegments=\count376
-\nofMParguments=\count377
+\scratchcounter=\count394
+\scratchdimen=\dimen331
+\scratchbox=\box105
+\nofMPsegments=\count395
+\nofMParguments=\count396
 \everyMPshowfont=\toks50
-\MPscratchCnt=\count378
-\MPscratchDim=\dimen318
-\MPnumerator=\count379
-\makeMPintoPDFobject=\count380
+\MPscratchCnt=\count397
+\MPscratchDim=\dimen332
+\MPnumerator=\count398
+\makeMPintoPDFobject=\count399
 \everyMPtoPDFconversion=\toks51
 ) (/usr/local/texlive/2026/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -952,60 +1099,60 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (/usr/local/texlive/2026/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-Package hyperref Info: Link coloring OFF on input line 60.
+Package hyperref Info: Link coloring OFF on input line 100.
  (./QSG-RM.out) (./QSG-RM.out)
 \@outlinefile=\write5
 \openout5 = `QSG-RM.out'.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 60.
+(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 100.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 60.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 100.
 \symnumbers=\mathgroup6
 \sympureletters=\mathgroup7
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/cmr/m/n on input line 60.
-LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 60.
+(Font)                  OT1/cmss/m/n --> OT1/cmr/m/n on input line 100.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 100.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 60.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 100.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 60.
-LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 60.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 100.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 100.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/m/n on input line 60.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/m/n on input line 100.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> OT1/cmss/m/n on input line 60.
-LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 60.
+(Font)                  OT1/cmss/bx/n --> OT1/cmss/m/n on input line 100.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 100.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> OT1/cmss/m/it on input line 60.
+(Font)                  OT1/cmr/m/it --> OT1/cmss/m/it on input line 100.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> OT1/cmss/m/it on input line 60.
-LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 60.
+(Font)                  OT1/cmr/bx/it --> OT1/cmss/m/it on input line 100.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 100.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 60.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 100.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 60.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 100.
 LaTeX Font Info:    Overwriting symbol font `numbers' in version `bold'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/b/n on input line 60.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/b/n on input line 100.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  OT1/cmss/m/it --> OT1/cmss/b/it on input line 60.
+(Font)                  OT1/cmss/m/it --> OT1/cmss/b/it on input line 100.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `bold'
-(Font)                  OT1/cmss/b/n --> OT1/cmr/b/n on input line 60.
+(Font)                  OT1/cmss/b/n --> OT1/cmr/b/n on input line 100.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/cmss/b/n --> OT1/cmss/b/n on input line 60.
+(Font)                  OT1/cmss/b/n --> OT1/cmss/b/n on input line 100.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/b/n on input line 60.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/b/n on input line 100.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmss/m/it --> OT1/cmss/b/it on input line 60.
+(Font)                  OT1/cmss/m/it --> OT1/cmss/b/it on input line 100.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/b/n on input line 60.
-LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 60.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/b/n on input line 100.
+LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 100.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `normal'
-(Font)                  OT1/cmss/m/it --> OT1/mathkerncmss/m/sl on input line 60.
+(Font)                  OT1/cmss/m/it --> OT1/mathkerncmss/m/sl on input line 100.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  OT1/cmss/b/it --> OT1/mathkerncmss/m/sl on input line 60.
+(Font)                  OT1/cmss/b/it --> OT1/mathkerncmss/m/sl on input line 100.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  OT1/mathkerncmss/m/sl --> OT1/mathkerncmss/bx/sl on input line 60.
+(Font)                  OT1/mathkerncmss/m/sl --> OT1/mathkerncmss/bx/sl on input line 100.
  (/usr/local/texlive/2026/texmf-dist/tex/latex/translator/translator-basic-dictionary-English.dict
 Dictionary: translator-basic-dictionary, Language: English 
 ) (/usr/local/texlive/2026/texmf-dist/tex/latex/translator/translator-bibliography-dictionary-English.dict
@@ -1018,20 +1165,23 @@ Dictionary: translator-months-dictionary, Language: English
 Dictionary: translator-numbers-dictionary, Language: English 
 ) (/usr/local/texlive/2026/texmf-dist/tex/latex/translator/translator-theorem-dictionary-English.dict
 Dictionary: translator-theorem-dictionary, Language: English 
-) (./QSG-RM.nav)
-LaTeX Font Info:    Trying to load font information for U+msa on input line 64.
+)
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
+ (./QSG-RM.nav)
+LaTeX Font Info:    Trying to load font information for U+msa on input line 104.
  (/usr/local/texlive/2026/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 64.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 104.
  (/usr/local/texlive/2026/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for OT1+mathkerncmss on input line 64.
+LaTeX Font Info:    Trying to load font information for OT1+mathkerncmss on input line 104.
  (/usr/local/texlive/2026/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncmss.fd
 File: ot1mathkerncmss.fd 2020/01/31 Fontinst v1.933 font definitions for OT1/mathkerncmss.
 )
-Overfull \vbox (39.39362pt too high) detected at line 64
+Overfull \vbox (39.39362pt too high) detected at line 104
  []
 
 [1
@@ -1041,7 +1191,7 @@ Overfull \vbox (39.39362pt too high) detected at line 64
 {/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}] [3
 
 ]
-LaTeX Font Info:    Trying to load font information for U+euf on input line 93.
+LaTeX Font Info:    Trying to load font information for U+euf on input line 133.
  (/usr/local/texlive/2026/texmf-dist/tex/latex/amsfonts/ueuf.fd
 File: ueuf.fd 2013/01/14 v3.01 Euler Fraktur
 ) [4
@@ -1057,15 +1207,15 @@ File: ueuf.fd 2013/01/14 v3.01 Euler Fraktur
 ] [9
 
 ]
-<images/RMgridexample.png, id=114, 168.63pt x 168.63pt>
+<images/RMgridexample.png, id=129, 168.63pt x 168.63pt>
 File: images/RMgridexample.png Graphic file (type png)
 <use images/RMgridexample.png>
-Package pdftex.def Info: images/RMgridexample.png  used on input line 188.
+Package pdftex.def Info: images/RMgridexample.png  used on input line 228.
 (pdftex.def)             Requested size: 67.71683pt x 67.7184pt.
-<images/RMexaple_solo.png, id=116, 256.96pt x 215.80624pt>
+<images/RMexaple_solo.png, id=131, 256.96pt x 215.80624pt>
 File: images/RMexaple_solo.png Graphic file (type png)
 <use images/RMexaple_solo.png>
-Package pdftex.def Info: images/RMexaple_solo.png  used on input line 188.
+Package pdftex.def Info: images/RMexaple_solo.png  used on input line 228.
 (pdftex.def)             Requested size: 79.66649pt x 66.90582pt.
  [10
 
@@ -1089,10 +1239,10 @@ Package pdftex.def Info: images/RMexaple_solo.png  used on input line 188.
 
 ]
 
-LaTeX Font Warning: Command \footnotesize invalid in math mode on input line 380.
+LaTeX Font Warning: Command \footnotesize invalid in math mode on input line 420.
 
 
-LaTeX Font Warning: Command \footnotesize invalid in math mode on input line 380.
+LaTeX Font Warning: Command \footnotesize invalid in math mode on input line 420.
 
 [20
 
@@ -1122,15 +1272,743 @@ LaTeX Font Warning: Command \footnotesize invalid in math mode on input line 380
 
 ] [33
 
-] [34
+]
+<images/task_I_windowed 2 (random init).png, id=291, 642.2394pt x 427.3566pt>
+File: images/task_I_windowed 2 (random init).png Graphic file (type png)
+<use images/task_I_windowed 2 (random init).png>
+Package pdftex.def Info: images/task_I_windowed 2 (random init).png  used on input line 684.
+(pdftex.def)             Requested size: 199.1693pt x 132.52481pt.
+<images/Reward_Machine_I.png, id=292, 355.3275pt x 362.35374pt>
+File: images/Reward_Machine_I.png Graphic file (type png)
+<use images/Reward_Machine_I.png>
+Package pdftex.def Info: images/Reward_Machine_I.png  used on input line 684.
+(pdftex.def)             Requested size: 119.50279pt x 121.86613pt.
+ [34
 
-] [35
+ <./images/task_I_windowed 2 (random init).png> <./images/Reward_Machine_I.png>]
+<images/Nash_Q-learning.png, id=306, 642.4803pt x 427.8384pt>
+File: images/Nash_Q-learning.png Graphic file (type png)
+<use images/Nash_Q-learning.png>
+Package pdftex.def Info: images/Nash_Q-learning.png  used on input line 705.
+(pdftex.def)             Requested size: 239.00558pt x 159.15945pt.
+ [35
 
-] [36
+ <./images/Nash_Q-learning.png>]
+<images/task I/task_I-0.png, id=314, 682.55pt x 682.55pt>
+File: images/task I/task_I-0.png Graphic file (type png)
+<use images/task I/task_I-0.png>
+Package pdftex.def Info: images/task I/task_I-0.png  used on input line 714.
+(pdftex.def)             Requested size: 682.54834pt x 682.54834pt.
+ <./images/task I/task_I-0.png> <a0,fr0>
+<images/task I/task_I-1.png, id=318, 682.55pt x 682.55pt>
+File: images/task I/task_I-1.png Graphic file (type png)
+<use images/task I/task_I-1.png>
+Package pdftex.def Info: images/task I/task_I-1.png  used on input line 714.
+(pdftex.def)             Requested size: 682.54834pt x 682.54834pt.
+ <./images/task I/task_I-1.png> <a0,fr1>
+<images/task I/task_I-2.png, id=322, 682.55pt x 682.55pt>
+File: images/task I/task_I-2.png Graphic file (type png)
+<use images/task I/task_I-2.png>
+Package pdftex.def Info: images/task I/task_I-2.png  used on input line 714.
+(pdftex.def)             Requested size: 682.54834pt x 682.54834pt.
+ <./images/task I/task_I-2.png> <a0,fr2>
+<images/task I/task_I-3.png, id=326, 682.55pt x 682.55pt>
+File: images/task I/task_I-3.png Graphic file (type png)
+<use images/task I/task_I-3.png>
+Package pdftex.def Info: images/task I/task_I-3.png  used on input line 714.
+(pdftex.def)             Requested size: 682.54834pt x 682.54834pt.
+ <./images/task I/task_I-3.png> <a0,fr3>
+<images/task I/task_I-4.png, id=330, 682.55pt x 682.55pt>
+File: images/task I/task_I-4.png Graphic file (type png)
+<use images/task I/task_I-4.png>
+Package pdftex.def Info: images/task I/task_I-4.png  used on input line 714.
+(pdftex.def)             Requested size: 682.54834pt x 682.54834pt.
+ <./images/task I/task_I-4.png> <a0,fr4>
+<images/task I/task_I-5.png, id=334, 682.55pt x 682.55pt>
+File: images/task I/task_I-5.png Graphic file (type png)
+<use images/task I/task_I-5.png>
+Package pdftex.def Info: images/task I/task_I-5.png  used on input line 714.
+(pdftex.def)             Requested size: 682.54834pt x 682.54834pt.
+ <./images/task I/task_I-5.png> <a0,fr5>
+<images/task I/task_I-6.png, id=338, 682.55pt x 682.55pt>
+File: images/task I/task_I-6.png Graphic file (type png)
+<use images/task I/task_I-6.png>
+Package pdftex.def Info: images/task I/task_I-6.png  used on input line 714.
+(pdftex.def)             Requested size: 682.54834pt x 682.54834pt.
+ <./images/task I/task_I-6.png> <a0,fr6>
+<images/task I/task_I-7.png, id=342, 682.55pt x 682.55pt>
+File: images/task I/task_I-7.png Graphic file (type png)
+<use images/task I/task_I-7.png>
+Package pdftex.def Info: images/task I/task_I-7.png  used on input line 714.
+(pdftex.def)             Requested size: 682.54834pt x 682.54834pt.
+ <./images/task I/task_I-7.png> <a0,fr7> [36
 
-] [37
+]
+<images/Task_II.png, id=390, 650.43pt x 433.62pt>
+File: images/Task_II.png Graphic file (type png)
+<use images/Task_II.png>
+Package pdftex.def Info: images/Task_II.png  used on input line 736.
+(pdftex.def)             Requested size: 199.1693pt x 132.7799pt.
 
-] (./QSG-RM.bbl) [38
+pdfTeX warning (ext4): destination with the same identifier (name{fig:reward_plot}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.736 \end{frame}
+                 
+pdfTeX warning (ext4): destination with the same identifier (name{sub@fig:reward_plot}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.736 \end{frame}
+                 
+<images/Reward_Machine_II_and_III.png, id=391, 335.2525pt x 381.425pt>
+File: images/Reward_Machine_II_and_III.png Graphic file (type png)
+<use images/Reward_Machine_II_and_III.png>
+Package pdftex.def Info: images/Reward_Machine_II_and_III.png  used on input line 736.
+(pdftex.def)             Requested size: 119.50279pt x 135.9568pt.
+
+pdfTeX warning (ext4): destination with the same identifier (name{fig:reward_machine}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.736 \end{frame}
+                 
+pdfTeX warning (ext4): destination with the same identifier (name{sub@fig:reward_machine}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.736 \end{frame}
+                 
+Overfull \vbox (11.31425pt too high) detected at line 736
+ []
+
+[37
+
+ <./images/Task_II.png> <./images/Reward_Machine_II_and_III.png>]
+<images/task_II/task_II-0.png, id=401, 682.55pt x 682.55pt>
+File: images/task_II/task_II-0.png Graphic file (type png)
+<use images/task_II/task_II-0.png>
+Package pdftex.def Info: images/task_II/task_II-0.png  used on input line 745.
+(pdftex.def)             Requested size: 682.54834pt x 682.54834pt.
+ <./images/task_II/task_II-0.png> <a1,fr0>
+<images/task_II/task_II-1.png, id=405, 682.55pt x 682.55pt>
+File: images/task_II/task_II-1.png Graphic file (type png)
+<use images/task_II/task_II-1.png>
+Package pdftex.def Info: images/task_II/task_II-1.png  used on input line 745.
+(pdftex.def)             Requested size: 682.54834pt x 682.54834pt.
+ <./images/task_II/task_II-1.png> <a1,fr1>
+<images/task_II/task_II-2.png, id=409, 682.55pt x 682.55pt>
+File: images/task_II/task_II-2.png Graphic file (type png)
+<use images/task_II/task_II-2.png>
+Package pdftex.def Info: images/task_II/task_II-2.png  used on input line 745.
+(pdftex.def)             Requested size: 682.54834pt x 682.54834pt.
+ <./images/task_II/task_II-2.png> <a1,fr2>
+<images/task_II/task_II-3.png, id=413, 682.55pt x 682.55pt>
+File: images/task_II/task_II-3.png Graphic file (type png)
+<use images/task_II/task_II-3.png>
+Package pdftex.def Info: images/task_II/task_II-3.png  used on input line 745.
+(pdftex.def)             Requested size: 682.54834pt x 682.54834pt.
+ <./images/task_II/task_II-3.png> <a1,fr3>
+<images/task_II/task_II-4.png, id=417, 682.55pt x 682.55pt>
+File: images/task_II/task_II-4.png Graphic file (type png)
+<use images/task_II/task_II-4.png>
+Package pdftex.def Info: images/task_II/task_II-4.png  used on input line 745.
+(pdftex.def)             Requested size: 682.54834pt x 682.54834pt.
+ <./images/task_II/task_II-4.png> <a1,fr4>
+<images/task_II/task_II-5.png, id=421, 682.55pt x 682.55pt>
+File: images/task_II/task_II-5.png Graphic file (type png)
+<use images/task_II/task_II-5.png>
+Package pdftex.def Info: images/task_II/task_II-5.png  used on input line 745.
+(pdftex.def)             Requested size: 682.54834pt x 682.54834pt.
+ <./images/task_II/task_II-5.png> <a1,fr5>
+<images/task_II/task_II-6.png, id=425, 682.55pt x 682.55pt>
+File: images/task_II/task_II-6.png Graphic file (type png)
+<use images/task_II/task_II-6.png>
+Package pdftex.def Info: images/task_II/task_II-6.png  used on input line 745.
+(pdftex.def)             Requested size: 682.54834pt x 682.54834pt.
+ <./images/task_II/task_II-6.png> <a1,fr6>
+<images/task_II/task_II-7.png, id=429, 682.55pt x 682.55pt>
+File: images/task_II/task_II-7.png Graphic file (type png)
+<use images/task_II/task_II-7.png>
+Package pdftex.def Info: images/task_II/task_II-7.png  used on input line 745.
+(pdftex.def)             Requested size: 682.54834pt x 682.54834pt.
+ <./images/task_II/task_II-7.png> <a1,fr7>
+<images/task_II/task_II-8.png, id=433, 682.55pt x 682.55pt>
+File: images/task_II/task_II-8.png Graphic file (type png)
+<use images/task_II/task_II-8.png>
+Package pdftex.def Info: images/task_II/task_II-8.png  used on input line 745.
+(pdftex.def)             Requested size: 682.54834pt x 682.54834pt.
+ <./images/task_II/task_II-8.png> <a1,fr8>
+<images/task_II/task_II-9.png, id=437, 682.55pt x 682.55pt>
+File: images/task_II/task_II-9.png Graphic file (type png)
+<use images/task_II/task_II-9.png>
+Package pdftex.def Info: images/task_II/task_II-9.png  used on input line 745.
+(pdftex.def)             Requested size: 682.54834pt x 682.54834pt.
+ <./images/task_II/task_II-9.png> <a1,fr9>
+<images/task_II/task_II-10.png, id=441, 682.55pt x 682.55pt>
+File: images/task_II/task_II-10.png Graphic file (type png)
+<use images/task_II/task_II-10.png>
+Package pdftex.def Info: images/task_II/task_II-10.png  used on input line 745.
+(pdftex.def)             Requested size: 682.54834pt x 682.54834pt.
+ <./images/task_II/task_II-10.png> <a1,fr10>
+<images/task_II/task_II-11.png, id=445, 682.55pt x 682.55pt>
+File: images/task_II/task_II-11.png Graphic file (type png)
+<use images/task_II/task_II-11.png>
+Package pdftex.def Info: images/task_II/task_II-11.png  used on input line 745.
+(pdftex.def)             Requested size: 682.54834pt x 682.54834pt.
+ <./images/task_II/task_II-11.png> <a1,fr11>
+<images/task_II/task_II-12.png, id=449, 682.55pt x 682.55pt>
+File: images/task_II/task_II-12.png Graphic file (type png)
+<use images/task_II/task_II-12.png>
+Package pdftex.def Info: images/task_II/task_II-12.png  used on input line 745.
+(pdftex.def)             Requested size: 682.54834pt x 682.54834pt.
+ <./images/task_II/task_II-12.png> <a1,fr12> [38
+
+]
+<images/Task_III.png, id=490, 650.43pt x 433.62pt>
+File: images/Task_III.png Graphic file (type png)
+<use images/Task_III.png>
+Package pdftex.def Info: images/Task_III.png  used on input line 767.
+(pdftex.def)             Requested size: 199.1693pt x 132.7799pt.
+
+pdfTeX warning (ext4): destination with the same identifier (name{fig:reward_plot}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.767 \end{frame}
+                 
+pdfTeX warning (ext4): destination with the same identifier (name{sub@fig:reward_plot}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.767 \end{frame}
+                 
+File: images/Reward_Machine_II_and_III.png Graphic file (type png)
+<use images/Reward_Machine_II_and_III.png>
+Package pdftex.def Info: images/Reward_Machine_II_and_III.png  used on input line 767.
+(pdftex.def)             Requested size: 119.50279pt x 135.9568pt.
+
+pdfTeX warning (ext4): destination with the same identifier (name{fig:reward_machine}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.767 \end{frame}
+                 
+pdfTeX warning (ext4): destination with the same identifier (name{sub@fig:reward_machine}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.767 \end{frame}
+                 
+Overfull \vbox (11.31425pt too high) detected at line 767
+ []
+
+[39
+
+ <./images/Task_III.png>]
+<images/task_III/task_III-0.png, id=498, 682.55pt x 682.55pt>
+File: images/task_III/task_III-0.png Graphic file (type png)
+<use images/task_III/task_III-0.png>
+Package pdftex.def Info: images/task_III/task_III-0.png  used on input line 776.
+(pdftex.def)             Requested size: 682.54834pt x 682.54834pt.
+ <./images/task_III/task_III-0.png> <a2,fr0>
+<images/task_III/task_III-1.png, id=502, 682.55pt x 682.55pt>
+File: images/task_III/task_III-1.png Graphic file (type png)
+<use images/task_III/task_III-1.png>
+Package pdftex.def Info: images/task_III/task_III-1.png  used on input line 776.
+(pdftex.def)             Requested size: 682.54834pt x 682.54834pt.
+ <./images/task_III/task_III-1.png> <a2,fr1>
+<images/task_III/task_III-2.png, id=506, 682.55pt x 682.55pt>
+File: images/task_III/task_III-2.png Graphic file (type png)
+<use images/task_III/task_III-2.png>
+Package pdftex.def Info: images/task_III/task_III-2.png  used on input line 776.
+(pdftex.def)             Requested size: 682.54834pt x 682.54834pt.
+ <./images/task_III/task_III-2.png> <a2,fr2>
+<images/task_III/task_III-3.png, id=510, 682.55pt x 682.55pt>
+File: images/task_III/task_III-3.png Graphic file (type png)
+<use images/task_III/task_III-3.png>
+Package pdftex.def Info: images/task_III/task_III-3.png  used on input line 776.
+(pdftex.def)             Requested size: 682.54834pt x 682.54834pt.
+ <./images/task_III/task_III-3.png> <a2,fr3>
+<images/task_III/task_III-4.png, id=514, 682.55pt x 682.55pt>
+File: images/task_III/task_III-4.png Graphic file (type png)
+<use images/task_III/task_III-4.png>
+Package pdftex.def Info: images/task_III/task_III-4.png  used on input line 776.
+(pdftex.def)             Requested size: 682.54834pt x 682.54834pt.
+ <./images/task_III/task_III-4.png> <a2,fr4>
+<images/task_III/task_III-5.png, id=518, 682.55pt x 682.55pt>
+File: images/task_III/task_III-5.png Graphic file (type png)
+<use images/task_III/task_III-5.png>
+Package pdftex.def Info: images/task_III/task_III-5.png  used on input line 776.
+(pdftex.def)             Requested size: 682.54834pt x 682.54834pt.
+ <./images/task_III/task_III-5.png> <a2,fr5>
+<images/task_III/task_III-6.png, id=522, 682.55pt x 682.55pt>
+File: images/task_III/task_III-6.png Graphic file (type png)
+<use images/task_III/task_III-6.png>
+Package pdftex.def Info: images/task_III/task_III-6.png  used on input line 776.
+(pdftex.def)             Requested size: 682.54834pt x 682.54834pt.
+ <./images/task_III/task_III-6.png> <a2,fr6>
+<images/task_III/task_III-7.png, id=526, 682.55pt x 682.55pt>
+File: images/task_III/task_III-7.png Graphic file (type png)
+<use images/task_III/task_III-7.png>
+Package pdftex.def Info: images/task_III/task_III-7.png  used on input line 776.
+(pdftex.def)             Requested size: 682.54834pt x 682.54834pt.
+ <./images/task_III/task_III-7.png> <a2,fr7>
+<images/task_III/task_III-8.png, id=530, 682.55pt x 682.55pt>
+File: images/task_III/task_III-8.png Graphic file (type png)
+<use images/task_III/task_III-8.png>
+Package pdftex.def Info: images/task_III/task_III-8.png  used on input line 776.
+(pdftex.def)             Requested size: 682.54834pt x 682.54834pt.
+ <./images/task_III/task_III-8.png> <a2,fr8>
+<images/task_III/task_III-9.png, id=534, 682.55pt x 682.55pt>
+File: images/task_III/task_III-9.png Graphic file (type png)
+<use images/task_III/task_III-9.png>
+Package pdftex.def Info: images/task_III/task_III-9.png  used on input line 776.
+(pdftex.def)             Requested size: 682.54834pt x 682.54834pt.
+ <./images/task_III/task_III-9.png> <a2,fr9>
+<images/task_III/task_III-10.png, id=538, 682.55pt x 682.55pt>
+File: images/task_III/task_III-10.png Graphic file (type png)
+<use images/task_III/task_III-10.png>
+Package pdftex.def Info: images/task_III/task_III-10.png  used on input line 776.
+(pdftex.def)             Requested size: 682.54834pt x 682.54834pt.
+ <./images/task_III/task_III-10.png> <a2,fr10>
+<images/task_III/task_III-11.png, id=542, 682.55pt x 682.55pt>
+File: images/task_III/task_III-11.png Graphic file (type png)
+<use images/task_III/task_III-11.png>
+Package pdftex.def Info: images/task_III/task_III-11.png  used on input line 776.
+(pdftex.def)             Requested size: 682.54834pt x 682.54834pt.
+ <./images/task_III/task_III-11.png> <a2,fr11> [40
+
+] [41
+
+]
+<images/easy_maze_1.png, id=588, 642.4803pt x 427.8384pt>
+File: images/easy_maze_1.png Graphic file (type png)
+<use images/easy_maze_1.png>
+Package pdftex.def Info: images/easy_maze_1.png  used on input line 818.
+(pdftex.def)             Requested size: 199.1693pt x 132.62852pt.
+
+pdfTeX warning (ext4): destination with the same identifier (name{fig:reward_plot}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.818 \end{frame}
+                 
+pdfTeX warning (ext4): destination with the same identifier (name{sub@fig:reward_plot}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.818 \end{frame}
+                 
+Overfull \vbox (12.8054pt too high) detected at line 818
+ []
+
+[42
+
+ <./images/easy_maze_1.png>]
+<images/maze/maze-frame-0.png, id=597, 582.175pt x 431.6125pt>
+File: images/maze/maze-frame-0.png Graphic file (type png)
+<use images/maze/maze-frame-0.png>
+Package pdftex.def Info: images/maze/maze-frame-0.png  used on input line 827.
+(pdftex.def)             Requested size: 582.17358pt x 431.61143pt.
+ <./images/maze/maze-frame-0.png> <a3,fr0>
+<images/maze/maze-frame-1.png, id=601, 582.175pt x 431.6125pt>
+File: images/maze/maze-frame-1.png Graphic file (type png)
+<use images/maze/maze-frame-1.png>
+Package pdftex.def Info: images/maze/maze-frame-1.png  used on input line 827.
+(pdftex.def)             Requested size: 582.17358pt x 431.61143pt.
+ <./images/maze/maze-frame-1.png> <a3,fr1>
+<images/maze/maze-frame-2.png, id=605, 582.175pt x 431.6125pt>
+File: images/maze/maze-frame-2.png Graphic file (type png)
+<use images/maze/maze-frame-2.png>
+Package pdftex.def Info: images/maze/maze-frame-2.png  used on input line 827.
+(pdftex.def)             Requested size: 582.17358pt x 431.61143pt.
+ <./images/maze/maze-frame-2.png> <a3,fr2>
+<images/maze/maze-frame-3.png, id=609, 582.175pt x 431.6125pt>
+File: images/maze/maze-frame-3.png Graphic file (type png)
+<use images/maze/maze-frame-3.png>
+Package pdftex.def Info: images/maze/maze-frame-3.png  used on input line 827.
+(pdftex.def)             Requested size: 582.17358pt x 431.61143pt.
+ <./images/maze/maze-frame-3.png> <a3,fr3>
+<images/maze/maze-frame-4.png, id=613, 582.175pt x 431.6125pt>
+File: images/maze/maze-frame-4.png Graphic file (type png)
+<use images/maze/maze-frame-4.png>
+Package pdftex.def Info: images/maze/maze-frame-4.png  used on input line 827.
+(pdftex.def)             Requested size: 582.17358pt x 431.61143pt.
+ <./images/maze/maze-frame-4.png> <a3,fr4>
+<images/maze/maze-frame-5.png, id=617, 582.175pt x 431.6125pt>
+File: images/maze/maze-frame-5.png Graphic file (type png)
+<use images/maze/maze-frame-5.png>
+Package pdftex.def Info: images/maze/maze-frame-5.png  used on input line 827.
+(pdftex.def)             Requested size: 582.17358pt x 431.61143pt.
+ <./images/maze/maze-frame-5.png> <a3,fr5>
+<images/maze/maze-frame-6.png, id=621, 582.175pt x 431.6125pt>
+File: images/maze/maze-frame-6.png Graphic file (type png)
+<use images/maze/maze-frame-6.png>
+Package pdftex.def Info: images/maze/maze-frame-6.png  used on input line 827.
+(pdftex.def)             Requested size: 582.17358pt x 431.61143pt.
+ <./images/maze/maze-frame-6.png> <a3,fr6>
+<images/maze/maze-frame-7.png, id=625, 582.175pt x 431.6125pt>
+File: images/maze/maze-frame-7.png Graphic file (type png)
+<use images/maze/maze-frame-7.png>
+Package pdftex.def Info: images/maze/maze-frame-7.png  used on input line 827.
+(pdftex.def)             Requested size: 582.17358pt x 431.61143pt.
+ <./images/maze/maze-frame-7.png> <a3,fr7>
+<images/maze/maze-frame-8.png, id=629, 582.175pt x 431.6125pt>
+File: images/maze/maze-frame-8.png Graphic file (type png)
+<use images/maze/maze-frame-8.png>
+Package pdftex.def Info: images/maze/maze-frame-8.png  used on input line 827.
+(pdftex.def)             Requested size: 582.17358pt x 431.61143pt.
+ <./images/maze/maze-frame-8.png> <a3,fr8>
+<images/maze/maze-frame-9.png, id=633, 582.175pt x 431.6125pt>
+File: images/maze/maze-frame-9.png Graphic file (type png)
+<use images/maze/maze-frame-9.png>
+Package pdftex.def Info: images/maze/maze-frame-9.png  used on input line 827.
+(pdftex.def)             Requested size: 582.17358pt x 431.61143pt.
+ <./images/maze/maze-frame-9.png> <a3,fr9>
+<images/maze/maze-frame-10.png, id=637, 582.175pt x 431.6125pt>
+File: images/maze/maze-frame-10.png Graphic file (type png)
+<use images/maze/maze-frame-10.png>
+Package pdftex.def Info: images/maze/maze-frame-10.png  used on input line 827.
+(pdftex.def)             Requested size: 582.17358pt x 431.61143pt.
+ <./images/maze/maze-frame-10.png> <a3,fr10>
+<images/maze/maze-frame-11.png, id=641, 582.175pt x 431.6125pt>
+File: images/maze/maze-frame-11.png Graphic file (type png)
+<use images/maze/maze-frame-11.png>
+Package pdftex.def Info: images/maze/maze-frame-11.png  used on input line 827.
+(pdftex.def)             Requested size: 582.17358pt x 431.61143pt.
+ <./images/maze/maze-frame-11.png> <a3,fr11>
+<images/maze/maze-frame-12.png, id=645, 582.175pt x 431.6125pt>
+File: images/maze/maze-frame-12.png Graphic file (type png)
+<use images/maze/maze-frame-12.png>
+Package pdftex.def Info: images/maze/maze-frame-12.png  used on input line 827.
+(pdftex.def)             Requested size: 582.17358pt x 431.61143pt.
+ <./images/maze/maze-frame-12.png> <a3,fr12>
+<images/maze/maze-frame-13.png, id=649, 582.175pt x 431.6125pt>
+File: images/maze/maze-frame-13.png Graphic file (type png)
+<use images/maze/maze-frame-13.png>
+Package pdftex.def Info: images/maze/maze-frame-13.png  used on input line 827.
+(pdftex.def)             Requested size: 582.17358pt x 431.61143pt.
+ <./images/maze/maze-frame-13.png> <a3,fr13>
+<images/maze/maze-frame-14.png, id=653, 582.175pt x 431.6125pt>
+File: images/maze/maze-frame-14.png Graphic file (type png)
+<use images/maze/maze-frame-14.png>
+Package pdftex.def Info: images/maze/maze-frame-14.png  used on input line 827.
+(pdftex.def)             Requested size: 582.17358pt x 431.61143pt.
+ <./images/maze/maze-frame-14.png> <a3,fr14>
+<images/maze/maze-frame-15.png, id=657, 582.175pt x 431.6125pt>
+File: images/maze/maze-frame-15.png Graphic file (type png)
+<use images/maze/maze-frame-15.png>
+Package pdftex.def Info: images/maze/maze-frame-15.png  used on input line 827.
+(pdftex.def)             Requested size: 582.17358pt x 431.61143pt.
+ <./images/maze/maze-frame-15.png> <a3,fr15>
+<images/maze/maze-frame-16.png, id=661, 582.175pt x 431.6125pt>
+File: images/maze/maze-frame-16.png Graphic file (type png)
+<use images/maze/maze-frame-16.png>
+Package pdftex.def Info: images/maze/maze-frame-16.png  used on input line 827.
+(pdftex.def)             Requested size: 582.17358pt x 431.61143pt.
+ <./images/maze/maze-frame-16.png> <a3,fr16>
+<images/maze/maze-frame-17.png, id=665, 582.175pt x 431.6125pt>
+File: images/maze/maze-frame-17.png Graphic file (type png)
+<use images/maze/maze-frame-17.png>
+Package pdftex.def Info: images/maze/maze-frame-17.png  used on input line 827.
+(pdftex.def)             Requested size: 582.17358pt x 431.61143pt.
+ <./images/maze/maze-frame-17.png> <a3,fr17>
+<images/maze/maze-frame-18.png, id=669, 582.175pt x 431.6125pt>
+File: images/maze/maze-frame-18.png Graphic file (type png)
+<use images/maze/maze-frame-18.png>
+Package pdftex.def Info: images/maze/maze-frame-18.png  used on input line 827.
+(pdftex.def)             Requested size: 582.17358pt x 431.61143pt.
+ <./images/maze/maze-frame-18.png> <a3,fr18>
+<images/maze/maze-frame-19.png, id=673, 582.175pt x 431.6125pt>
+File: images/maze/maze-frame-19.png Graphic file (type png)
+<use images/maze/maze-frame-19.png>
+Package pdftex.def Info: images/maze/maze-frame-19.png  used on input line 827.
+(pdftex.def)             Requested size: 582.17358pt x 431.61143pt.
+ <./images/maze/maze-frame-19.png> <a3,fr19>
+<images/maze/maze-frame-20.png, id=677, 582.175pt x 431.6125pt>
+File: images/maze/maze-frame-20.png Graphic file (type png)
+<use images/maze/maze-frame-20.png>
+Package pdftex.def Info: images/maze/maze-frame-20.png  used on input line 827.
+(pdftex.def)             Requested size: 582.17358pt x 431.61143pt.
+ <./images/maze/maze-frame-20.png> <a3,fr20>
+<images/maze/maze-frame-21.png, id=681, 582.175pt x 431.6125pt>
+File: images/maze/maze-frame-21.png Graphic file (type png)
+<use images/maze/maze-frame-21.png>
+Package pdftex.def Info: images/maze/maze-frame-21.png  used on input line 827.
+(pdftex.def)             Requested size: 582.17358pt x 431.61143pt.
+ <./images/maze/maze-frame-21.png> <a3,fr21>
+Overfull \vbox (22.47165pt too high) detected at line 827
+ []
+
+[43
+
+]
+<images/maze_II.png, id=732, 642.4803pt x 426.393pt>
+File: images/maze_II.png Graphic file (type png)
+<use images/maze_II.png>
+Package pdftex.def Info: images/maze_II.png  used on input line 867.
+(pdftex.def)             Requested size: 199.1693pt x 132.18045pt.
+
+pdfTeX warning (ext4): destination with the same identifier (name{fig:reward_plot}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.867 \end{frame}
+                 
+pdfTeX warning (ext4): destination with the same identifier (name{sub@fig:reward_plot}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.867 \end{frame}
+                 
+Overfull \vbox (12.35733pt too high) detected at line 867
+ []
+
+[44
+
+ <./images/maze_II.png>]
+<images/maze_II/maze_II-0.png, id=740, 481.8pt x 531.9875pt>
+File: images/maze_II/maze_II-0.png Graphic file (type png)
+<use images/maze_II/maze_II-0.png>
+Package pdftex.def Info: images/maze_II/maze_II-0.png  used on input line 876.
+(pdftex.def)             Requested size: 481.79881pt x 531.9862pt.
+ <./images/maze_II/maze_II-0.png> <a4,fr0>
+<images/maze_II/maze_II-1.png, id=744, 481.8pt x 531.9875pt>
+File: images/maze_II/maze_II-1.png Graphic file (type png)
+<use images/maze_II/maze_II-1.png>
+Package pdftex.def Info: images/maze_II/maze_II-1.png  used on input line 876.
+(pdftex.def)             Requested size: 481.79881pt x 531.9862pt.
+ <./images/maze_II/maze_II-1.png> <a4,fr1>
+<images/maze_II/maze_II-2.png, id=748, 481.8pt x 531.9875pt>
+File: images/maze_II/maze_II-2.png Graphic file (type png)
+<use images/maze_II/maze_II-2.png>
+Package pdftex.def Info: images/maze_II/maze_II-2.png  used on input line 876.
+(pdftex.def)             Requested size: 481.79881pt x 531.9862pt.
+ <./images/maze_II/maze_II-2.png> <a4,fr2>
+<images/maze_II/maze_II-3.png, id=752, 481.8pt x 531.9875pt>
+File: images/maze_II/maze_II-3.png Graphic file (type png)
+<use images/maze_II/maze_II-3.png>
+Package pdftex.def Info: images/maze_II/maze_II-3.png  used on input line 876.
+(pdftex.def)             Requested size: 481.79881pt x 531.9862pt.
+ <./images/maze_II/maze_II-3.png> <a4,fr3>
+<images/maze_II/maze_II-4.png, id=756, 481.8pt x 531.9875pt>
+File: images/maze_II/maze_II-4.png Graphic file (type png)
+<use images/maze_II/maze_II-4.png>
+Package pdftex.def Info: images/maze_II/maze_II-4.png  used on input line 876.
+(pdftex.def)             Requested size: 481.79881pt x 531.9862pt.
+ <./images/maze_II/maze_II-4.png> <a4,fr4>
+<images/maze_II/maze_II-5.png, id=760, 481.8pt x 531.9875pt>
+File: images/maze_II/maze_II-5.png Graphic file (type png)
+<use images/maze_II/maze_II-5.png>
+Package pdftex.def Info: images/maze_II/maze_II-5.png  used on input line 876.
+(pdftex.def)             Requested size: 481.79881pt x 531.9862pt.
+ <./images/maze_II/maze_II-5.png> <a4,fr5>
+<images/maze_II/maze_II-6.png, id=764, 481.8pt x 531.9875pt>
+File: images/maze_II/maze_II-6.png Graphic file (type png)
+<use images/maze_II/maze_II-6.png>
+Package pdftex.def Info: images/maze_II/maze_II-6.png  used on input line 876.
+(pdftex.def)             Requested size: 481.79881pt x 531.9862pt.
+ <./images/maze_II/maze_II-6.png> <a4,fr6>
+<images/maze_II/maze_II-7.png, id=768, 481.8pt x 531.9875pt>
+File: images/maze_II/maze_II-7.png Graphic file (type png)
+<use images/maze_II/maze_II-7.png>
+Package pdftex.def Info: images/maze_II/maze_II-7.png  used on input line 876.
+(pdftex.def)             Requested size: 481.79881pt x 531.9862pt.
+ <./images/maze_II/maze_II-7.png> <a4,fr7>
+<images/maze_II/maze_II-8.png, id=772, 481.8pt x 531.9875pt>
+File: images/maze_II/maze_II-8.png Graphic file (type png)
+<use images/maze_II/maze_II-8.png>
+Package pdftex.def Info: images/maze_II/maze_II-8.png  used on input line 876.
+(pdftex.def)             Requested size: 481.79881pt x 531.9862pt.
+ <./images/maze_II/maze_II-8.png> <a4,fr8>
+<images/maze_II/maze_II-9.png, id=776, 481.8pt x 531.9875pt>
+File: images/maze_II/maze_II-9.png Graphic file (type png)
+<use images/maze_II/maze_II-9.png>
+Package pdftex.def Info: images/maze_II/maze_II-9.png  used on input line 876.
+(pdftex.def)             Requested size: 481.79881pt x 531.9862pt.
+ <./images/maze_II/maze_II-9.png> <a4,fr9>
+<images/maze_II/maze_II-10.png, id=780, 481.8pt x 531.9875pt>
+File: images/maze_II/maze_II-10.png Graphic file (type png)
+<use images/maze_II/maze_II-10.png>
+Package pdftex.def Info: images/maze_II/maze_II-10.png  used on input line 876.
+(pdftex.def)             Requested size: 481.79881pt x 531.9862pt.
+ <./images/maze_II/maze_II-10.png> <a4,fr10>
+<images/maze_II/maze_II-11.png, id=784, 481.8pt x 531.9875pt>
+File: images/maze_II/maze_II-11.png Graphic file (type png)
+<use images/maze_II/maze_II-11.png>
+Package pdftex.def Info: images/maze_II/maze_II-11.png  used on input line 876.
+(pdftex.def)             Requested size: 481.79881pt x 531.9862pt.
+ <./images/maze_II/maze_II-11.png> <a4,fr11>
+<images/maze_II/maze_II-12.png, id=788, 481.8pt x 531.9875pt>
+File: images/maze_II/maze_II-12.png Graphic file (type png)
+<use images/maze_II/maze_II-12.png>
+Package pdftex.def Info: images/maze_II/maze_II-12.png  used on input line 876.
+(pdftex.def)             Requested size: 481.79881pt x 531.9862pt.
+ <./images/maze_II/maze_II-12.png> <a4,fr12>
+<images/maze_II/maze_II-13.png, id=792, 481.8pt x 531.9875pt>
+File: images/maze_II/maze_II-13.png Graphic file (type png)
+<use images/maze_II/maze_II-13.png>
+Package pdftex.def Info: images/maze_II/maze_II-13.png  used on input line 876.
+(pdftex.def)             Requested size: 481.79881pt x 531.9862pt.
+ <./images/maze_II/maze_II-13.png> <a4,fr13>
+<images/maze_II/maze_II-14.png, id=796, 481.8pt x 531.9875pt>
+File: images/maze_II/maze_II-14.png Graphic file (type png)
+<use images/maze_II/maze_II-14.png>
+Package pdftex.def Info: images/maze_II/maze_II-14.png  used on input line 876.
+(pdftex.def)             Requested size: 481.79881pt x 531.9862pt.
+ <./images/maze_II/maze_II-14.png> <a4,fr14>
+<images/maze_II/maze_II-15.png, id=800, 481.8pt x 531.9875pt>
+File: images/maze_II/maze_II-15.png Graphic file (type png)
+<use images/maze_II/maze_II-15.png>
+Package pdftex.def Info: images/maze_II/maze_II-15.png  used on input line 876.
+(pdftex.def)             Requested size: 481.79881pt x 531.9862pt.
+ <./images/maze_II/maze_II-15.png> <a4,fr15>
+<images/maze_II/maze_II-16.png, id=804, 481.8pt x 531.9875pt>
+File: images/maze_II/maze_II-16.png Graphic file (type png)
+<use images/maze_II/maze_II-16.png>
+Package pdftex.def Info: images/maze_II/maze_II-16.png  used on input line 876.
+(pdftex.def)             Requested size: 481.79881pt x 531.9862pt.
+ <./images/maze_II/maze_II-16.png> <a4,fr16>
+<images/maze_II/maze_II-17.png, id=808, 481.8pt x 531.9875pt>
+File: images/maze_II/maze_II-17.png Graphic file (type png)
+<use images/maze_II/maze_II-17.png>
+Package pdftex.def Info: images/maze_II/maze_II-17.png  used on input line 876.
+(pdftex.def)             Requested size: 481.79881pt x 531.9862pt.
+ <./images/maze_II/maze_II-17.png> <a4,fr17>
+<images/maze_II/maze_II-18.png, id=812, 481.8pt x 531.9875pt>
+File: images/maze_II/maze_II-18.png Graphic file (type png)
+<use images/maze_II/maze_II-18.png>
+Package pdftex.def Info: images/maze_II/maze_II-18.png  used on input line 876.
+(pdftex.def)             Requested size: 481.79881pt x 531.9862pt.
+ <./images/maze_II/maze_II-18.png> <a4,fr18>
+<images/maze_II/maze_II-19.png, id=816, 481.8pt x 531.9875pt>
+File: images/maze_II/maze_II-19.png Graphic file (type png)
+<use images/maze_II/maze_II-19.png>
+Package pdftex.def Info: images/maze_II/maze_II-19.png  used on input line 876.
+(pdftex.def)             Requested size: 481.79881pt x 531.9862pt.
+ <./images/maze_II/maze_II-19.png> <a4,fr19>
+<images/maze_II/maze_II-20.png, id=820, 481.8pt x 531.9875pt>
+File: images/maze_II/maze_II-20.png Graphic file (type png)
+<use images/maze_II/maze_II-20.png>
+Package pdftex.def Info: images/maze_II/maze_II-20.png  used on input line 876.
+(pdftex.def)             Requested size: 481.79881pt x 531.9862pt.
+ <./images/maze_II/maze_II-20.png> <a4,fr20>
+<images/maze_II/maze_II-21.png, id=824, 481.8pt x 531.9875pt>
+File: images/maze_II/maze_II-21.png Graphic file (type png)
+<use images/maze_II/maze_II-21.png>
+Package pdftex.def Info: images/maze_II/maze_II-21.png  used on input line 876.
+(pdftex.def)             Requested size: 481.79881pt x 531.9862pt.
+ <./images/maze_II/maze_II-21.png> <a4,fr21>
+<images/maze_II/maze_II-22.png, id=828, 481.8pt x 531.9875pt>
+File: images/maze_II/maze_II-22.png Graphic file (type png)
+<use images/maze_II/maze_II-22.png>
+Package pdftex.def Info: images/maze_II/maze_II-22.png  used on input line 876.
+(pdftex.def)             Requested size: 481.79881pt x 531.9862pt.
+ <./images/maze_II/maze_II-22.png> <a4,fr22>
+<images/maze_II/maze_II-23.png, id=832, 481.8pt x 531.9875pt>
+File: images/maze_II/maze_II-23.png Graphic file (type png)
+<use images/maze_II/maze_II-23.png>
+Package pdftex.def Info: images/maze_II/maze_II-23.png  used on input line 876.
+(pdftex.def)             Requested size: 481.79881pt x 531.9862pt.
+ <./images/maze_II/maze_II-23.png> <a4,fr23>
+<images/maze_II/maze_II-24.png, id=836, 481.8pt x 531.9875pt>
+File: images/maze_II/maze_II-24.png Graphic file (type png)
+<use images/maze_II/maze_II-24.png>
+Package pdftex.def Info: images/maze_II/maze_II-24.png  used on input line 876.
+(pdftex.def)             Requested size: 481.79881pt x 531.9862pt.
+ <./images/maze_II/maze_II-24.png> <a4,fr24>
+<images/maze_II/maze_II-25.png, id=840, 481.8pt x 531.9875pt>
+File: images/maze_II/maze_II-25.png Graphic file (type png)
+<use images/maze_II/maze_II-25.png>
+Package pdftex.def Info: images/maze_II/maze_II-25.png  used on input line 876.
+(pdftex.def)             Requested size: 481.79881pt x 531.9862pt.
+ <./images/maze_II/maze_II-25.png> <a4,fr25>
+<images/maze_II/maze_II-26.png, id=844, 481.8pt x 531.9875pt>
+File: images/maze_II/maze_II-26.png Graphic file (type png)
+<use images/maze_II/maze_II-26.png>
+Package pdftex.def Info: images/maze_II/maze_II-26.png  used on input line 876.
+(pdftex.def)             Requested size: 481.79881pt x 531.9862pt.
+ <./images/maze_II/maze_II-26.png> <a4,fr26>
+<images/maze_II/maze_II-27.png, id=848, 481.8pt x 531.9875pt>
+File: images/maze_II/maze_II-27.png Graphic file (type png)
+<use images/maze_II/maze_II-27.png>
+Package pdftex.def Info: images/maze_II/maze_II-27.png  used on input line 876.
+(pdftex.def)             Requested size: 481.79881pt x 531.9862pt.
+ <./images/maze_II/maze_II-27.png> <a4,fr27>
+<images/maze_II/maze_II-28.png, id=852, 481.8pt x 531.9875pt>
+File: images/maze_II/maze_II-28.png Graphic file (type png)
+<use images/maze_II/maze_II-28.png>
+Package pdftex.def Info: images/maze_II/maze_II-28.png  used on input line 876.
+(pdftex.def)             Requested size: 481.79881pt x 531.9862pt.
+ <./images/maze_II/maze_II-28.png> <a4,fr28>
+<images/maze_II/maze_II-29.png, id=856, 481.8pt x 531.9875pt>
+File: images/maze_II/maze_II-29.png Graphic file (type png)
+<use images/maze_II/maze_II-29.png>
+Package pdftex.def Info: images/maze_II/maze_II-29.png  used on input line 876.
+(pdftex.def)             Requested size: 481.79881pt x 531.9862pt.
+ <./images/maze_II/maze_II-29.png> <a4,fr29>
+<images/maze_II/maze_II-30.png, id=860, 481.8pt x 531.9875pt>
+File: images/maze_II/maze_II-30.png Graphic file (type png)
+<use images/maze_II/maze_II-30.png>
+Package pdftex.def Info: images/maze_II/maze_II-30.png  used on input line 876.
+(pdftex.def)             Requested size: 481.79881pt x 531.9862pt.
+ <./images/maze_II/maze_II-30.png> <a4,fr30>
+<images/maze_II/maze_II-31.png, id=864, 481.8pt x 531.9875pt>
+File: images/maze_II/maze_II-31.png Graphic file (type png)
+<use images/maze_II/maze_II-31.png>
+Package pdftex.def Info: images/maze_II/maze_II-31.png  used on input line 876.
+(pdftex.def)             Requested size: 481.79881pt x 531.9862pt.
+ <./images/maze_II/maze_II-31.png> <a4,fr31>
+<images/maze_II/maze_II-32.png, id=868, 481.8pt x 531.9875pt>
+File: images/maze_II/maze_II-32.png Graphic file (type png)
+<use images/maze_II/maze_II-32.png>
+Package pdftex.def Info: images/maze_II/maze_II-32.png  used on input line 876.
+(pdftex.def)             Requested size: 481.79881pt x 531.9862pt.
+ <./images/maze_II/maze_II-32.png> <a4,fr32>
+<images/maze_II/maze_II-33.png, id=872, 481.8pt x 531.9875pt>
+File: images/maze_II/maze_II-33.png Graphic file (type png)
+<use images/maze_II/maze_II-33.png>
+Package pdftex.def Info: images/maze_II/maze_II-33.png  used on input line 876.
+(pdftex.def)             Requested size: 481.79881pt x 531.9862pt.
+ <./images/maze_II/maze_II-33.png> <a4,fr33>
+<images/maze_II/maze_II-34.png, id=876, 481.8pt x 531.9875pt>
+File: images/maze_II/maze_II-34.png Graphic file (type png)
+<use images/maze_II/maze_II-34.png>
+Package pdftex.def Info: images/maze_II/maze_II-34.png  used on input line 876.
+(pdftex.def)             Requested size: 481.79881pt x 531.9862pt.
+ <./images/maze_II/maze_II-34.png> <a4,fr34>
+<images/maze_II/maze_II-35.png, id=880, 481.8pt x 531.9875pt>
+File: images/maze_II/maze_II-35.png Graphic file (type png)
+<use images/maze_II/maze_II-35.png>
+Package pdftex.def Info: images/maze_II/maze_II-35.png  used on input line 876.
+(pdftex.def)             Requested size: 481.79881pt x 531.9862pt.
+ <./images/maze_II/maze_II-35.png> <a4,fr35>
+<images/maze_II/maze_II-36.png, id=884, 481.8pt x 531.9875pt>
+File: images/maze_II/maze_II-36.png Graphic file (type png)
+<use images/maze_II/maze_II-36.png>
+Package pdftex.def Info: images/maze_II/maze_II-36.png  used on input line 876.
+(pdftex.def)             Requested size: 481.79881pt x 531.9862pt.
+ <./images/maze_II/maze_II-36.png> <a4,fr36>
+<images/maze_II/maze_II-37.png, id=888, 481.8pt x 531.9875pt>
+File: images/maze_II/maze_II-37.png Graphic file (type png)
+<use images/maze_II/maze_II-37.png>
+Package pdftex.def Info: images/maze_II/maze_II-37.png  used on input line 876.
+(pdftex.def)             Requested size: 481.79881pt x 531.9862pt.
+ <./images/maze_II/maze_II-37.png> <a4,fr37>
+<images/maze_II/maze_II-38.png, id=892, 481.8pt x 531.9875pt>
+File: images/maze_II/maze_II-38.png Graphic file (type png)
+<use images/maze_II/maze_II-38.png>
+Package pdftex.def Info: images/maze_II/maze_II-38.png  used on input line 876.
+(pdftex.def)             Requested size: 481.79881pt x 531.9862pt.
+ <./images/maze_II/maze_II-38.png> <a4,fr38>
+<images/maze_II/maze_II-39.png, id=896, 481.8pt x 531.9875pt>
+File: images/maze_II/maze_II-39.png Graphic file (type png)
+<use images/maze_II/maze_II-39.png>
+Package pdftex.def Info: images/maze_II/maze_II-39.png  used on input line 876.
+(pdftex.def)             Requested size: 481.79881pt x 531.9862pt.
+ <./images/maze_II/maze_II-39.png> <a4,fr39>
+Overfull \vbox (13.66788pt too high) detected at line 876
+ []
+
+[45
+
+] [46
+
+] [47
+
+] [48
+
+] (./QSG-RM.bbl) [49
 
 ]
 \tf@nav=\write6
@@ -1147,22 +2025,26 @@ LaTeX Font Warning: Command \footnotesize invalid in math mode on input line 380
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
+
+
+LaTeX Warning: There were multiply-defined labels.
+
 Package rerunfilecheck Info: File `QSG-RM.out' has not changed.
-(rerunfilecheck)             Checksum: 1763C2EDC28201B9021646B926E455EF;1203.
+(rerunfilecheck)             Checksum: A9BD60E53150D3FAE0FD2F8A7432D5BA;1324.
  ) 
 Here is how much of TeX's memory you used:
- 25661 strings out of 467525
- 515252 string characters out of 5418982
- 885097 words of memory out of 5000000
- 53957 multiletter control sequences out of 15000+600000
- 643235 words of font info for 96 fonts, out of 8000000 for 9000
+ 31531 strings out of 467525
+ 665651 string characters out of 5418982
+ 1026068 words of memory out of 5000000
+ 59733 multiletter control sequences out of 15000+600000
+ 643471 words of font info for 97 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 128i,15n,123p,1954b,762s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/euler/eufm10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/euler/eufm5.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/euler/eufm7.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfss0900.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfss1000.pfb>
-Output written on QSG-RM.pdf (38 pages, 274382 bytes).
+ 128i,15n,123p,1954b,2259s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi9.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/euler/eufm10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/euler/eufm5.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/euler/eufm7.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfss0900.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfss1000.pfb>
+Output written on QSG-RM.pdf (49 pages, 1102148 bytes).
 PDF statistics:
- 392 PDF objects out of 1000 (max. 8388607)
- 297 compressed objects within 3 object streams
- 86 named destinations out of 1000 (max. 500000)
- 117 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1114 PDF objects out of 1200 (max. 8388607)
+ 678 compressed objects within 7 object streams
+ 114 named destinations out of 1000 (max. 500000)
+ 1310 words of extra memory for PDF output out of 10000 (max. 10000000)
 

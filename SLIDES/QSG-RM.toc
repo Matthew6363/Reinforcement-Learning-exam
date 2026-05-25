@@ -4,5 +4,6 @@
 \beamer@subsectionintoc {3}{1}{Algorithmic Phase Analysis}{21}{0}{3}
 \beamer@sectionintoc {4}{Additional Keypoints}{26}{0}{4}
 \beamer@sectionintoc {5}{Game Results and Experiments}{32}{0}{5}
-\beamer@sectionintoc {6}{Conclusion}{35}{0}{6}
-\beamer@sectionintoc {7}{References}{37}{0}{7}
+\beamer@sectionintoc {6}{Maze experiment}{41}{0}{6}
+\beamer@sectionintoc {7}{Conclusion}{46}{0}{7}
+\beamer@sectionintoc {8}{References}{48}{0}{8}
