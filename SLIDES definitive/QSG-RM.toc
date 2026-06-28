@@ -1,0 +1,8 @@
+\beamer@sectionintoc {1}{Basic Definitions}{3}{0}{1}
+\beamer@sectionintoc {2}{Q-learning with RM for SG}{12}{0}{2}
+\beamer@sectionintoc {3}{QSG-RM Algorithm Overview}{19}{0}{3}
+\beamer@subsectionintoc {3}{1}{Algorithmic Phase Analysis}{21}{0}{3}
+\beamer@sectionintoc {4}{Additional Keypoints}{26}{0}{4}
+\beamer@sectionintoc {5}{Game Results and Experiments}{33}{0}{5}
+\beamer@sectionintoc {6}{Conclusion}{36}{0}{6}
+\beamer@sectionintoc {7}{References}{38}{0}{7}
