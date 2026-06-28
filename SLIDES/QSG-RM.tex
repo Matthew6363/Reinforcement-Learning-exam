@@ -11,6 +11,46 @@
 \usepackage{amssymb}
 \usepackage{amsfonts}
 \usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{animate}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usepackage{caption}
+\usetikzlibrary{automata, positioning, arrows.meta, shapes.geometric}
+
+\newcommand{\collisionicon}{%
+    \tikz[baseline=-0.5ex, scale=0.4, inner sep=0pt]{
+        % Blue Triangle (Top)
+        \node[regular polygon, regular polygon sides=3, draw=black, fill=blue, rotate=0, minimum size=0.4cm] at (-0.2, -0.18) {};
+        % Red Triangle (Bottom)
+        \node[regular polygon, regular polygon sides=3, draw=black, fill=red, rotate=0, minimum size=0.4cm] at (0, -0.25) {};
+    }%
+}
+
+\newcommand{\collisioniconkey}{%
+    \tikz[baseline=-0.5ex, scale=0.3, inner sep=0pt]{
+        % Blue Triangle (Top) containing a key polygon
+        \node[regular polygon, regular polygon sides=3, draw=black, fill=blue, rotate=0, minimum size=0.4cm] at (0, 0.4) {
+            \tikz[baseline=0pt, scale=0.1]{
+                % Key head (rectangle)
+                \draw[fill=white, draw=white] (-0.3,0) rectangle (0.3,0.6);
+                % Key shaft (line)
+                \draw[thick, draw=white] (0,0) -- (0,-0.8);
+                % Key teeth (small triangles/lines)
+                \draw[thick, draw=white] (0,-0.3) -- (0.3,-0.3);
+            }
+        }}}
+
+\newcommand{\collisionexit}{%
+    \tikz[baseline=-0.5ex, scale=0.4, inner sep=0pt]{
+        % Blue Triangle (Top) with Key
+        \node[regular polygon, regular polygon sides=3, draw=black, fill=blue, rotate=0, minimum size=0.4cm] at (0, 0.4) {
+        };
+        % Green Square (Exit/Goal)
+        \node[rectangle, draw=black, fill=green!60!white, minimum size=0.3cm] at (0.3, 0.4) {};
+    }%
+}
+
 
 \definecolor{verdeSalvia}{RGB}{112, 130, 114}  
 \definecolor{grigioScuro}{RGB}{60, 64, 61}     
@@ -606,23 +646,233 @@ The \evidenzia{transition of both game states and RM states} leads to the step \
 % Slide 21: Experimental Framework & Baselines
 \begin{frame}{Experimental Framework \& Baselines}
     \begin{itemize}
-        \item \textbf{Testing Environment:} Evaluated on $6\times6$ (and $12\times12$) competitive, sparse-reward grid world variations of Pac-Man.
+        \item \textbf{Testing Environment:} Evaluated on $6\times6$ competitive, sparse-reward grid world variations of Pac-Man. And larger $8\times9$ or $7\times10$ competitive maze maps.
+        \item \textbf{Tasks:} Three case studies with distinct non-Markovian rewards, in the same environment:
+        \begin{itemize}
+            \item \texttt{Task I:} Ego must visit its power base, than destroy Adv's power base and finally eat Adv;
+            \item \texttt{Task II:} Task I plus a recharge step: ego must visit its power base again once destroyed Adv's base, before eating Adv;
+            \item \texttt{Task III:} Task II with random origin for adv agent between two positions.
+        \end{itemize}
         \item \textbf{Comparative Baselines:}
         \begin{itemize}
             \item \texttt{Nash-Q}: Pure spatial state-action tracking.
-            \item \texttt{Nash-QAS}: Incorporates an unstructured history status vector.
-            \item \texttt{MADDPG-SG} \& \texttt{MADDPG-AS}: Deep multi-agent deterministic policy gradient variants.
         \end{itemize}
     \end{itemize}
 \end{frame}
 
 % Slide 22: Empirical Performance
-\begin{frame}{Case Study Empirical Analysis}
-    \begin{itemize}
-        \item \textbf{Case Study I (Sequential Ordering):} QRM-SG converges to equilibrium by $\approx 7,500$ episodes, whereas unaugmented baselines fail entirely.
-        \item \textbf{Case Study II \& III (Energy Loops):} Explores complex recharge loops with randomized origin points. QRM-SG reaches stability within $\approx 1,000$ to $1,500$ runs.
-        \item \textbf{Scalability:} Successfully finds the Nash equilibrium on an expanded $12\times12$ map space by episode 21,000.
-    \end{itemize}
+\begin{frame}{Case Study I}
+    \begin{figure}
+        \centering
+        % First figure
+        \begin{subfigure}[b]{0.50\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/task_I_windowed 2 (random init).png}
+            \caption{Task I random initialization: Reward Trajectory}
+            \label{fig:reward_plot}
+        \end{subfigure}
+        \hfill
+        % Second figure
+        \begin{subfigure}[b]{0.30\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/Reward_Machine_I.png}
+            \caption{Reward Machine for Task I}
+            \label{fig:reward_machine}
+        \end{subfigure}
+    \end{figure}
+    The plot shows the average reward trajectory every 100 episodes, we can see that the QRM-SG algorithm converges to the optimal policy at around episode 6500.
+\end{frame}
+
+\begin{frame}{Case Study I: Nash Q-learning}
+    \begin{columns}[c]
+        % Left column: The Image
+        \begin{column}{0.60\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/Nash_Q-learning.png}
+            \\[0.5em] % Add some vertical space
+            \text{(a)} Task I: Reward Trajectory
+        \end{column}
+
+        % Right column: The Text
+        \begin{column}{0.35\textwidth}
+            \textbf{Analysis:}
+            \begin{itemize}
+                \item High Variance: Sharp, frequent drops suggest policy instability rather than smooth learning.
+                \item Stagnation Concerns: The flat-line suppression of the adversary post-8000 episodes may indicate a failure to explore further or a collapse in adversarial policy diversity.
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Task I}
+    \centering
+    % Ensure the path and the range match your actual file count
+    % {10} is the frame rate (adjust as needed for speed)
+    % {0} is the start index
+    % {49} is the end index of your last file
+    \animategraphics[loop, controls, width=0.4\textwidth]{2}{images/task I/task_I-}{0}{7}
+\end{frame}
+
+\begin{frame}{Case Study II}
+    \begin{figure}
+        \centering
+        % First figure
+        \begin{subfigure}[b]{0.50\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/Task_II.png}
+            \caption{Task II: Reward Trajectory}
+            \label{fig:reward_plot}
+        \end{subfigure}
+        \hfill
+        % Second figure
+        \begin{subfigure}[b]{0.30\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/Reward_Machine_II_and_III.png}
+            \caption{Reward Machine for Task II and III}
+            \label{fig:reward_machine}
+        \end{subfigure}
+    \end{figure}
+    We can see that the QRM-SG algorithm converges with some more difficulties around episode 10000.
+\end{frame}
+
+\begin{frame}{Task II}
+    \centering
+    % Ensure the path and the range match your actual file count
+    % {10} is the frame rate (adjust as needed for speed)
+    % {0} is the start index
+    % {49} is the end index of your last file
+    \animategraphics[loop, controls, width=0.4\textwidth]{2}{images/task_II/task_II-}{0}{12}
+\end{frame}
+
+\begin{frame}{Case Study III}
+    \begin{figure}
+        \centering
+        % First figure
+        \begin{subfigure}[b]{0.50\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/Task_III.png}
+            \caption{Task II: Reward Trajectory}
+            \label{fig:reward_plot}
+        \end{subfigure}
+        \hfill
+        % Second figure
+        \begin{subfigure}[b]{0.30\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/Reward_Machine_II_and_III.png}
+            \caption{Reward Machine for Task II and III}
+            \label{fig:reward_machine}
+        \end{subfigure}
+    \end{figure}
+    We can see that the QRM-SG algorithm converges with some more difficulties around episode 10000.
+\end{frame}
+
+\begin{frame}{Task III}
+    \centering
+    % Ensure the path and the range match your actual file count
+    % {10} is the frame rate (adjust as needed for speed)
+    % {0} is the start index
+    % {49} is the end index of your last file
+    \animategraphics[loop, controls, width=0.4\textwidth]{2}{images/task_III/task_III-}{0}{11}
+\end{frame}
+
+\section{Maze experiment}
+
+\begin{frame}{Maze I}
+    \begin{figure}
+        \centering
+        % First figure
+        \begin{subfigure}[b]{0.50\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/easy_maze_1.png}
+            \caption{Maze I: Reward Trajectory}
+            \label{fig:reward_plot}
+        \end{subfigure}
+        \hfill
+        % Second figure
+        \begin{subfigure}[b]{0.4\textwidth}
+            \centering
+            \begin{tikzpicture}[
+                ->, >=Stealth, node distance=1.5cm, scale=0.7, transform shape,
+                every state/.style ={ thick, draw=black, minimum size=0.6cm},
+                every node/.style={font=\small}
+            ]
+                % Nodes
+                \node[state] (start) {Start};
+                \node[state, below left=of start] (v1) {$v_{opened}$};
+                \node[state, below right=of start] (v2) {$v_{lose}$};
+                \node[state, below=of v1] (v3) {$v_{escaped}$};
+
+                % Transitions
+                \path (start) edge[bend right] node[left, font=\scriptsize] {\collisioniconkey} (v1);
+                \path (start) edge[bend left]  node[right, font=\scriptsize] {\collisionicon} (v2);
+
+                \path (v1) edge[bend right] node[above, font=\scriptsize] {\collisionicon} (v2);
+
+                \path (v1) edge node[left, font=\scriptsize] {\collisionexit} (v3);
+
+            \end{tikzpicture}
+            \caption{Reward Machine}
+        \end{subfigure}
+    \end{figure}
+    We test QRM-SG algorithm on another task, the agent must find the key, hold it and use it to escape while avoiding agent Adv. As we can see we have convergence to the optimal policy around episode 9500.
+\end{frame}
+
+\begin{frame}{Simulation: Maze Execution}
+    \centering
+    % Ensure the path and the range match your actual file count
+    % {10} is the frame rate (adjust as needed for speed)
+    % {0} is the start index
+    % {49} is the end index of your last file
+    \animategraphics[loop, controls, width=0.7\textwidth]{2}{images/maze/maze-frame-}{0}{21}
+\end{frame}
+
+\begin{frame}{Maze II}
+    \begin{figure}
+        \centering
+        % First figure
+        \begin{subfigure}[b]{0.50\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{images/maze_II.png}
+            \caption{Maze II: Reward Trajectory}
+            \label{fig:reward_plot}
+        \end{subfigure}
+        \hfill
+        % Second figure
+        \begin{subfigure}[b]{0.4\textwidth}
+            \centering
+            \begin{tikzpicture}[
+                ->, >=Stealth, node distance=1.5cm, scale=0.7, transform shape,
+                every state/.style ={ thick, draw=black, minimum size=0.6cm},
+                every node/.style={font=\small}
+            ]
+                % Nodes
+                \node[state] (start) {Start};
+                \node[state, below left=of start] (v1) {$v_{opened}$};
+                \node[state, below right=of start] (v2) {$v_{lose}$};
+                \node[state, below=of v1] (v3) {$v_{escaped}$};
+
+                % Transitions
+                \path (start) edge[bend right] node[left, font=\scriptsize] {\collisioniconkey} (v1);
+                \path (start) edge[bend left]  node[right, font=\scriptsize] {\collisionicon} (v2);
+
+                \path (v1) edge[bend right] node[above, font=\scriptsize] {\collisionicon} (v2);
+
+                \path (v1) edge node[left, font=\scriptsize] {\collisionexit} (v3);
+
+            \end{tikzpicture}
+            \caption{Reward Machine}
+        \end{subfigure}
+    \end{figure}
+    The algorithm has some difficulties in finding the optimal policy, has we can see however the ego agent is actually learning how to avoid agent Adv, collect the key and finally escape. More episodes would have likley led to a better convergence.
+\end{frame}
+
+\begin{frame}{Simulation: Maze Execution}
+    \centering
+    % Ensure the path and the range match your actual file count
+    % {10} is the frame rate (adjust as needed for speed)
+    % {0} is the start index
+    % {49} is the end index of your last file
+    \animategraphics[loop, controls, width=0.45\textwidth]{2}{images/maze_II/maze_II-}{0}{39}
 \end{frame}
 
 \section{Conclusion}
@@ -632,7 +882,6 @@ The \evidenzia{transition of both game states and RM states} leads to the step \
     \begin{itemize}
         \item \textbf{Core Contribution:} Bridges reward machines with MARL to model non-Markovian constraints in stochastic games.
         \item \textbf{Robust Architecture:} Augmented state transformations allow tabular actors to navigate complex environments successfully.
-        \item \textbf{Future Directions:} Dynamically learning unknown reward machine configurations simultaneously during policy calculation; extensions to general-sum games with more agents.
     \end{itemize}
 \end{frame}
 
@@ -640,6 +889,7 @@ The \evidenzia{transition of both game states and RM states} leads to the step \
 \begin{frame}[allowframebreaks]{References}
     \setbeamertemplate{bibliography item}[text] % Forza Beamer a mostrare i numeri [1] al posto dei loghi dei libri
     \bibliographystyle{plain} % 'plain' assegna i numeri progressivi [1], [2], ecc.
+    \nocite{*}
     \bibliography{references}
 \end{frame}
 

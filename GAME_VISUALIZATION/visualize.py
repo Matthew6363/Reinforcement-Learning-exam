@@ -225,11 +225,10 @@ if __name__ == "__main__":
 
     #FILE_NAME = 'q_models_task_II_ep6500'
     #FILE_NAME = 'q_models_task_I_ep16000'
-    #FILE_NAME = 'q_models_task_III_ep8500'
-    FILE_NAME = f'q_models_Nash_{task_name_string}_ep5000'
+    FILE_NAME = 'q_models_task_III_ep15000'
     
-    for i in range(1, 18):
-        visualize_trained_agents(f"../EXPORT/q_models_Nash_task_i_ep{i*500}.npz", 
+
+    visualize_trained_agents(f"../EXPORT/{FILE_NAME}.npz", 
                              checkpoint=0,
                              time_waiting=3000)
                              

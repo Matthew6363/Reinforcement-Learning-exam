@@ -7,3 +7,4 @@ EXPORT/
 .DS_Store
 eval_results_task_II.npz
 LOGs/log_error_II.txt
+SLIDES/images

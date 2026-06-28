@@ -122,8 +122,6 @@ def train_qrm_sg(total_episodes=1000,
         state_e = rm_ego.reset()   # get the ego RM position reset -> start
         state_a = rm_adv.reset()   # get the adv RM position reset -> start
 
-        print(pos_e, pos_a)
-
         ## Initialize ego and adv rewards for this episode
         ep_reward_e = 0.0
         ep_reward_a = 0.0
