@@ -1,17 +1,16 @@
 # Fdb version 4
-["bibtex QSG-RM"] 1782643981.33796 "QSG-RM.aux" "QSG-RM.bbl" "QSG-RM" 1782648204.92086 0
+["bibtex QSG-RM"] 1782732473.27528 "QSG-RM.aux" "QSG-RM.bbl" "QSG-RM" 1782732677.96912 0
   "./references.bib" 1782574805.70301 379 835e6dd664ac2aa3bdb9558c0d608f83 ""
   "/usr/local/texlive/2024/texmf-dist/bibtex/bst/base/plain.bst" 1292289607 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "QSG-RM.aux" 1782648204.67427 8081 1b5794e944f381fff3b34f567eddc8f7 "pdflatex"
+  "QSG-RM.aux" 1782732677.71263 7953 ee30ae10c2909f9bbe4596e7c7225a94 "pdflatex"
   (generated)
   "QSG-RM.bbl"
   "QSG-RM.blg"
   (rewritten before read)
-["pdflatex"] 1782648203.39371 "/Users/matteoliotta/Desktop/Reinforcement-Learning-exam/SLIDES definitive/QSG-RM.tex" "QSG-RM.pdf" "QSG-RM" 1782648204.92097 0
-  "/Users/matteoliotta/Desktop/Reinforcement-Learning-exam/SLIDES definitive/QSG-RM.tex" 1782648203.15332 43240 1c3ea1898a9667512984d30d56488df2 ""
+["pdflatex"] 1782732676.38206 "/Users/matteoliotta/Desktop/Reinforcement-Learning-exam/SLIDES definitive/QSG-RM.tex" "QSG-RM.pdf" "QSG-RM" 1782732677.96924 0
+  "/Users/matteoliotta/Desktop/Reinforcement-Learning-exam/SLIDES definitive/QSG-RM.tex" 1782732676.10236 43526 00370649eaeac7978878a801e09e0fef ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
-  "/usr/local/texlive/2024/texmf-dist/fonts/tfm/jknappen/ec/tcss0900.tfm" 1136768653 1536 ba0169ee8bc017972775b933313cbbb0 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/jknappen/ec/tcss1000.tfm" 1136768653 1536 293044035fd171bb1d18cf655049b101 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -42,8 +41,8 @@
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmsy6.tfm" 1136768653 1116 933a60c408fc0a863a92debe84b2d294 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm" 1136768653 1120 8b7d695260f3cff42e636090a8002094 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmsy9.tfm" 1136768653 1116 25a7bf822c58caf309a702ef79f4afbb ""
+  "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm" 1136768653 768 1321e9409b4137d6fb428ac9dc956269 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmtt8.tfm" 1136768653 768 d7b9a2629a0c353102ad947dc9221d49 ""
-  "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmtt9.tfm" 1136768653 764 c98a2af25c99b73a368cf7336e255190 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/sansmathaccent/mathkerncmssi10.tfm" 1336178347 1696 aaa5bbd1f47f001247d42218ce371101 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/sansmathaccent/mathkerncmssi12.tfm" 1336178347 1708 6d4e701533a08297ca48058e38aa9e38 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/sansmathaccent/mathkerncmssi8.tfm" 1336178347 1676 fb6c6a335484692abff897d6e8965829 ""
@@ -67,13 +66,12 @@
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb" 1248133631 32587 1788b0c1c5b39540c96f5e42ccd6dae8 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb" 1248133631 32716 08e384dc442464e7285e891af9f45947 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb" 1248133631 32442 c975af247b6702f7ca0c299af3616b80 ""
+  "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb" 1248133631 31099 c85edf1dd5b9e826d67c9c7293b6786c ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb" 1248133631 24287 6b803fa9eb1ddff9112e00519b09dd9e ""
-  "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb" 1248133631 29078 718ea4567ceff944262b0f5b0800e1d9 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/euler/eufm10.pfb" 1336858727 21098 d4aee7c0aac232caac5688b586b9363c ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/euler/eufm5.pfb" 1336858727 21550 c590a95c9fd1ed49857642cece9cb269 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/euler/eufm7.pfb" 1336858727 21251 56705123063d7b34002d6b6e7142345e ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb" 1248133631 34694 ad62b13721ee8eda1dcc8993c8bd7041 ""
-  "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfss0900.pfb" 1215737283 94648 b03e7f03878c9582819008e1f17e2327 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfss1000.pfb" 1215737283 94269 4665f0d253cc3cca9439f89dbf2b9f33 ""
   "/usr/local/texlive/2024/texmf-dist/tex/context/base/mkii/supp-pdf.mkii" 1461363279 71627 94eb9990bed73c364d7f53f960cc8c5b ""
   "/usr/local/texlive/2024/texmf-dist/tex/generic/atbegshi/atbegshi.sty" 1575674566 24708 5584a51a7101caf7e6bbf1fc27d8f7b1 ""
@@ -268,11 +266,11 @@
   "/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1741080588.50242 5467645 128b85b7cde5f5edc5cb7f1dd7ff8736 ""
   "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1741080535 8221446 45be5a59bfa38f1ec9e6d60099604014 ""
   "/usr/local/texlive/2024/texmf.cnf" 1710266656 577 e590dabc9e28c5b61546e15f63eebcdf ""
-  "QSG-RM.aux" 1782648204.67427 8081 1b5794e944f381fff3b34f567eddc8f7 "pdflatex"
-  "QSG-RM.bbl" 1782643981.4121 309 e641264008a54ddeb02b46f63b609087 "bibtex QSG-RM"
-  "QSG-RM.nav" 1782648204.67566 5259 f84e758fd6b15e453567cc5b820f0df0 "pdflatex"
-  "QSG-RM.out" 1782648204.67538 1203 1763c2edc28201b9021646b926e455ef "pdflatex"
-  "QSG-RM.tex" 1782648203.15332 43240 1c3ea1898a9667512984d30d56488df2 ""
+  "QSG-RM.aux" 1782732677.71263 7953 ee30ae10c2909f9bbe4596e7c7225a94 "pdflatex"
+  "QSG-RM.bbl" 1782732473.527 309 e641264008a54ddeb02b46f63b609087 "bibtex QSG-RM"
+  "QSG-RM.nav" 1782732677.71362 5167 ad2ba2cb0d3f011192f294c170958aef "pdflatex"
+  "QSG-RM.out" 1782732677.71347 1203 a866ef5106c0da3dde565769e666ff72 "pdflatex"
+  "QSG-RM.tex" 1782732676.10236 43526 00370649eaeac7978878a801e09e0fef ""
   "images/plotRM.png" 1782582127.29512 46655 1675d801d8f9206a844320c071a468e9 ""
   (generated)
   "QSG-RM.aux"

@@ -176,10 +176,10 @@
 
 \end{frame}
 
-\begin{frame}{Objectives (cont'd)}
-The \evidenzia{actual objective} of each agent is to find the policy $\pi_i^*$, 
-maximising the \evidenzia{expected discounted cumulative reward} considering the other agent's action once it reaches the game's \evidenzia{Nash equilibrium}.
-\end{frame}
+%\begin{frame}{Objectives (cont'd)}
+%The \evidenzia{actual objective} of each agent is to find the policy $\pi_i^*$, 
+%maximising the \evidenzia{expected discounted cumulative reward} considering the other agent's action once reaching the game's \evidenzia{Nash equilibrium}.
+%\end{frame}
 
 % Slide 7: Reward Machines
 \begin{frame}{Reward Machines}
@@ -311,7 +311,7 @@ where task completition \evidenzia{depends on the other's agent behavior}.
         \begin{itemize}
             \item \textbf{Augmented State Space:} $S' = S \times V_{\mathfrak{e}} \times V_{\mathfrak{a}}$. An \evidenzia{augmented state} is $s' = (s, v_{\mathfrak{e}}, v_{\mathfrak{a}})$.
             %\item \textbf{Initial Augmented State:} $s'_I = (s_I, v_{I,\mathfrak{e}}, v_{I,\mathfrak{a}})$.
-            \item \textbf{Transition Probabilities:} $p'(s', a_{\mathfrak{e}}, a_{\mathfrak{a}}, \bar{s}') = p(s, a_{\mathfrak{e}}, a_{\mathfrak{a}}, \bar{s})$ if $\bar{v}_i = \delta_i(v_i, L(s, a_{\mathfrak{e}}, a_{\mathfrak{a}}, \bar{s}))$ for \evidenzia{both} $i \in \{\mathfrak{e}, \mathfrak{a}\}$, and $0$ \evidenzia{otherwise}.
+            \item \textbf{Transition Probabilities:} $p'(s', a_{\mathfrak{e}}, a_{\mathfrak{a}}, \bar{s}') = p(s, a_{\mathfrak{e}}, a_{\mathfrak{a}}, \bar{s})$ if $v_i' = \delta_i(v_i, L(s, a_{\mathfrak{e}}, a_{\mathfrak{a}}, \bar{s}))$ for \evidenzia{both} $i \in \{\mathfrak{e}, \mathfrak{a}\}$, and $0$ \evidenzia{otherwise}.
             \item \textbf{Markovian Reward Functions:} $R'_i(s', a_{\mathfrak{e}}, a_{\mathfrak{a}}, \bar{s}') = \sigma_i(v_i, L(s, a_{\mathfrak{e}}, a_{\mathfrak{a}}, \bar{s})),\quad \forall i$
         \end{itemize}
     \end{block}
@@ -400,7 +400,8 @@ where task completition \evidenzia{depends on the other's agent behavior}.
 
     In QRM-SG, a stage game is formulated at each time step based on current Q-functions in augmented state space. 
     
-    Due to the \evidenzia{obtained Markovianity} of SGRM, we're allowed to decompose the problem and \evidenzia{derive best-response strategies at a NE at each step} of each episode.
+    %Due to the \evidenzia{obtained Markovianity} of SGRM, we're allowed to decompose the problem and \evidenzia{derive best-response strategies at a NE at each step} of each episode.
+    Because the product stochastic game with reward machines has Markovian rewards, QRM-SG can apply Nash-Q updates: at each augmented state, it derives a Nash equilibrium of the current Q-value stage game and uses the associated best-response strategies in the Q-function update.
 \end{frame}
 
 %\section{Unified Framework}
@@ -508,8 +509,8 @@ In single agent settings, Q-functions can be updated via the \evidenzia{off poli
     %$$Q(s,a) \leftarrow Q(s,a) + \alpha[r + \gamma \max_{a'} Q(s',a') - Q(s,a)]$$
     $$Q(s,a) \leftarrow Q(s,a) + \alpha[r + \gamma \mathop{\mathbf{\color{black}{max}}}_{a'} Q(s',a') - Q(s,a)]$$
     But not if rewards depend on the joint behavior of more agents. The EDCR averaging w.r.t. policy $\pi$ moves to:
-    $$\mathbb{E}_{\pi}[\ Q(s,a)\ ] \quad \longrightarrow \quad 
-    \mathbb{E}_{\pi_{\mathfrak{e},i},\pi_{\mathfrak{a},i}}[\ Q_{\mathfrak{e},i}(s,a)\ ] $$
+    $$\max_a' Q(s',a') \quad \longrightarrow \quad 
+    \mathbb{E}_{\pi_{\mathfrak{e},i},\pi_{\mathfrak{a},i}}[\ Q_{\mathfrak{e},i}(s',a')\ ] $$
 
     %But the max operator is \evidenzia{not applicable in a multi-agent setting}, where reward depends on joint behavior. This is then sobstituted by the \evidenzia{Nash equilibrium}, for each agent q-function:
     
@@ -536,12 +537,12 @@ In single agent settings, Q-functions can be updated via the \evidenzia{off poli
 
 \begin{frame}{Introduction of the counterfactual Reasoning}
 
-    Original paper Nash Q-learning is as a function of the augmented state space $S \times V_{\mathfrak{e}} \times v_{\mathfrak{a}}$. 
+    Original paper Nash Q-learning is as a function of the augmented state space $S \times V_{\mathfrak{e}} \times V_{\mathfrak{a}}$. 
     Additionally, given a state, step update affects only the state $(s, v_{\mathfrak{e}}, v_{\mathfrak{a}})$ after action $a_\mathfrak{e}, a_\mathfrak{a}$.
     
     \vspace{0.5cm}
     \begin{block}{Pointed out problem}
-    Given a phisical state $s$, we can reach next $s'$ having having \evidenzia{many different} RM internal states $v_\mathfrak{e},v_\mathfrak{a}$. 
+    Given a phisical state $s$, we can reach next $s'$ having \evidenzia{many different} RM internal states $v_\mathfrak{e},v_\mathfrak{a}$. 
     
     Since, the 4 Q-function updates highly depends on $|V_\mathfrak{e}\times V_\mathfrak{a}|$, to perform a \evidenzia{general state game learning}, we would need to \evidenzia{experience a huge amount of steps/episodes}.
     \end{block}
@@ -552,8 +553,8 @@ In single agent settings, Q-functions can be updated via the \evidenzia{off poli
 
 However, \underline{physical states} ($s$) and \underline{logical game states} ($v_\mathfrak{e}, v_\mathfrak{a}$) are \evidenzia{independent}: 
 \begin{itemize}
-    \item Agents may move in gridworld \evidenzia{regardless of task related history}. 
-    \item RM states are meant to keep \evidenzia{only task relevant high-level informations}, \evidenzia{without} \evidenzia{spatial} nor \evidenzia{temporal} informations. 
+    \item Agents may move in gridworld and receive $l_t$ \evidenzia{regardless of task related history}. 
+    \item RM states are meant to keep \evidenzia{only task relevant high-level informations} through $v_i$, \evidenzia{without} \evidenzia{spatial} nor \evidenzia{temporal} informations. 
 \end{itemize}
 \vspace{0.5cm}
 So, during each $s\rightarrow s'$ transition, we can \evidenzia{simulate} having \evidenzia{different RM states}, i.e. simulating \evidenzia{alternative historical backgrounds} at each $s\rightarrow s'$.
@@ -583,7 +584,7 @@ So, during each $s\rightarrow s'$ transition, we can \evidenzia{simulate} having
     \begin{itemize}
         \item Consider all RMs states $\tilde v_{\mathfrak{e}},\tilde v_{\mathfrak{a}}$, simulate being in augmented state $(s, \tilde v_{\mathfrak{e}},\tilde v_{\mathfrak{a}})$.
         \item Simulate state and the RM transition to $\tilde v'_{\mathfrak{e}},\tilde v'_{\mathfrak{a}}$ if $s'$ is reached, i.e. reaching $(s', \tilde v'_{\mathfrak{e}},\tilde v'_{\mathfrak{a}})$
-        \item Update  the Q-value associated to $(s, \tilde v_{\mathfrak{e}},\tilde v_{\mathfrak{a}})$
+        \item Update  the Q-function associated to $(s, \tilde v_{\mathfrak{e}},\tilde v_{\mathfrak{a}})$
     \end{itemize} 
     \end{block}
 
@@ -675,15 +676,16 @@ So, during each $s\rightarrow s'$ transition, we can \evidenzia{simulate} having
 
 % Slide 21: Experimental Framework & Baselines
 \begin{frame}{Experimental Framework \& Baselines}
-    \begin{itemize}
-        \item \textbf{Testing Environment:} Evaluated on $6\times6$ (and $12\times12$) competitive, sparse-reward grid world variations of Pac-Man.
-        \item \textbf{Comparative Baselines:}
+    
+        \textbf{Testing Environment:} Evaluated on $6\times6$ (and $12\times12$) competitive, sparse-reward grid world variations of Pac-Man.
+        
+        \vspace{0.2cm}
+        \textbf{Comparative Baselines:}
         \begin{itemize}
             \item \texttt{Nash-Q}: Pure spatial state-action tracking.
-            \item \texttt{Nash-QAS}: Incorporates an unstructured history status vector.
-            \item \texttt{MADDPG-SG} \& \texttt{MADDPG-AS}: Deep multi-agent deterministic policy gradient variants.
+            %\item \texttt{Nash-QAS}: Incorporates an unstructured history status vector.
+            %\item \texttt{MADDPG-SG} \& \texttt{MADDPG-AS}: Deep multi-agent deterministic policy gradient variants.
         \end{itemize}
-    \end{itemize}
 \end{frame}
 
 % Slide 22: Empirical Performance
