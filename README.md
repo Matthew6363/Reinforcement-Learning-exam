@@ -22,7 +22,7 @@ Having provided the full reconstruction of task I, II, we try to propose a new c
 <table width="100%">
   <tr>
   <td bgcolor="#f6f8fa">
-      <b>Slides</b> : <a href=https://github.com/Matthew6363/Reinforcement-Learning-exam/blob/main/QSG-RM%20-%20Liotta%2C%20Simonutti.pdf)>Here</a>
+      <b>Slides</b> : <a href=https://github.com/Matthew6363/Reinforcement-Learning-exam/blob/main/QSG-RM%20-%20Liotta%2C%20Simonutti.pdf>Here</a>
   </td>
   </tr>
 </table>
